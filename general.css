@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    ;
+      font-family: "Libre Baskerville", serif !important;
+}
+
+a {
+    text-decoration: none;
+    color: #2a2f21;
+    font-weight: bolder;
+    font-size: large;
+
+}
+
+.main {
+    background-color: #f6f0ed;
+}
