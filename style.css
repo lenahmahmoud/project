@@ -1,0 +1,82 @@
+@import url('../generalcss.css');
+
+.parent {
+    overflow: hidden;
+    position: relative;
+
+}
+
+img {
+    display: block;
+    width: 100%;
+    transition: all 2s ease-out;
+}
+
+.overlay {
+    opacity: 0;
+    position: absolute;
+    left: 100%;
+    transition: all 1s ease;
+
+
+}
+.parent:hover img{
+    transform: scale(1.1);
+}
+
+.parent:hover .overlay {
+    opacity: 1;
+    left: 0%;
+    top: 83%;
+    background-color: rgba(210, 203, 203, 0.4);
+    width:100%;
+    height:20%;
+    text-align: center;
+    padding-top:8px;
+}
+header{
+background-image: 
+    linear-gradient(to top, rgba(255,255,255,.5), rgba(255,255,255,.5)),
+    url('../assets/images/c0cb2b759fac0861beefb72f3cae4de5.jpg');
+
+    height:50vh;
+
+    
+}
+.shopsec p{
+    margin-top: 10px;
+}
+
+/* 
+    .shopsec img {
+        height: 300px !important;}
+     */
+     @media (min-width: 1024px) {
+       
+        .shopsec img{
+            height:450px;
+            
+        }
+
+     }
+     @media (max-width: 576px)
+     {
+                .shopsec img{
+            height:350px;
+            
+        }
+
+     }
+     @media (max-width: 768px){
+                        .shopsec img{
+            height:450px;
+            
+        }
+
+     }
+     button{
+        border-radius: 0px;
+     }
+
+
+
