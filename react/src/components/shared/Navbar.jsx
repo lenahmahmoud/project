@@ -4,7 +4,7 @@ import logo from '../../assets/images/Logo Brand.png'
 function Navbar() {
     return (
         <>
-            <nav className="navbar navbar-expand-md shadow fixed-top bg-white">
+            <nav className="navbar navbar-expand-md shadow fixed-top  mb-5 bg-white">
                 <div className="container-fluid">
                     <Link
                         className="navbar-brand fs-2 fw-bold"
