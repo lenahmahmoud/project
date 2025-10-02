@@ -1,4 +1,4 @@
-import '../style/footerpage.css';
+import '../style/footerpages.css';
 import { Link } from 'react-router-dom';
 
 function PrivacyPolicy() {

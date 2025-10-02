@@ -1,4 +1,4 @@
-import '../style/footerpage.css'
+import '../style/footerpages.css'
 function Contact() {
   return (
     <>

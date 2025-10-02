@@ -19,11 +19,8 @@ function Footer() {
               Aurévia
             </h3>
             <p className="w-75 text-secondary mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipisicing,
-            </p>
-            <p className="w-75 text-secondary mx-auto mb-5">
-              Lorem ipsum dolor.
-            </p>
+              Discover Aurévia’s natural, science-backed skincare designed to protect, nourish, and glow every day.F            </p>
+
           </div>
 
           {/* Links */}
