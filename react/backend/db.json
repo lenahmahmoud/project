@@ -1,0 +1,114 @@
+{
+    "users": [
+        {
+            "id": "c944",
+            "firstName": "lenah",
+            "lastName": "alieldin",
+            "phoneNumber": "04000003",
+            "email": "lenah.mahmoud@gmail.com",
+            "password": "L!erA444",
+            "city": "Qalyub",
+            "governorate": "Qalyubia"
+        },
+        {
+            "id": "3bd2",
+            "firstName": "tia",
+            "lastName": "abbas",
+            "phoneNumber": "099000003",
+            "email": "tia.mahmoud@gmail.com",
+            "password": "Ter$erA444",
+            "city": "Qalyub",
+            "governorate": "Qalyubia"
+        }
+    ],
+    "products": [
+        {
+            "id": "ea45",
+            "title": "coconut oil",
+            "description": "pure coconut oil for your skin glow",
+            "price": 250,
+            "category": "oils",
+            "image": [
+                "/images/oils/coconut_oil.jpg"
+            ],
+            "quantity": 12,
+            "discount": 10,
+            "stars": 5
+        },
+        {
+            "id": "ff43",
+            "title": "rose water toner",
+            "description": "best toner for your skin glow",
+            "price": 450,
+            "category": "toners",
+            "image": [
+                "/images/toners/rose_water_toner.jpg"
+            ],
+            "quantity": 20,
+            "discount": 0,
+            "stars": 4
+        },
+        {
+            "id": "aa13",
+            "title": "green tea serum",
+            "description": "best serum for your skin glow",
+            "price": 440,
+            "category": "cleansers",
+            "image": [
+                "/images/serums/Green_tea_serum.jpg"
+            ],
+            "quantity": 30,
+            "discount": 10,
+            "stars": 5
+        }
+    ],
+    "wishlists": [
+        {
+            "id": "3ffc",
+            "user_id": "c944",
+            "products": [
+                {
+                    "product_id": "ea45",
+                    "quantity": 3
+                }
+            ]
+        },
+        {
+            "id": "f2ac",
+            "user_id": "3bd2",
+            "products": [
+                {
+                    "product_id": "ff43",
+                    "quantity": 3
+                },
+                {
+                    "product_id": "aa13",
+                    "quantity": 2
+                }
+            ]
+        }
+    ],
+    "reviews": [
+        {
+            "id": "55ea",
+            "product_id": "ff43",
+            "rate": 4,
+            "comment": "I highly recommend this product"
+        }
+    ],
+    "orders": [
+        {
+            "id": "ee31",
+            "user_id": "c944",
+            "products": [
+                {
+                    "product_id": "ff43",
+                    "quantity": 3
+                }
+            ],
+            "date": "2023-10-02",
+            "total": 1350,
+            "status": "delivered"
+        }
+    ]
+}
