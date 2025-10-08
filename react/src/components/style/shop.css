@@ -1,0 +1,62 @@
+/* overlay icons  */
+.parent {
+    overflow: hidden;
+    position: relative;
+}
+.parent img {
+    display: block;
+    width: 100%;
+    transition: all 4s ease-out;
+}
+
+.overlay {
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    transition: all 1s ease;
+}
+/* hovering */
+.parent:hover img {
+    transform: scale(1.1);
+}
+
+.parent:hover .overlay {
+    opacity: 1;
+    top:80%;
+}
+.shopsec p {
+    margin-top: 10px;
+}
+/* media querey */
+
+@media (max-width: 575px) {
+    header a {
+        font-size: 30px;
+    }
+    .shopsec img {
+        height: 350px;
+    }
+}
+
+@media (min-width: 576px) {
+    header a {
+        font-size: 40px;
+    }
+    .shopsec img {
+        height: 420px;
+
+    }
+}
+
+@media (min-width: 992px) {
+    header a {
+        font-size: 50px;
+    }
+
+    .shopsec img {
+        height: 350px;
+
+    }
+}
+
+

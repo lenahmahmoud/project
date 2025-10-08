@@ -1,0 +1,29 @@
+.aboutimage{
+    animation: about 2s ease forwards;
+}
+.aboutbutton{
+    animation: aboutbutton 1.5s ease forwards;
+}
+@keyframes aboutbutton {
+    from{
+        left:100%;
+        top:50%;
+    }
+    to{
+        left:30%;
+        top:50%
+    }
+    
+}
+@keyframes about {
+    from {
+        left:30%;
+        top: 100%;
+    }
+
+    to {
+        top: 0%;
+        left:30%
+
+    }}
+

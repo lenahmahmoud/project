@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from '../../../public/images/Logo Brand.png'
+const logo= '/images/Logo Brand.png';
 
 function Navbar() {
     return (
@@ -33,14 +33,13 @@ function Navbar() {
                     {/* Navigation Links */}
                     <div
                         className="collapse navbar-collapse w-75 justify-content-center"
-                        id="mainNav"
-                    >
+                        id="mainNav">
                         <ul className="navbar-nav mx-auto mt-sm-4 mt-md-0">
                             <li className="nav-item mx-1">
-                                <Link className="nav-link" to="/">Home</Link>
+                                <Link className="nav-link" to="/home">Home</Link>
                             </li>
                             <li className="nav-item mx-1">
-                                <Link className="nav-link" to="/shop">Shop</Link>
+                                <Link className="nav-link" to="/shopall">Shop</Link>
                             </li>
                             <li className="nav-item mx-1">
                                 <Link className="nav-link" to="/about">About</Link>

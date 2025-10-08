@@ -1,0 +1,182 @@
+/* header */
+header {
+    height: 80vh;
+    background-image: url('/images/header_home.jpg');
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    position: relative;
+}
+
+header .text {
+    position: absolute;
+    animation: move_text 3s ease forwards;
+
+}
+
+header .button {
+    position: absolute;
+    animation: move_btn 3s ease forwards;
+
+}
+
+@keyframes move_btn {
+    from {
+        top: 100%;
+
+    }
+
+    to {
+        top: 70%;
+    }
+
+}
+
+@keyframes move_text {
+    from {
+        bottom: 100%;
+    }
+
+    to {
+        bottom: 35%;
+    }
+
+}
+/* categories hovering */
+.categories div img {
+
+    transition: all ease-out 3s;
+}
+
+.categories div:hover img {
+    transform: scale(1.1);
+}
+
+/* icons  overlay*/
+.parent {
+    overflow: hidden;
+    position: relative;
+}
+.parent img {
+    display: block;
+    width: 100%;
+    transition: all 4s ease-out;
+}
+
+.overlay {
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    transition: all 1s ease;
+}
+
+.parent:hover img {
+    transform: scale(1.1);
+}
+
+.parent:hover .overlay {
+    opacity: 1;
+    top: 80%;
+}
+
+/* designing section */
+.image_one {
+    animation: image_one 2s ease forwards;
+}
+
+.image_two {
+    animation: image_two 2s ease forwards;
+
+}
+
+.image_three {
+    animation: image_three 2s ease forwards;
+
+}
+
+.image_four {
+    animation: image_four 2s ease forwards;
+
+}
+
+@keyframes image_one {
+    from {
+        top: 70%;
+
+    }
+
+    to {
+        top: 20%;
+    }
+
+}
+
+@keyframes image_two {
+    from {
+        left:80%;
+        top: 70%;
+
+    }
+
+    to {
+        left:80%;
+        top: 15%
+    }
+}
+
+@keyframes image_three {
+    from {
+        top: 100%;
+        left: 80%;
+    }
+
+    to {
+        top: 66%;
+        left: 80%;
+    }
+
+}
+
+@keyframes image_four {
+    from {
+        left:5%;
+        top: 100%;
+
+    }
+
+    to {
+        top: 66%;
+        left: 5%;
+    }
+
+}
+
+.Text {
+    animation: text 2s ease forwards;
+}
+
+@keyframes text {
+    from {
+        top: 100%;
+        left: 27%;
+    }
+
+    to {
+        top: 40%;
+        left: 27%;
+    }
+}
+
+/* media querey */
+@media (min-width:768px) {
+
+    .categories img,
+    .sales img,
+    .bestselling img {
+        height: 350px !important;
+    }
+
+
+}
