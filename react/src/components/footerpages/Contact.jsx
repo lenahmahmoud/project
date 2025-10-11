@@ -1,4 +1,5 @@
 import '../style/footerpages.css'
+import { Link } from 'react-router-dom';
 function Contact() {
   return (
     <>
@@ -54,9 +55,9 @@ function Contact() {
       </main>
 
       <section className="d-flex justify-content-center align-items-center backimage mt-5">
-        <a href="../shoppage.html" className="btn btn-large text-dark">
+        <Link to="/shopall" className="btn btn-large text-dark">
           Return To Shop
-        </a>
+        </Link>
       </section>
     </>
   );

@@ -36,7 +36,7 @@ function Navbar() {
                         id="mainNav">
                         <ul className="navbar-nav mx-auto mt-sm-4 mt-md-0">
                             <li className="nav-item mx-1">
-                                <Link className="nav-link" to="/home">Home</Link>
+                                <Link className="nav-link" to="/">Home</Link>
                             </li>
                             <li className="nav-item mx-1">
                                 <Link className="nav-link" to="/shopall">Shop</Link>

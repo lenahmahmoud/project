@@ -20,7 +20,7 @@ function Masks() {
                     <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>
                         Masks
                     </h1>
-                    <p className="mt-3"><span className="fw-bold"> Home </span>oils-page</p>
+                    <p className="mt-3"><span className="fw-bold"> Home </span>masks-page</p>
                 </div>
             </header>
 

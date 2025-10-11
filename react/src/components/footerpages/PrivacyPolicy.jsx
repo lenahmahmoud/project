@@ -20,7 +20,7 @@ function PrivacyPolicy() {
             </main>
 
             <section className="d-flex justify-content-center align-items-center backimage mt-5">
-                <Link to="/shop" className="btn btn-large text-dark">
+                <Link to="/shopall" className="btn btn-large text-dark">
                     Return To Shop
                 </Link>
             </section>

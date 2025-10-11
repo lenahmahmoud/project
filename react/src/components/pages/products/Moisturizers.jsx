@@ -20,7 +20,7 @@ function moisturizers() {
                     <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>
                         moisturizers
                     </h1>
-                    <p className="mt-3"><span className="fw-bold"> Home </span>oils-page</p>
+                    <p className="mt-3"><span className="fw-bold"> Home </span>moisturizers-page</p>
                 </div>
             </header>
 

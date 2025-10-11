@@ -11,13 +11,14 @@ import Home from './components/pages/Home';
 import Masks from './components/pages/products/Masks';
 import Toners from './components/pages/products/Toners';
 import Serums from './components/pages/products/Serums';
+import Cleansers from './components/pages/products/Cleansers';
 import Moisturizers from './components/pages/products/Moisturizers';
 import { Routes, Route } from 'react-router-dom'
 function App() {
     return (<>
         <Navbar />
         <Routes>
-            <Route path='/home' element={<Home />}></Route>
+            <Route path='/' element={<Home />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/paymentoptions" element={<PaymentOptions />}></Route>
             <Route path="/privacypolicy" element={<PrivacyPolicy />}></Route>
@@ -29,6 +30,7 @@ function App() {
             <Route path='/toners' element={<Toners />}></Route>
             <Route path='/serums' element={<Serums />}></Route>
             <Route path='/moisturizers' element={<Moisturizers/>}></Route>
+            <Route path='/cleansers' element={<Cleansers/>}></Route>
         </Routes>
         <Footer />
     </>);

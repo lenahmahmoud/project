@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import { getcategory } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
-import '../../style/shop.css'
+import '../../style/shop.css';
 const logo = '/images/Logo Brand.png';
 
-function cleansers() {
+function Cleansers() {
     const [cleansers, setCleansers] = useState([]);
-    useEffect(() => {
-        getcategory("cleansers")
-            .then(res => (setCleansers(res.data)))
 
-    }, [])
+    useEffect(() => {
+        getcategory("cleansers").then(res => setCleansers(res.data));
+    }, []);
 
     return (
         <>
@@ -18,9 +17,9 @@ function cleansers() {
                 <div className="headingText text-center py-5 my-5">
                     <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
                     <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>
-                        cleansers
+                        Cleansers
                     </h1>
-                    <p className="mt-3"><span className="fw-bold"> Home </span>oils-page</p>
+                    <p className="mt-3"><span className="fw-bold">Home</span> cleansers-page</p>
                 </div>
             </header>
 
@@ -59,12 +58,12 @@ function cleansers() {
                                     <h4>Sort Alphabetically:</h4>
                                     <div className="formgroup d-flex flex-column">
                                         <div>
-                                            <input type="radio" name="category" id="alpha-asc" value="Link-Z" />
-                                            <label htmlFor="alpha-asc" className="form-label fs-5">Link to Z</label>
+                                            <input type="radio" name="category" id="alpha-asc" value="A-Z" />
+                                            <label htmlFor="alpha-asc" className="form-label fs-5">A to Z</label>
                                         </div>
                                         <div>
-                                            <input type="radio" name="category" id="alpha-desc" value="Z-Link" />
-                                            <label htmlFor="alpha-desc" className="form-label fs-5">Z to Link</label>
+                                            <input type="radio" name="category" id="alpha-desc" value="Z-A" />
+                                            <label htmlFor="alpha-desc" className="form-label fs-5">Z to A</label>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +150,8 @@ function cleansers() {
                     </div>
                 </div>
             </section >
-            <div className="py-5 mt-5" style={{ backgroundColor: " #eadac7" }}>
+
+            <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
                 <div className="container-fluid">
                     <div className="row py-4">
                         <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
@@ -196,9 +196,8 @@ function cleansers() {
                     </div>
                 </div>
             </div >
-
         </>
     );
 }
 
-export default cleansers;
+export default Cleansers;
