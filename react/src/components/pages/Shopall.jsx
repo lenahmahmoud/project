@@ -58,12 +58,12 @@ function Shopall() {
                                     <h4>Sort Alphabetically:</h4>
                                     <div className="formgroup d-flex flex-column">
                                         <div>
-                                            <input type="radio" name="category" id="alpha-asc" value="Link-Z" />
-                                            <label htmlFor="alpha-asc" className="form-label fs-5">Link to Z</label>
+                                            <input type="radio" name="sort-asc" id="alpha-asc" value="A-Z" />
+                                            <label htmlFor="alpha-asc" className="form-label fs-5">A to Z</label>
                                         </div>
                                         <div>
-                                            <input type="radio" name="category" id="alpha-desc" value="Z-Link" />
-                                            <label htmlFor="alpha-desc" className="form-label fs-5">Z to Link</label>
+                                            <input type="radio" name="sort-desc" id="alpha-desc" value="Z-A" />
+                                            <label htmlFor="alpha-desc" className="form-label fs-5">Z to A</label>
                                         </div>
                                     </div>
                                 </div>
