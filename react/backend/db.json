@@ -121,6 +121,21 @@
             "reviews": 14
         },
         {
+            "id": "24b1",
+            "title": "honey & oat",
+            "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
+            "price": 480,
+            "category": "serums",
+            "image": [
+                "/images/masks/honey&oat_mask.jpg"
+            ],
+            "quantity": 14,
+            "discount": 0,
+            "stars": 3,
+            "reviews": 23
+        },
+        
+        {
             "id": "c25c",
             "title": "vitamin E toner",
             "description": "A nourishing toner enriched with Vitamin E to hydrate, soothe, and protect the skin from environmental stress. Helps restore softness, improve skin texture, and prepare the skin for better absorption of moisturizers and serums. ",

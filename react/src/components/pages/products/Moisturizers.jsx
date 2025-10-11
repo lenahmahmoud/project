@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import {  getcategory } from "../../../../utils/Api";
+import { getcategory } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import '../../style/shop.css'
 const logo = '/images/Logo Brand.png';
 
-function Oils() {
-    const [products, setProducts] = useState([]);
-
+function moisturizers() {
+    const [moisturizers, setmMoisturizers] = useState([]);
     useEffect(() => {
-        getcategory("oils").then((res) => setProducts(res.data));
-    }, []);
+        getcategory("moisturizers")
+            .then(res => (setmMoisturizers(res.data)))
+
+    }, [])
 
     return (
         <>
@@ -17,7 +18,7 @@ function Oils() {
                 <div className="headingText text-center py-5 my-5">
                     <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
                     <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>
-                        Oils
+                        moisturizers
                     </h1>
                     <p className="mt-3"><span className="fw-bold"> Home </span>oils-page</p>
                 </div>
@@ -123,10 +124,10 @@ function Oils() {
             <section className="mt-5" id="shop">
                 <div className="container">
                     <div className="row justify-content-center shopsec g-5 text-center">
-                        {products.map((product) => (
-                            <div key={product.id} className="col-9 col-sm-8 col-lg-3">
+                        {moisturizers.map((moisturizer) => (
+                            <div key={moisturizer.id} className="col-9 col-sm-8 col-lg-3">
                                 <div className="parent">
-                                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
+                                    <img src={moisturizer.image[0]} alt={moisturizer.title} className="rounded w-100" />
                                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
                                         <Link to="#"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
                                         <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
@@ -135,14 +136,14 @@ function Oils() {
                                     </div>
                                 </div>
                                 <div className="text">
-                                    <p className="fs-5 fw-bold">{product.title}</p>
+                                    <p className="fs-5 fw-bold">{moisturizer.title}</p>
                                     <p>
                                         {Array.from({ length: 5 }, (_, i) => (
-                                            <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                                            <span key={i} style={{ color: i < moisturizer.stars ? "#ffc107" : "#b4b4b4ff" }}>
                                                 &#9733;
                                             </span>
                                         ))}
-                                        <span className="text-muted"> {product.reviews} reviews</span>
+                                        <span className="text-muted"> {moisturizer.reviews} reviews</span>
                                     </p>
                                 </div>
                             </div>
@@ -200,4 +201,4 @@ function Oils() {
     );
 }
 
-export default Oils;
+export default moisturizers;

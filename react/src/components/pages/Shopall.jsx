@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getproducts } from "../../../utils/Api";
+import { getproducts } from "../../../utils/Api"; 
 import { Link } from "react-router-dom";
 import '../style/shop.css'
 const logo = '/images/Logo Brand.png';
