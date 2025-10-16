@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-const logo= '/images/Logo Brand.png';
+const logo = '/images/Logo Brand.png';
 
 function Navbar() {
+    const [showinput,setShowinput]=useState(False)
     return (
         <>
             <nav className="navbar navbar-expand-md shadow fixed-top  mb-5 bg-white">
@@ -55,11 +57,13 @@ function Navbar() {
                         className="collapse navbar-collapse mt-md-0 mt-2"
                         id="iconsNav"
                     >
-                        <Link to="/profile">
-                            <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>
-                        </Link>
                         <Link to="/search">
                             <i className="bi bi-search text-dark mx-lg-3 mx-2 fs-4"></i>
+                            onc
+                        </Link>
+
+                        <Link to="/profile">
+                            <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>
                         </Link>
                         <Link to="/wishlist">
                             <i className="bi bi-heart text-dark mx-lg-3 mx-2 fs-4"></i>
