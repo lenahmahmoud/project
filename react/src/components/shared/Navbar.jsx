@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const logo = '/images/Logo Brand.png';
 
 function Navbar() {
-    const [showinput,setShowinput]=useState(False)
     return (
         <>
             <nav className="navbar navbar-expand-md shadow fixed-top  mb-5 bg-white">
@@ -59,7 +58,7 @@ function Navbar() {
                     >
                         <Link to="/search">
                             <i className="bi bi-search text-dark mx-lg-3 mx-2 fs-4"></i>
-                            onc
+                            
                         </Link>
 
                         <Link to="/profile">
