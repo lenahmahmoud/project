@@ -10,7 +10,7 @@ const image_1 = '/images/image_1.jpg'
 const image_2 = '/images/image_2.jpg'
 const image_3 = '/images/image_3.jpg'
 const image_4 = '/images/image_4.jpg'
-
+const about='/images/about_section.jpg'
 function Home() {
     return (<>
         <header className="p-5 mt-5">
@@ -105,7 +105,7 @@ function Home() {
                     Lorem ipsum dolor sit amet consectetur, adipisicing lotrm5
                     Lorem ipsum dolor sit amet.
                 </p>
-                <div><Link  to="../Shopall"className="btn btn-large bg-dark border-0  text-white"> Shop Now</Link></div>
+                <div><Link to="../Shopall" className="btn btn-large bg-dark border-0  text-white"> Shop Now</Link></div>
 
             </div>
 
@@ -117,6 +117,31 @@ function Home() {
             </div>
 
         </section>
+
+        <section className="about-section py-5">
+            <div className="container">
+                <div className="row align-items-center">
+
+                    {/* <!-- text --> */}
+                    <div className="col-md-6">
+                        <h2 className="fw-bold mb-3">About Us</h2>
+                        <p className="text-muted mb-4">
+                            At <span className="fw-semibold">Aurévia</span>, we believe that beauty starts with healthy skin.
+                            Our mission is to provide natural and dermatologically tested products that nourish your skin and bring out
+                            your natural glow.
+                        </p>
+                        <Link to="/about" className="btn btn-dark px-4 py-2">Learn More</Link>
+                    </div>
+
+                    {/* <!--image--> */}
+                    <div className="col-md-6 my-5">
+                        <img src={about} alt="About Us" className="img-fluid rounded shadow"/>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
 
 
     </>);

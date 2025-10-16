@@ -219,20 +219,7 @@
             "stars": 3,
             "reviews": 7
         },
-        {
-            "id": "4552",
-            "title": "honey & almon bodylotion",
-            "description": "rich and nourishing body lotion infused with honey and almond oil to deeply hydrate, soften, and soothe the skin. Leaves the skin smooth, radiant, and delicately fragranced.",
-            "price": 460,
-            "category": "moisturizers",
-            "image": [
-                "/images/moisturizers/honey_&_almond_bodylotion.jpg"
-            ],
-            "quantity": 4,
-            "discount": 10,
-            "stars": 2,
-            "reviews": 2
-        },
+
         {
             "id": "235b",
             "title": "clay_detox mask",
@@ -274,21 +261,8 @@
             "discount": 0,
             "stars": 5,
             "reviews": 46
-        },
-        {
-            "id": "4552",
-            "title": "honey & almon bodylotion",
-            "description": "rich and nourishing body lotion infused with honey and almond oil to deeply hydrate, soften, and soothe the skin. Leaves the skin smooth, radiant, and delicately fragranced.",
-            "price": 460,
-            "category": "moisturizers",
-            "image": [
-                "/images/moisturizers/honey_&_almond_bodylotion.jpg"
-            ],
-            "quantity": 4,
-            "discount": 10,
-            "stars": 2,
-            "reviews": 2
         }
+
     ],
     "wishlists": [
         {
