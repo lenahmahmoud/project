@@ -181,9 +181,9 @@ function Shopall() {
                             sortPrice:
                               filters.sortPrice === "high-to-low" ? "" : "high-to-low",
                           })
-                          
+
                         }
-                        
+
                       />
                       <label htmlFor="high-low" className="form-label fs-5 mx-2">
                         Price (High to Low)

@@ -33,7 +33,7 @@
             ],
             "quantity": 12,
             "discount": 10,
-            "stars": 5,
+            "stars": 3,
             "reviews": 30
         },
         {
@@ -47,7 +47,7 @@
             ],
             "quantity": 20,
             "discount": 0,
-            "stars": 4,
+            "stars": 5,
             "reviews": 20
         },
         {
@@ -60,7 +60,7 @@
                 "/images/serums/Green_tea_serum.jpg"
             ],
             "quantity": 30,
-            "discount": 10,
+            "discount": 27,
             "stars": 5,
             "reviews": 31
         },
@@ -159,8 +159,8 @@
                 "/images/oils/camella_sead_oil.jpg"
             ],
             "quantity": 10,
-            "discount": 0,
-            "stars": 5,
+            "discount": 13,
+            "stars": 3,
             "reviews": 19
         },
         {
@@ -188,7 +188,7 @@
             ],
             "quantity": 4,
             "discount": 30,
-            "stars": 5,
+            "stars": 4,
             "reviews": 51
         },
         {
@@ -202,7 +202,7 @@
             ],
             "quantity": 30,
             "discount": 10,
-            "stars": 5,
+            "stars": 3,
             "reviews": 27
         },
         {
@@ -245,7 +245,7 @@
             ],
             "quantity": 8,
             "discount": 20,
-            "stars": 5,
+            "stars": 4,
             "reviews": 11
         },
         {
