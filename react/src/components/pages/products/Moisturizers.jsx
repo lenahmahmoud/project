@@ -10,7 +10,6 @@ function Moisturizers() {
     const [filters, setFilters] = useState({
         sortAlphabetically: "",
         sortPrice: "",
-        sortDate: "",
         priceRange: [10, 500],
     });
 
@@ -32,10 +31,6 @@ function Moisturizers() {
         if (filters.sortPrice === "low-to-high") result.sort((a, b) => a.price - b.price);
         if (filters.sortPrice === "high-to-low") result.sort((a, b) => b.price - a.price);
 
-        // Sort by Date
-        if (filters.sortDate === "new-old") result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        if (filters.sortDate === "old-new") result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-
         // Filter by Price Range
         result = result.filter(p => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]);
 
@@ -43,7 +38,7 @@ function Moisturizers() {
     };
 
     const clearFilters = () => {
-        setFilters({ sortAlphabetically: "", sortPrice: "", sortDate: "", priceRange: [10, 500] });
+        setFilters({ sortAlphabetically: "", sortPrice: "",priceRange: [10, 500] });
         setProducts(originalProducts);
     };
 
@@ -103,32 +98,6 @@ function Moisturizers() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Date */}
-                                <div className="category mt-5">
-                                    <h4>Sort by Date:</h4>
-                                    <div className="formgroup d-flex flex-column">
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="date"
-                                                checked={filters.sortDate === "new-old"}
-                                                onChange={() => setFilters({ ...filters, sortDate: "new-old" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">New to Old</label>
-                                        </div>
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="date"
-                                                checked={filters.sortDate === "old-new"}
-                                                onChange={() => setFilters({ ...filters, sortDate: "old-new" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">Old to New</label>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {/* Price */}
                                 <div className="price mt-5">
                                     <h4>Sort by Price:</h4>
