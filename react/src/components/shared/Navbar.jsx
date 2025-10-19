@@ -1,8 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import '../style/navbar.css';
 const logo = '/images/Logo Brand.png';
 
 function Navbar() {
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchInput,setSearchInput]=useState('');
+
+    const toggleSearch = () => {
+        setIsSearchOpen(!isSearchOpen);
+    };
+
     return (
         <>
             <nav className="navbar navbar-expand-md shadow fixed-top  mb-5 bg-white">
@@ -56,10 +64,11 @@ function Navbar() {
                         className="collapse navbar-collapse mt-md-0 mt-2"
                         id="iconsNav"
                     >
-                        <Link to="/search">
+                        <button onClick={toggleSearch} className="btn btn-special">
                             <i className="bi bi-search text-dark mx-lg-3 mx-2 fs-4"></i>
-                            
-                        </Link>
+                        </button>
+
+                        {isSearchOpen && <input type="text" placeholder="Search..." className="form-control mx-2 input-special" onChange={(e)=>setSearchInput=e.target.value} />}
 
                         <Link to="/profile">
                             <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>

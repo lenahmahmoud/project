@@ -1,0 +1,11 @@
+.input-special{
+    box-shadow: none !important;
+    outline-color: #F6F0ED !important;
+    border-color: #F6F0ED !important;
+    width: 200px !important;
+    opacity: 1;
+}
+
+.btn-special{
+    border: none !important;
+}
