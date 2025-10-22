@@ -1,316 +1,436 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": "c944",
+      "firstName": "lenah",
+      "lastName": "alieldin",
+      "phoneNumber": "04000003",
+      "email": "lenah.mahmoud@gmail.com",
+      "password": "L!erA444",
+      "city": "Qalyub",
+      "governorate": "Qalyubia"
+    },
+    {
+      "id": "3bd2",
+      "firstName": "tia",
+      "lastName": "abbas",
+      "phoneNumber": "099000003",
+      "email": "tia.mahmoud@gmail.com",
+      "password": "Ter$erA444",
+      "city": "Qalyub",
+      "governorate": "Qalyubia"
+    }
+  ],
+  "products": [
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 250,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 12,
+      "discount": 10,
+      "stars": 3,
+      "reviews": 30,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 0,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 20,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    },
+    {
+      "id": "aa13",
+      "title": "green tea serum",
+      "description": "best serum for your skin glow",
+      "price": 440,
+      "category": "serums",
+      "image": [
+        "/images/serums/Green_tea_serum.jpg"
+      ],
+      "quantity": 30,
+      "discount": 27,
+      "stars": 5,
+      "reviews": 31,
+      "keyfeatures": [
+        "Reduces redness and irritation",
+        "Rich in antioxidants for healthy skin",
+        "Controls excess oil and shine",
+        "Fights acne and blemishes"
+      ]
+    },
+    {
+      "id": "aaa9",
+      "title": "chamomile toner",
+      "description": "A gentle, soothing toner enriched with chamomile extract to calm and refresh sensitive skin. Helps balance the skin’s pH, reduce redness, and prepare your skin for better absorption of serums and moisturizers",
+      "price": 330,
+      "category": "toners",
+      "image": [
+        "/images/toners/chamomile_toner.jpg"
+      ],
+      "quantity": 11,
+      "discount": 0,
+      "stars": 3,
+      "reviews": 21,
+      "keyfeatures": [
+        "Calms and soothes sensitive skin",
+        "Helps reduce redness and irritation",
+        "Balances pH for smoother texture",
+        "Prepares skin for serums and creams"
+      ]
+    },
+    {
+      "id": "1129",
+      "title": "Alpha_Arbutin serum",
+      "description": "A potent brightening serum formulated with Alpha Arbutin to reduce dark spots, even skin tone, and restore radiance. Lightweight and fast-absorbing, it helps fade hyperpigmentation and leaves your skin smooth and luminous.",
+      "price": 340,
+      "category": "serums",
+      "image": [
+        "/images/serums/Alpha_Arbutin-serum.jpg"
+      ],
+      "quantity": 9,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 10,
+      "keyfeatures": [
+        "Brightens and evens out skin tone",
+        "Fades dark spots and pigmentation",
+        "Improves skin clarity and radiance",
+        "Lightweight and absorbs quickly"
+      ]
+    },
+    {
+      "id": "1111",
+      "title": "collagen_Boost serum",
+      "description": "A revitalizing serum designed to boost collagen production, improve skin elasticity, and reduce the appearance of fine lines and wrinkles. Leaves the skin firm, smooth, and radiant",
+      "price": 320,
+      "category": "serums",
+      "image": [
+        "/images/serums/collagen_Boost_serum.jpg"
+      ],
+      "quantity": 12,
+      "discount": 5,
+      "stars": 3,
+      "reviews": 8,
+      "keyfeatures": [
+        "Boosts collagen for firm skin",
+        "Reduces fine lines and wrinkles",
+        "Improves elasticity and smoothness",
+        "Gives a youthful, radiant glow"
+      ]
+    },
+    {
+      "id": "cccc",
+      "title": "vitamin c serum",
+      "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
+      "price": 680,
+      "category": "serums",
+      "image": [
+        "/images/serums/vitaminc_serum.jpg"
+      ],
+      "quantity": 3,
+      "discount": 10,
+      "stars": 4,
+      "reviews": 14,
+      "keyfeatures": [
+        "Brightens dull and tired skin",
+        "Reduces dark spots and discoloration",
+        "Enhances natural radiance",
+        "Protects from environmental stress"
+      ]
+    },
+    {
+      "id": "24b1",
+      "title": "honey & oat",
+      "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
+      "price": 480,
+      "category": "serums",
+      "image": [
+        "/images/masks/honey&oat_mask.jpg"
+      ],
+      "quantity": 14,
+      "discount": 0,
+      "stars": 3,
+      "reviews": 23,
+      "keyfeatures": [
+        "Nourishes and hydrates dry skin",
+        "Softens and smooths rough areas",
+        "Calms irritation and redness",
+        "Leaves skin fresh and glowing"
+      ]
+    },
+    {
+      "id": "c25c",
+      "title": "vitamin E toner",
+      "description": "A nourishing toner enriched with Vitamin E to hydrate, soothe, and protect the skin from environmental stress. Helps restore softness, improve skin texture, and prepare the skin for better absorption of moisturizers and serums. ",
+      "price": 200,
+      "category": "toners",
+      "image": [
+        "/images/toners/vitaminE-toner.jpg"
+      ],
+      "quantity": 10,
+      "discount": 10,
+      "stars": 5,
+      "reviews": 7,
+      "keyfeatures": [
+        "Hydrates and softens dry skin",
+        "Restores natural smoothness",
+        "Improves absorption of skincare",
+        "Protects from daily stress"
+      ]
+    },
+    {
+      "id": "785f",
+      "title": "camella sead_oil",
+      "description": "A lightweight and nourishing oil extracted from camellia seeds, rich in antioxidants and essential fatty acids. Helps hydrate, soften, and protect the skin while improving elasticity and promoting a healthy, radiant glow.",
+      "price": 480,
+      "category": "oils",
+      "image": [
+        "/images/oils/camella_sead_oil.jpg"
+      ],
+      "quantity": 10,
+      "discount": 13,
+      "stars": 3,
+      "reviews": 19,
+      "keyfeatures": [
+        "Deeply hydrates and softens skin",
+        "Improves elasticity and radiance",
+        "Lightweight and fast-absorbing",
+        "Protects from dryness and damage"
+      ]
+    },
+    {
+      "id": "585b",
+      "title": "evening_primrose oil",
+      "description": "A nourishing oil rich in essential fatty acids and antioxidants, designed to soothe, hydrate, and restore the skin’s natural barrier. Helps improve elasticity, reduce inflammation, and leave the skin soft, smooth, and radiant.",
+      "price": 400,
+      "category": "oils",
+      "image": [
+        "/images/oils/evening_primrose_oil.jpg"
+      ],
+      "quantity": 40,
+      "discount": 0,
+      "stars": 4,
+      "reviews": 9,
+      "keyfeatures": [
+        "Soothes and calms sensitive skin",
+        "Restores natural moisture barrier",
+        "Improves elasticity and tone",
+        "Leaves skin smooth and radiant"
+      ]
+    },
+    {
+      "id": "fefe",
+      "title": "green tea mask",
+      "description": "A soothing and antioxidant-rich mask formulated with green tea extract to calm irritated skin, fight free radicals, and revitalize your complexion. Leaves the skin refreshed, smooth, and radiant.",
+      "price": 250,
+      "category": "masks",
+      "image": [
+        "/images//masks/green_tea_mask.jpg"
+      ],
+      "quantity": 4,
+      "discount": 30,
+      "stars": 4,
+      "reviews": 51,
+      "keyfeatures": [
+        "Calms and refreshes tired skin",
+        "Fights dullness and free radicals",
+        "Revitalizes and brightens tone",
+        "Leaves skin soft and refreshed"
+      ]
+    },
+    {
+      "id": "785b",
+      "title": "jojoba oil",
+      "description": "A lightweight, natural oil that closely mimics the skin’s own sebum. Deeply hydrates, balances oil production, soothes irritation, and promotes smooth, soft, and healthy-looking skin.",
+      "price": 300,
+      "category": "oils",
+      "image": [
+        "/images/oils/jojoba_oil.jpg"
+      ],
+      "quantity": 30,
+      "discount": 10,
+      "stars": 3,
+      "reviews": 27,
+      "keyfeatures": [
+        "Balances natural oil production",
+        "Hydrates without clogging pores",
+        "Soothes and smooths the skin",
+        "Promotes a healthy glow"
+      ]
+    },
+    {
+      "id": "2b5b",
+      "title": "marula oil",
+      "description": "A luxurious, antioxidant-rich oil that deeply nourishes and hydrates the skin. Helps improve elasticity, protect against environmental stress, and leaves the skin soft, radiant, and rejuvenated.",
+      "price": 290,
+      "category": "oils",
+      "image": [
+        "/images/oils/marula_oil.jpg"
+      ],
+      "quantity": 40,
+      "discount": 0,
+      "stars": 3,
+      "reviews": 7,
+      "keyfeatures": [
+        "Deeply nourishes and hydrates",
+        "Improves elasticity and tone",
+        "Protects from daily stress",
+        "Leaves skin radiant and smooth"
+      ]
+    },
+    {
+      "id": "235b",
+      "title": "clay_detox mask",
+      "description": " A purifying clay mask designed to draw out impurities, excess oil, and toxins from the skin. Helps minimize pores, detoxify, and leave the skin refreshed, smooth, and radiant.",
+      "price": 320,
+      "category": "masks",
+      "image": [
+        "/images/masks/clay_detox_mask.jpg"
+      ],
+      "quantity": 13,
+      "discount": 0,
+      "stars": 4,
+      "reviews": 11,
+      "keyfeatures": [
+        "Draws out impurities and oil",
+        "Minimizes pores and refines texture",
+        "Detoxifies and refreshes the skin",
+        "Leaves skin clean and radiant"
+      ]
+    },
+    {
+      "id": "1b5b",
+      "title": "squalene oil",
+      "description": "A lightweight, non-greasy oil that deeply hydrates and locks in moisture. Helps restore skin’s natural barrier, improve elasticity, and leave the skin soft, smooth, and radiant",
+      "price": 200,
+      "category": "oils",
+      "image": [
+        "/images/oils/squalene_oil.jpg"
+      ],
+      "quantity": 8,
+      "discount": 20,
+      "stars": 4,
+      "reviews": 11,
+      "keyfeatures": [
+        "Locks in long-lasting moisture",
+        "Restores softness and smoothness",
+        "Improves elasticity and balance",
+        "Lightweight and fast-absorbing"
+      ]
+    },
+    {
+      "id": "455f",
+      "title": "Anti-Aging bodylotion",
+      "description": "A nourishing body lotion formulated to combat signs of aging. Enriched with antioxidants and hydrating ingredients, it helps improve skin elasticity, reduce the appearance of fine lines, and leave the skin smooth, firm, and radiant.",
+      "price": 460,
+      "category": "moisturizers",
+      "image": [
+        "/images/moisturizers/Anti-Aging_bodylotion.jpg"
+      ],
+      "quantity": 13,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 46,
+      "keyfeatures": [
+        "Hydrates and firms the skin",
+        "Improves elasticity and texture",
+        "Reduces visible fine lines",
+        "Leaves skin smooth and radiant"
+      ]
+    }
+  ],
+  "wishlists": [
+    {
+      "id": "3ffc",
+      "user_id": "c944",
+      "products": [
         {
-            "id": "c944",
-            "firstName": "lenah",
-            "lastName": "alieldin",
-            "phoneNumber": "04000003",
-            "email": "lenah.mahmoud@gmail.com",
-            "password": "L!erA444",
-            "city": "Qalyub",
-            "governorate": "Qalyubia"
-        },
-        {
-            "id": "3bd2",
-            "firstName": "tia",
-            "lastName": "abbas",
-            "phoneNumber": "099000003",
-            "email": "tia.mahmoud@gmail.com",
-            "password": "Ter$erA444",
-            "city": "Qalyub",
-            "governorate": "Qalyubia"
+          "product_id": "ea45",
+          "quantity": 3
         }
-    ],
-    "products": [
+      ]
+    },
+    {
+      "id": "f2ac",
+      "user_id": "3bd2",
+      "products": [
         {
-            "id": "ea45",
-            "title": "coconut oil",
-            "description": "pure coconut oil for your skin glow",
-            "price": 250,
-            "category": "oils",
-            "image": [
-                "/images/oils/coconut_oil.jpg"
-            ],
-            "quantity": 12,
-            "discount": 10,
-            "stars": 3,
-            "reviews": 30
+          "product_id": "ff43",
+          "quantity": 3
         },
         {
-            "id": "ff43",
-            "title": "rose water toner",
-            "description": "best toner for your skin glow",
-            "price": 450,
-            "category": "toners",
-            "image": [
-                "/images/toners/rose_water_toner.jpg"
-            ],
-            "quantity": 20,
-            "discount": 0,
-            "stars": 5,
-            "reviews": 20
-        },
-        {
-            "id": "aa13",
-            "title": "green tea serum",
-            "description": "best serum for your skin glow",
-            "price": 440,
-            "category": "serums",
-            "image": [
-                "/images/serums/Green_tea_serum.jpg"
-            ],
-            "quantity": 30,
-            "discount": 27,
-            "stars": 5,
-            "reviews": 31
-        },
-        {
-            "id": "aaa9",
-            "title": "chamomile toner",
-            "description": "A gentle, soothing toner enriched with chamomile extract to calm and refresh sensitive skin. Helps balance the skin’s pH, reduce redness, and prepare your skin for better absorption of serums and moisturizers",
-            "price": 330,
-            "category": "toners",
-            "image": [
-                "/images/toners/chamomile_toner.jpg"
-            ],
-            "quantity": 11,
-            "discount": 0,
-            "stars": 3,
-            "reviews": 21
-        },
-        {
-            "id": "1129",
-            "title": "Alpha_Arbutin serum",
-            "description": "A potent brightening serum formulated with Alpha Arbutin to reduce dark spots, even skin tone, and restore radiance. Lightweight and fast-absorbing, it helps fade hyperpigmentation and leaves your skin smooth and luminous.",
-            "price": 340,
-            "category": "serums",
-            "image": [
-                "/images/serums/Alpha_Arbutin-serum.jpg"
-            ],
-            "quantity": 9,
-            "discount": 0,
-            "stars": 5,
-            "reviews": 10
-        },
-        {
-            "id": "1111",
-            "title": "collagen_Boost serum",
-            "description": "A revitalizing serum designed to boost collagen production, improve skin elasticity, and reduce the appearance of fine lines and wrinkles. Leaves the skin firm, smooth, and radiant",
-            "price": 320,
-            "category": "serums",
-            "image": [
-                "/images/serums/collagen_Boost_serum.jpg"
-            ],
-            "quantity": 12,
-            "discount": 5,
-            "stars": 3,
-            "reviews": 8
-        },
-        {
-            "id": "cccc",
-            "title": "vitamin c serum",
-            "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
-            "price": 680,
-            "category": "serums",
-            "image": [
-                "/images/serums/vitaminc_serum.jpg"
-            ],
-            "quantity": 3,
-            "discount": 10,
-            "stars": 4,
-            "reviews": 14
-        },
-        {
-            "id": "24b1",
-            "title": "honey & oat",
-            "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
-            "price": 480,
-            "category": "serums",
-            "image": [
-                "/images/masks/honey&oat_mask.jpg"
-            ],
-            "quantity": 14,
-            "discount": 0,
-            "stars": 3,
-            "reviews": 23
-        },
-        
-        {
-            "id": "c25c",
-            "title": "vitamin E toner",
-            "description": "A nourishing toner enriched with Vitamin E to hydrate, soothe, and protect the skin from environmental stress. Helps restore softness, improve skin texture, and prepare the skin for better absorption of moisturizers and serums. ",
-            "price": 200,
-            "category": "toners",
-            "image": [
-                "/images/toners/vitaminE-toner.jpg"
-            ],
-            "quantity": 10,
-            "discount": 0,
-            "stars": 5,
-            "reviews": 7
-        },
-        {
-            "id": "785f",
-            "title": "camella sead_oil",
-            "description": "A lightweight and nourishing oil extracted from camellia seeds, rich in antioxidants and essential fatty acids. Helps hydrate, soften, and protect the skin while improving elasticity and promoting a healthy, radiant glow.",
-            "price": 480,
-            "category": "oils",
-            "image": [
-                "/images/oils/camella_sead_oil.jpg"
-            ],
-            "quantity": 10,
-            "discount": 13,
-            "stars": 3,
-            "reviews": 19
-        },
-        {
-            "id": "585b",
-            "title": "evening_primrose oil",
-            "description": "A nourishing oil rich in essential fatty acids and antioxidants, designed to soothe, hydrate, and restore the skin’s natural barrier. Helps improve elasticity, reduce inflammation, and leave the skin soft, smooth, and radiant.",
-            "price": 400,
-            "category": "oils",
-            "image": [
-                "/images/oils/evening_primrose_oil.jpg"
-            ],
-            "quantity": 40,
-            "discount": 0,
-            "stars": 4,
-            "reviews": 9
-        },
-        {
-            "id": "fefe",
-            "title": "green tea mask",
-            "description": "A soothing and antioxidant-rich mask formulated with green tea extract to calm irritated skin, fight free radicals, and revitalize your complexion. Leaves the skin refreshed, smooth, and radiant.",
-            "price": 250,
-            "category": "masks",
-            "image": [
-                "/images//masks/green_tea_mask.jpg"
-            ],
-            "quantity": 4,
-            "discount": 30,
-            "stars": 4,
-            "reviews": 51
-        },
-        {
-            "id": "785b",
-            "title": "jojoba oil",
-            "description": "A lightweight, natural oil that closely mimics the skin’s own sebum. Deeply hydrates, balances oil production, soothes irritation, and promotes smooth, soft, and healthy-looking skin.",
-            "price": 300,
-            "category": "oils",
-            "image": [
-                "/images/oils/jojoba_oil.jpg"
-            ],
-            "quantity": 30,
-            "discount": 10,
-            "stars": 3,
-            "reviews": 27
-        },
-        {
-            "id": "2b5b",
-            "title": "marula oil",
-            "description": "A luxurious, antioxidant-rich oil that deeply nourishes and hydrates the skin. Helps improve elasticity, protect against environmental stress, and leaves the skin soft, radiant, and rejuvenated.",
-            "price": 290,
-            "category": "oils",
-            "image": [
-                "/images/oils/marula_oil.jpg"
-            ],
-            "quantity": 40,
-            "discount": 0,
-            "stars": 3,
-            "reviews": 7
-        },
-
-        {
-            "id": "235b",
-            "title": "clay_detox mask",
-            "description": " A purifying clay mask designed to draw out impurities, excess oil, and toxins from the skin. Helps minimize pores, detoxify, and leave the skin refreshed, smooth, and radiant.",
-            "price": 320,
-            "category": "masks",
-            "image": [
-                "/images/masks/clay_detox_mask.jpg"
-            ],
-            "quantity": 13,
-            "discount": 0,
-            "stars": 4,
-            "reviews": 11
-        },
-        {
-            "id": "1b5b",
-            "title": "squalene oil",
-            "description": "A lightweight, non-greasy oil that deeply hydrates and locks in moisture. Helps restore skin’s natural barrier, improve elasticity, and leave the skin soft, smooth, and radiant",
-            "price": 200,
-            "category": "oils",
-            "image": [
-                "/images/oils/squalene_oil.jpg"
-            ],
-            "quantity": 8,
-            "discount": 20,
-            "stars": 4,
-            "reviews": 11
-        },
-        {
-            "id": "455f",
-            "title": "Anti-Aging bodylotion",
-            "description": "A nourishing body lotion formulated to combat signs of aging. Enriched with antioxidants and hydrating ingredients, it helps improve skin elasticity, reduce the appearance of fine lines, and leave the skin smooth, firm, and radiant.",
-            "price": 460,
-            "category": "moisturizers",
-            "image": [
-                "/images/moisturizers/Anti-Aging_bodylotion.jpg"
-            ],
-            "quantity": 13,
-            "discount": 0,
-            "stars": 5,
-            "reviews": 46
+          "product_id": "aa13",
+          "quantity": 2
         }
-
-    ],
-    "wishlists": [
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "id": "55ea",
+      "product_id": "ff43",
+      "rate": 4,
+      "comment": "I highly recommend this product"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ee31",
+      "user_id": "c944",
+      "products": [
         {
-            "id": "3ffc",
-            "user_id": "c944",
-            "products": [
-                {
-                    "product_id": "ea45",
-                    "quantity": 3
-                }
-            ]
-        },
-        {
-            "id": "f2ac",
-            "user_id": "3bd2",
-            "products": [
-                {
-                    "product_id": "ff43",
-                    "quantity": 3
-                },
-                {
-                    "product_id": "aa13",
-                    "quantity": 2
-                }
-            ]
+          "product_id": "ff43",
+          "quantity": 3
         }
-    ],
-    "reviews": [
-        {
-            "id": "55ea",
-            "product_id": "ff43",
-            "rate": 4,
-            "comment": "I highly recommend this product"
-        }
-    ],
-    "orders": [
-        {
-            "id": "ee31",
-            "user_id": "c944",
-            "products": [
-                {
-                    "product_id": "ff43",
-                    "quantity": 3
-                }
-            ],
-            "date": "2023-10-02",
-            "total": 1350,
-            "status": "delivered"
-        }
-    ]
+      ],
+      "total": 1350,
+      "status": "delivered"
+    }
+  ],
+  "cartlist": [
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 10,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 20,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    }
+  ]
 }

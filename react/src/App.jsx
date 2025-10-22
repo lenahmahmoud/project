@@ -1,6 +1,6 @@
 import Navbar from '../src/components/shared/Navbar'
 import Footer from '../src/components/shared/Footer'
-import Contact from './components/footerpages/contact';
+import Contact from '../src/components/footerpages/Contact';
 import PaymentOptions from './components/footerpages/PaymentOptions';
 import PrivacyPolicy from './components/footerpages/PrivacyPolicy';
 import ShippingFees from './components/footerpages/ShippingFees';
@@ -13,6 +13,8 @@ import Toners from './components/pages/products/Toners';
 import Serums from './components/pages/products/Serums';
 import Cleansers from './components/pages/products/Cleansers';
 import Moisturizers from './components/pages/products/Moisturizers';
+import Details from './components/pages/Details'
+import Cart from './components/pages/Cart';
 import { Routes, Route } from 'react-router-dom'
 function App() {
     return (<>
@@ -31,6 +33,8 @@ function App() {
             <Route path='/serums' element={<Serums />}></Route>
             <Route path='/moisturizers' element={<Moisturizers/>}></Route>
             <Route path='/cleansers' element={<Cleansers/>}></Route>
+            <Route path='/details/:id' element={<Details/>}></Route>
+            <Route path='/cart' element={<Cart/>}></Route>
         </Routes>
         <Footer />
     </>);

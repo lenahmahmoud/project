@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { getcategory } from "../../../../utils/Api";
+import { getcategory, addtocart } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import '../../style/shop.css'
 const logo = '/images/Logo Brand.png';
 
 function Masks() {
-    const [products, setProducts] = useState([]);
+    const [masks, setProducts] = useState([]);
     const [originalProducts, setOriginalProducts] = useState([]);
     const [filters, setFilters] = useState({
         sortAlphabetically: "",
@@ -39,7 +39,7 @@ function Masks() {
     };
 
     const clearFilters = () => {
-        setFilters({ sortAlphabetically: "", sortPrice: "",  priceRange: [10, 500] });
+        setFilters({ sortAlphabetically: "", sortPrice: "", priceRange: [10, 500] });
         setProducts(originalProducts);
     };
 
@@ -80,12 +80,12 @@ function Masks() {
                                     <h4>Sort Alphabetically:</h4>
                                     <div className="formgroup d-flex flex-column">
                                         <div>
-                                            <input type="radio" name="alphabet" checked={filters.sortAlphabetically === "A-Z"} 
+                                            <input type="radio" name="alphabet" checked={filters.sortAlphabetically === "A-Z"}
                                                 onChange={() => setFilters({ ...filters, sortAlphabetically: "A-Z" })} />
                                             <label className="form-label fs-5 mx-2">A to Z</label>
                                         </div>
                                         <div>
-                                            <input type="radio" name="alphabet" checked={filters.sortAlphabetically === "Z-A"} 
+                                            <input type="radio" name="alphabet" checked={filters.sortAlphabetically === "Z-A"}
                                                 onChange={() => setFilters({ ...filters, sortAlphabetically: "Z-A" })} />
                                             <label className="form-label fs-5 mx-2">Z to A</label>
                                         </div>
@@ -96,12 +96,12 @@ function Masks() {
                                     <h4>Sort by Price:</h4>
                                     <div className="formgroup d-flex flex-column">
                                         <div>
-                                            <input type="radio" name="price" checked={filters.sortPrice === "low-to-high"} 
+                                            <input type="radio" name="price" checked={filters.sortPrice === "low-to-high"}
                                                 onChange={() => setFilters({ ...filters, sortPrice: "low-to-high" })} />
                                             <label className="form-label fs-5 mx-2">Price (Low to High)</label>
                                         </div>
                                         <div>
-                                            <input type="radio" name="price" checked={filters.sortPrice === "high-to-low"} 
+                                            <input type="radio" name="price" checked={filters.sortPrice === "high-to-low"}
                                                 onChange={() => setFilters({ ...filters, sortPrice: "high-to-low" })} />
                                             <label className="form-label fs-5 mx-2">Price (High to Low)</label>
                                         </div>
@@ -135,35 +135,107 @@ function Masks() {
                 </div>
             </section>
 
-            {/* PRODUCTS */}
+            {/* masks */}
             <section className="mt-5" id="shop">
                 <div className="container">
                     <div className="row justify-content-center shopsec g-5 text-center">
-                        {products.map(product => (
-                            <div key={product.id} className="col-9 col-sm-8 col-lg-3">
-                                <div className="parent">
-                                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
+                        {masks.map(mask => (
+                            mask.quantity > 0 ? (<div key={mask.id} className="col-9 col-sm-8 col-lg-3">
+                                <div className={`parent ${mask.discount > 0 ? "position-relative" : ""}`}>
+                                    <img src={mask.image[0]} alt={mask.title} className="rounded w-100" />
+                                    {mask.discount > 0 && (
+                                        <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                                            -{mask.discount}%
+                                        </p>
+                                    )}
+
                                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                        <Link to="#"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                        <button
+                                            className="btn border-0"
+                                            onClick={() => {
+                                                const productToAdd = { ...mask, quantity: 1 };
+                                                addtocart(productToAdd);
+                                                decrementquantity(mask, mask.id, 1)
+
+                                            }}
+                                        >
+                                            <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
+                                        </button>                                        <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
+                                        <Link to={`/details/${mask.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
                                         <Link to="#"><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
                                     </div>
                                 </div>
                                 <div className="text">
-                                    <p className="fs-5 fw-bold">{product.title} - <span className="fs-6 text-danger">${product.price}</span></p>
+                                    <p className="fs-5 fw-bold">{mask.title} -
+                                        <span className="fs-6 text-danger">
+                                            £E{" "}
+                                            {mask.discount > 0 ? (
+                                                <>
+                                                    <del>{mask.price}</del>{" "}
+                                                </>
+                                            ) : (
+                                                mask.price
+                                            )}
+                                        </span></p>
                                     <p>
                                         {Array.from({ length: 5 }, (_, i) => (
-                                            <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>&#9733;</span>
+                                            <span key={i} style={{ color: i < mask.stars ? "#ffc107" : "#b4b4b4ff" }}>&#9733;</span>
                                         ))}
-                                        <span className="text-muted"> {product.reviews} reviews</span>
+                                        <span className="text-muted"> {mask.reviews} reviews</span>
                                     </p>
                                 </div>
-                            </div>
+                            </div>) : (null)
+
+
                         ))}
                     </div>
                 </div>
             </section>
+            <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
+                <div className="container-fluid">
+                    <div className="row py-4">
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-trophy fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">High Quality</h3>
+                                    <p className="text-secondary mb-sm-5">Crafted from top materials</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-patch-check fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">Warranty Protection</h3>
+                                    <p className="text-secondary mb-sm-5">Over 2 years</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-truck fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">Free Shipping</h3>
+                                    <p className="text-secondary mb-sm-5">Order over 150 $</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-headset fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">24 / 7 Support</h3>
+                                    <p className="text-secondary">Dedicated support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

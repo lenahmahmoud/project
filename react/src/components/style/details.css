@@ -1,0 +1,26 @@
+.product-details img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 15px;
+  transition: 0.3s ease;
+}
+
+.product-details img:hover {
+  transform: scale(1.03);
+}
+
+.product-details h2 {
+  margin-bottom: 10px;
+}
+
+.product-details .quantity-control button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.product-details .quantity-control span {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

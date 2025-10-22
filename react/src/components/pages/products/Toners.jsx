@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getcategory } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../../style/shop.css";
 
@@ -66,7 +66,7 @@ function Toners() {
         <div className="headingText text-center py-5 my-5">
           <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
           <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>
-            toners
+            Toners
           </h1>
           <p className="mt-3">
             <span className="fw-bold">Home</span> toners-page
@@ -232,38 +232,69 @@ function Toners() {
         <div className="container">
           <div className="row justify-content-center shopsec g-5 text-center">
             {toners.map((toner) => (
-              <div key={toner.id} className="col-9 col-sm-8 col-lg-3">
-                <div className="parent">
-                  <img src={toner.image[0]} alt={toner.title} className="rounded w-100" />
-                  <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                    <Link to="#">
-                      <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-share rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
-                    </Link>
+              toner.quantity > 0 ?
+                (<div key={toner.id} className="col-9 col-sm-8 col-lg-3">
+                  <div className={`parent ${toner.discount > 0 ? "position-relative" : ""}`}>
+                    <img src={toner.image[0]} alt={toner.title} className="rounded w-100" />
+                    {toner.discount > 0 && (
+                      <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                        -{toner.discount}%
+                      </p>
+                    )}
+
+                    <div className="overlay d-flex justify-content-around w-100 align-items-center">
+                      <button
+                        className="btn border-0"
+                        onClick={() => {
+                          const productToAdd = { ...toner, quantity: 1 };
+                          addtocart(productToAdd);
+                          decrementquantity(toner, toner.id, 1)
+
+                        }}
+                      >
+                        <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
+                      </button>
+                      <Link to="#">
+                        <i className="bi bi-share rounded-circle p-2 bg-white"></i>
+                      </Link>
+                      <Link to={`/details/${toner.id}`}>
+                        <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
+                      </Link>
+                      <Link to="#">
+                        <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="text">
-                  <p className="fs-5 fw-bold">
-                    {toner.title} - <span className="fs-6 text-danger">£E {toner.price}</span>
-                  </p>
-                  <p>
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <span key={i} style={{ color: i < toner.stars ? "#ffc107" : "#b4b4b4ff" }}>
-                        &#9733;
+
+                  <div className="text">
+                    <p className="fs-5 fw-bold">
+                      {toner.title} -{" "}
+                      <span className="fs-6 text-danger">
+                        £E{" "}
+                        {toner.discount > 0 ? (
+                          <>
+                            <del>{toner.price}</del>{" "}
+                          </>
+                        ) : (
+                          toner.price
+                        )}
                       </span>
-                    ))}
-                    <span className="text-muted"> {toner.reviews} reviews</span>
-                  </p>
-                </div>
-              </div>
+                    </p>
+                    <p>
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <span
+                          key={i}
+                          style={{ color: i < toner.stars ? "#ffc107" : "#b4b4b4ff" }}
+                        >
+                          &#9733;
+                        </span>
+                      ))}
+                      <span className="text-muted"> {toner.reviews} reviews</span>
+                    </p>
+                  </div>
+                </div>)
+                : (null)
+
             ))}
           </div>
         </div>

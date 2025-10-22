@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { getcategory } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
-import '../../style/shop.css'
+import '../../style/shop.css';
 
 const logo = '/images/Logo Brand.png';
 
 function Oils() {
-    const [products, setProducts] = useState([]);
+    const [oils, setOils] = useState([]);
     const [originalProducts, setOriginalProducts] = useState([]);
     const [filters, setFilters] = useState({
         sortAlphabetically: "",
@@ -16,7 +16,7 @@ function Oils() {
 
     useEffect(() => {
         getcategory("oils").then(res => {
-            setProducts(res.data);
+            setOils(res.data);
             setOriginalProducts(res.data);
         });
     }, []);
@@ -28,19 +28,19 @@ function Oils() {
         if (filters.sortAlphabetically === "A-Z") result.sort((a, b) => a.title.localeCompare(b.title));
         if (filters.sortAlphabetically === "Z-A") result.sort((a, b) => b.title.localeCompare(a.title));
 
-        // Sort Price
+        // Sort by Price
         if (filters.sortPrice === "low-to-high") result.sort((a, b) => a.price - b.price);
         if (filters.sortPrice === "high-to-low") result.sort((a, b) => b.price - a.price);
 
         // Filter by Price Range
         result = result.filter(p => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]);
 
-        setProducts(result);
+        setOils(result);
     };
 
     const clearFilters = () => {
         setFilters({ sortAlphabetically: "", sortPrice: "", priceRange: [10, 500] });
-        setProducts(originalProducts);
+        setOils(originalProducts);
     };
 
     return (
@@ -50,7 +50,7 @@ function Oils() {
                 <div className="headingText text-center py-5 my-5">
                     <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
                     <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>Oils</h1>
-                    <p className="mt-3"><span className="fw-bold"> Home </span>oils-page</p>
+                    <p className="mt-3"><span className="fw-bold">Home</span> / oils-page</p>
                 </div>
             </header>
 
@@ -81,17 +81,19 @@ function Oils() {
                                     <div className="formgroup d-flex flex-column">
                                         <div>
                                             <input
-                                                type="checkbox"
+                                                type="radio"
+                                                name="alphabet"
                                                 checked={filters.sortAlphabetically === "A-Z"}
-                                                onChange={() => setFilters({ ...filters, sortAlphabetically: filters.sortAlphabetically === "A-Z" ? "" : "A-Z" })}
+                                                onChange={() => setFilters({ ...filters, sortAlphabetically: "A-Z" })}
                                             />
                                             <label className="form-label fs-5 mx-2">A to Z</label>
                                         </div>
                                         <div>
                                             <input
-                                                type="checkbox"
+                                                type="radio"
+                                                name="alphabet"
                                                 checked={filters.sortAlphabetically === "Z-A"}
-                                                onChange={() => setFilters({ ...filters, sortAlphabetically: filters.sortAlphabetically === "Z-A" ? "" : "Z-A" })}
+                                                onChange={() => setFilters({ ...filters, sortAlphabetically: "Z-A" })}
                                             />
                                             <label className="form-label fs-5 mx-2">Z to A</label>
                                         </div>
@@ -104,17 +106,19 @@ function Oils() {
                                     <div className="formgroup d-flex flex-column">
                                         <div>
                                             <input
-                                                type="checkbox"
+                                                type="radio"
+                                                name="price"
                                                 checked={filters.sortPrice === "low-to-high"}
-                                                onChange={() => setFilters({ ...filters, sortPrice: filters.sortPrice === "low-to-high" ? "" : "low-to-high" })}
+                                                onChange={() => setFilters({ ...filters, sortPrice: "low-to-high" })}
                                             />
                                             <label className="form-label fs-5 mx-2">Price (Low to High)</label>
                                         </div>
                                         <div>
                                             <input
-                                                type="checkbox"
+                                                type="radio"
+                                                name="price"
                                                 checked={filters.sortPrice === "high-to-low"}
-                                                onChange={() => setFilters({ ...filters, sortPrice: filters.sortPrice === "high-to-low" ? "" : "high-to-low" })}
+                                                onChange={() => setFilters({ ...filters, sortPrice: "high-to-low" })}
                                             />
                                             <label className="form-label fs-5 mx-2">Price (High to Low)</label>
                                         </div>
@@ -125,23 +129,33 @@ function Oils() {
                                 <div className="range mt-5">
                                     <h4>Price Range:</h4>
                                     <h6>from 10$ to 500$</h6>
-                                    <div className="form-group">
-                                        <input
-                                            type="range"
-                                            min="10"
-                                            max="500"
-                                            value={filters.priceRange[1]}
-                                            onChange={(e) => setFilters({ ...filters, priceRange: [filters.priceRange[0], Number(e.target.value)] })}
-                                            className="form-range"
-                                        />
-                                        <p>Max Price: ${filters.priceRange[1]}</p>
-                                    </div>
+                                    <input
+                                        type="range"
+                                        min="10"
+                                        max="500"
+                                        value={filters.priceRange[1]}
+                                        onChange={(e) =>
+                                            setFilters({ ...filters, priceRange: [filters.priceRange[0], Number(e.target.value)] })
+                                        }
+                                        className="form-range"
+                                    />
+                                    <p>Max Price: ${filters.priceRange[1]}</p>
                                 </div>
 
-                                <button type="button" className="btn btn-large text-dark form-control mt-5 rounded" style={{ backgroundColor: "#eadac7" }} onClick={applyFilters}>
+                                <button
+                                    type="button"
+                                    className="btn btn-large text-dark form-control mt-5 rounded"
+                                    style={{ backgroundColor: "#eadac7" }}
+                                    onClick={applyFilters}
+                                >
                                     Apply Filters
                                 </button>
-                                <button type="button" className="btn btn-large text-dark form-control mt-2 rounded" style={{ backgroundColor: "#eadac7" }} onClick={clearFilters}>
+                                <button
+                                    type="button"
+                                    className="btn btn-large text-dark form-control mt-2 rounded"
+                                    style={{ backgroundColor: "#eadac7" }}
+                                    onClick={clearFilters}
+                                >
                                     Clear Filters
                                 </button>
                             </form>
@@ -150,76 +164,101 @@ function Oils() {
                 </div>
             </section>
 
-            {/* PRODUCTS SECTION */}
+            {/* OILS SECTION */}
             <section className="mt-5" id="shop">
                 <div className="container">
                     <div className="row justify-content-center shopsec g-5 text-center">
-                        {products.map(product => (
-                            <div key={product.id} className="col-9 col-sm-8 col-lg-3">
-                                <div className="parent">
-                                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
+                        {oils.map(oil => (
+                            oil.quantity > 0 ? (<div key={oil.id} className="col-9 col-sm-8 col-lg-3">
+                                <div className="parent position-relative">
+                                    {/* Show Discount Badge */}
+                                    {oil.discount > 0 && (
+                                        <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                                            -{oil.discount}%
+                                        </p>
+
+                                    )}
+                                    <img src={oil.image[0]} alt={oil.title} className="rounded w-100" />
                                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                        <Link to="#"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
+                                        <button onClick={() => {
+                                            const productToAdd = { ...oil, quantity: 1 }
+                                            addtocart(productToAdd)
+                                            decrementquantity(oil, oil.id, 1)
+
+                                        }} className="btn border-0"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
                                         <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                        <Link to={`/details/${oil.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
                                         <Link to="#"><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
                                     </div>
                                 </div>
-                                <div className="text">
-                                    <p className="fs-5 fw-bold">{product.title} - <span className="fs-6 text-danger">£E {product.price}</span></p>
+                                <div className="text mt-2">
+                                    <p className="fs-5 fw-bold">
+                                        {oil.title} -{" "}
+                                        <span className="fs-6 text-danger">
+                                            £E{" "}
+                                            {oil.discount > 0 ? (
+                                                <>
+                                                    <del>{oil.price}</del>{" "}
+                                                </>
+                                            ) : (
+                                                oil.price
+                                            )}
+                                        </span>
+                                    </p>
+
                                     <p>
                                         {Array.from({ length: 5 }, (_, i) => (
-                                            <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>&#9733;</span>
+                                            <span key={i} style={{ color: i < oil.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                                                &#9733;
+                                            </span>
                                         ))}
-                                        <span className="text-muted"> {product.reviews} reviews</span>
+                                        <span className="text-muted"> {oil.reviews} reviews</span>
                                     </p>
                                 </div>
-                            </div>
+                            </div>) : (null)
+
                         ))}
                     </div>
                 </div>
             </section>
 
             {/* FEATURES SECTION */}
-            <div className="py-5 mt-5" style={{ backgroundColor: " #eadac7" }}>
+            <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
                 <div className="container-fluid">
-                    <div className="row py-4">
-                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
-                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                    <div className="row py-4 text-center text-md-start">
+                        <div className="col-lg-3 col-md-6 col-sm-12">
+                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
                                 <i className="bi bi-trophy fs-1 me-2"></i>
-                                <div className="mt-2">
+                                <div>
                                     <h3 className="fw-bold fs-4">High Quality</h3>
-                                    <p className="text-secondary mb-sm-5">Crafted from top materials</p>
+                                    <p className="text-secondary mb-0">Crafted from top materials</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
-                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                        <div className="col-lg-3 col-md-6 col-sm-12">
+                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
                                 <i className="bi bi-patch-check fs-1 me-2"></i>
-                                <div className="mt-2">
+                                <div>
                                     <h3 className="fw-bold fs-4">Warranty Protection</h3>
-                                    <p className="text-secondary mb-sm-5">Over 2 years</p>
+                                    <p className="text-secondary mb-0">Over 2 years</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
-                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                        <div className="col-lg-3 col-md-6 col-sm-12">
+                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
                                 <i className="bi bi-truck fs-1 me-2"></i>
-                                <div className="mt-2">
+                                <div>
                                     <h3 className="fw-bold fs-4">Free Shipping</h3>
-                                    <p className="text-secondary mb-sm-5">Order over 150 $</p>
+                                    <p className="text-secondary mb-0">Order over 150 £E</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
-                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                        <div className="col-lg-3 col-md-6 col-sm-12">
+                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
                                 <i className="bi bi-headset fs-1 me-2"></i>
-                                <div className="mt-2">
+                                <div>
                                     <h3 className="fw-bold fs-4">24 / 7 Support</h3>
-                                    <p className="text-secondary">Dedicated support</p>
+                                    <p className="text-secondary mb-0">Dedicated support</p>
                                 </div>
                             </div>
                         </div>

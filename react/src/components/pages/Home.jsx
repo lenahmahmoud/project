@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import '../style/home.css';
 import { useEffect, useState } from "react";
+import { addtocart, decrementquantity } from "../../../utils/Api";
 
 const oils = "/images/categories/oils_cat.jpg";
 const serums = "/images/categories/serums_cat.jpg";
@@ -13,6 +14,7 @@ const image_2 = '/images/image_2.jpg';
 const image_3 = '/images/image_3.jpg';
 const image_4 = '/images/image_4.jpg';
 const about = '/images/about_section.jpg';
+
 
 import { getsales, getbestselling } from "../../../utils/Api";
 
@@ -124,9 +126,16 @@ function Home() {
                                         </p>
 
                                         <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                            <Link><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
+                                            <button className="btn border-0" onClick={() => {
+                                                const productToAdd = { ...product, quantity: 1 }
+                                                addtocart(productToAdd)
+                                                decrementquantity(product, product.id, 1)
+
+
+
+                                            }}><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
                                             <Link><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                            <Link><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                            <Link to={`/details/${product.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
                                             <Link><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
                                         </div>
                                     </div>
@@ -183,9 +192,16 @@ function Home() {
 
 
                                         <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                            <Link><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
+                                            <button className="btn border-0" onClick={
+                                                () => {
+                                                    const productToAdd = { ...product, quantity: 1 }
+                                                    addtocart(productToAdd)
+                                                    decrementquantity(product, product.id, 1)
+
+                                                }
+                                            }><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
                                             <Link><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                            <Link><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                            <Link to={`details/${product.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
                                             <Link><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
                                         </div>
                                     </div>

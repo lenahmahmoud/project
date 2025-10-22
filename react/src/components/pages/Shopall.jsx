@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { getproducts } from "../../../utils/Api";
+import { getproducts, addtocart ,decrementquantity} from "../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../style/shop.css";
-
 const logo = "/images/Logo Brand.png";
 
 function Shopall() {
@@ -242,45 +241,73 @@ function Shopall() {
         <div className="container">
           <div className="row justify-content-center shopsec g-5 text-center">
             {products.map((product) => (
-              <div key={product.id} className="col-9 col-sm-8 col-lg-3">
-                <div className="parent">
-                  <img src={product.image[0]} alt={product.title} className="rounded w-100" />
-                  <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                    <Link to="#">
-                      <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-share rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
-                    </Link>
-                    <Link to="#">
-                      <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
-                    </Link>
+              product.quantity > 0 ? (
+
+                < div key={product.id} className="col-9 col-sm-8 col-lg-3" >
+                  <div className={`parent ${product.discount > 0 ? "position-relative" : ""}`}>
+                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
+                    {
+                      product.discount > 0 &&
+                      <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                        -{product.discount}%
+                      </p>
+
+                    }
+                    <div className="overlay d-flex justify-content-around w-100 align-items-center">
+
+                      <button className="btn border-0" onClick={() => {
+                        const productToAdd = {
+                          ...product, quantity: 1
+                        }
+                        addtocart(productToAdd)
+                        decrementquantity(product,product.id,1)
+
+
+                      }}>
+                        <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
+                      </button >
+                      <Link to="#">
+                        <i className="bi bi-share rounded-circle p-2 bg-white"></i>
+                      </Link>
+                      <Link to={`/details/${product.id}`}>
+                        <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
+                      </Link>
+                      <Link to="#" >
+                        <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="text">
-                  <p className="fs-5 fw-bold">
-                    {product.title} - <span className="fs-6 text-danger">£E {product.price}</span>
-                  </p>
-                  <p>
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
-                        &#9733;
-                      </span>
-                    ))}
-                    <span className="text-muted"> {product.reviews} reviews</span>
-                  </p>
-                </div>
-              </div>
+                  <div className="text">
+                    <p className="fs-5 fw-bold">
+                      {product.title} - <span className="fs-6 text-danger">£E {
+                        product.discount > 0 ? (<>
+
+                          <del>{product.price}</del>{" "}
+
+                        </>) : (<>
+                          {product.price}
+                        </>)
+                      }</span>
+                    </p>
+                    <p>
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                          &#9733;
+                        </span>
+                      ))}
+                      <span className="text-muted"> {product.reviews} reviews</span>
+                    </p>
+                  </div>
+                </div>) : (null)
+
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* FEATURES SECTION */}
-      <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
+      < div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }
+      }>
         <div className="container-fluid">
           <div className="row py-4">
             <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
@@ -324,7 +351,7 @@ function Shopall() {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }

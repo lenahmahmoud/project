@@ -6,7 +6,7 @@ function Contact() {
       <main className="my-5 pt-5">
         <div className="container">
           <form className="w-50 mx-auto">
-          <h1 className="fw-bold mb-3">Contact Us</h1>
+            <h1 className="fw-bold mb-3">Contact Us</h1>
 
             <div className="form-floating mb-3">
               <input

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { getcategory } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import '../../style/shop.css';
 const logo = '/images/Logo Brand.png';
 
 function Cleansers() {
-    const [products, setProducts] = useState([]);
+    const [cleansers, setProducts] = useState([]);
     const [originalProducts, setOriginalProducts] = useState([]);
     const [filters, setFilters] = useState({
         sortAlphabetically: "",
@@ -127,35 +127,90 @@ function Cleansers() {
                 </div>
             </section>
 
-            {/* PRODUCTS */}
+            {/* cleansers */}
             <section className="mt-5" id="shop">
                 <div className="container">
                     <div className="row justify-content-center shopsec g-5 text-center">
-                        {products.map(product => (
-                            <div key={product.id} className="col-9 col-sm-8 col-lg-3">
+                        {cleansers.map(cleanser => (
+                            cleanser.quantity > 0 ? (<div key={cleanser.id} className="col-9 col-sm-8 col-lg-3">
                                 <div className="parent">
-                                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
+                                    <img src={cleanser.image[0]} alt={cleanser.title} className="rounded w-100" />
                                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                        <Link to="#"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                        <button
+                                            className="btn border-0"
+                                            onClick={() => {
+                                                const productToAdd = { ...cleanser, quantity: 1 };
+                                                addtocart(productToAdd);
+                                                decrementquantity(cleanser, cleanser.id, 1)
+
+                                            }}
+                                        >
+                                            <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
+                                        </button >                                       <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
+                                        <Link to={`/details/${cleanser.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
                                         <Link to="#"><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
                                     </div>
                                 </div>
                                 <div className="text">
-                                    <p className="fs-5 fw-bold">{product.title} - <span className="fs-6 text-danger">${product.price}</span></p>
+                                    <p className="fs-5 fw-bold">{cleanser.title} - <span className="fs-6 text-danger">${cleanser.price}</span></p>
                                     <p>
                                         {Array.from({ length: 5 }, (_, i) => (
-                                            <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>&#9733;</span>
+                                            <span key={i} style={{ color: i < cleanser.stars ? "#ffc107" : "#b4b4b4ff" }}>&#9733;</span>
                                         ))}
-                                        <span className="text-muted"> {product.reviews} reviews</span>
+                                        <span className="text-muted"> {cleanser.reviews} reviews</span>
                                     </p>
                                 </div>
-                            </div>
+                            </div>) : (null)
+
                         ))}
                     </div>
                 </div>
             </section>
+            <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
+                <div className="container-fluid">
+                    <div className="row py-4">
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-trophy fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">High Quality</h3>
+                                    <p className="text-secondary mb-sm-5">Crafted from top materials</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-patch-check fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">Warranty Protection</h3>
+                                    <p className="text-secondary mb-sm-5">Over 2 years</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-truck fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">Free Shipping</h3>
+                                    <p className="text-secondary mb-sm-5">Order over 150 $</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-3 col-md-6 col-sm-12 text-sm-center text-md-start">
+                            <div className="d-flex justify-content-center justify-content-md-start mt-sm-4 mt-lg-0">
+                                <i className="bi bi-headset fs-1 me-2"></i>
+                                <div className="mt-2">
+                                    <h3 className="fw-bold fs-4">24 / 7 Support</h3>
+                                    <p className="text-secondary">Dedicated support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
