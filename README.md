@@ -44,7 +44,7 @@ cart, and checkout. We will also test usability, design consistency, and perform
 Based on feedback and results, we will make final adjustments to improve the user 
 experience before deployment.
 
-INSTRUCROR : 
+INSTRUCTOR : 
 Eng :Hesham Mohamed
 
 
