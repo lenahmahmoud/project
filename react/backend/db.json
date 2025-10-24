@@ -33,8 +33,8 @@
       ],
       "quantity": 12,
       "discount": 10,
-      "stars": 3,
-      "reviews": 30,
+      "stars": 4,
+      "reviews": 2,
       "keyfeatures": [
         "Deep hydration and lasting softness",
         "Lightweight, non-greasy texture",
@@ -51,7 +51,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 0,
+      "quantity": 10,
       "discount": 0,
       "stars": 5,
       "reviews": 20,
@@ -71,7 +71,7 @@
       "image": [
         "/images/serums/Green_tea_serum.jpg"
       ],
-      "quantity": 30,
+      "quantity": 10,
       "discount": 27,
       "stars": 5,
       "reviews": 31,
@@ -151,7 +151,7 @@
       "image": [
         "/images/serums/vitaminc_serum.jpg"
       ],
-      "quantity": 3,
+      "quantity": 2,
       "discount": 10,
       "stars": 4,
       "reviews": 14,
@@ -389,14 +389,6 @@
       ]
     }
   ],
-  "reviews": [
-    {
-      "id": "55ea",
-      "product_id": "ff43",
-      "rate": 4,
-      "comment": "I highly recommend this product"
-    }
-  ],
   "orders": [
     {
       "id": "ee31",
@@ -413,24 +405,47 @@
   ],
   "cartlist": [
     {
-      "id": "ff43",
-      "title": "rose water toner",
-      "description": "best toner for your skin glow",
-      "price": 450,
-      "category": "toners",
+      "id": "cccc",
+      "title": "vitamin c serum",
+      "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
+      "price": 612,
+      "category": "serums",
       "image": [
-        "/images/toners/rose_water_toner.jpg"
+        "/images/serums/vitaminc_serum.jpg"
       ],
-      "quantity": 10,
-      "discount": 0,
-      "stars": 5,
-      "reviews": 20,
+      "quantity": 1,
+      "discount": 10,
+      "stars": 4,
+      "reviews": 14,
       "keyfeatures": [
-        "Soothes and refreshes tired skin",
-        "Balances skin’s natural pH",
-        "Tightens pores and tones complexion",
-        "Hydrates and revitalizes dull skin"
+        "Brightens dull and tired skin",
+        "Reduces dark spots and discoloration",
+        "Enhances natural radiance",
+        "Protects from environmental stress"
       ]
+    }
+  ],
+  "reviews": [
+    {
+      "id": "fc92",
+      "productId": "ff43",
+      "text": "amazing",
+      "author": "aya aymen",
+      "rating": 4
+        },
+    {
+      "id": "cb2f",
+      "productId": "ea45",
+      "text": "highly recommended this product",
+      "author": "lenah mahmoud",
+      "rating": 5
+    },
+    {
+      "id": "defa",
+      "productId": "ea45",
+      "text": "perfect for skin glow ",
+      "author": "tala islam",
+      "rating": 3
     }
   ]
 }

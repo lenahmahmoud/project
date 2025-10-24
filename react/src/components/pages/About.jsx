@@ -1,7 +1,6 @@
 const about = "/images/about.jpg"
-const about2 = '/images/about_2.jpg'
 import { Link } from 'react-router-dom';
-import '../style/about.css'
+import '../style/footerpages.css'
 function About() {
     return (<>
         <section className="container mt-5 pt-5">
@@ -72,20 +71,15 @@ function About() {
 
         </section>
 
-
-        <section className="mt-5 pt-5 parentabout container position-relative" style={{ height: "90vh" }}>
-            <div className="position-absolute aboutimage " style={{ width: "450px" }}>
-                <img
-                    src={about2} className="w-100" />
-            </div>
-
-            <div className="text-center position-absolute aboutbutton" >
-                <Link to="/shopall" className="btn btn-large text-center  rounded-0  text-dark" style={{ width: "450px", backgroundColor: "#f6f0ed" }} >shop now</Link>
-            </div>
-        </section>
-
+      <section className="d-flex justify-content-center align-items-center backimage mt-5">
+        <Link to="/shopall" className="btn btn-large text-dark">
+          Return To Shop
+        </Link>
+      </section>
 
     </>);
 }
 
 export default About;
+ 
+                         

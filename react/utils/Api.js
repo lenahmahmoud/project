@@ -49,3 +49,8 @@ export async function incrementquantity(obj ,id ,amount){
     await axios.put(`${url}/products/${id}`,obj)
 
 }
+export async function getreviews() {
+
+    return axios.get(`${url}/reviews`)
+    
+}

@@ -143,9 +143,9 @@ function Home() {
                                     <div className="card-body">
                                         <h5 className="card-title">Face Serum</h5>
                                         <p>
-                                            <del>{product.price}</del>{" "}
+                                            <del>£E {product.price}</del>{" "}
                                             <strong className="text-success">
-                                                {product.price - (product.price * product.discount) / 100}
+                                                £E {product.price - (product.price * product.discount) / 100}
                                             </strong>
                                         </p>
                                         <p>
@@ -180,57 +180,59 @@ function Home() {
                     </p>
                     <div className="row g-4">
                         {bestselling.map(product => (
-                            <div className="col-md-3" key={product.id}>
-                                <div className="card shadow-sm">
-                                    <div className="parent position-relative">
-                                        <img src={product.image[0]} className="card-img-top" alt={product.title} />
-                                        {product.discount ? (
-                                            <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
-                                                -{product.discount}%
+                            product.quantity > 0 ? (
+                                <div className="col-md-3" key={product.id}>
+                                    <div className="card shadow-sm">
+                                        <div className="parent position-relative">
+                                            <img src={product.image[0]} className="card-img-top" alt={product.title} />
+                                            {product.discount ? (
+                                                <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                                                    -{product.discount}%
+                                                </p>
+                                            ) : (null)}
+
+
+                                            <div className="overlay d-flex justify-content-around w-100 align-items-center">
+                                                <button className="btn border-0" onClick={
+                                                    () => {
+                                                        const productToAdd = { ...product, quantity: 1 }
+                                                        addtocart(productToAdd)
+                                                        decrementquantity(product, product.id, 1)
+
+                                                    }
+                                                }><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
+                                                <Link><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
+                                                <Link to={`details/${product.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                                                <Link><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{product.title}</h5>
+                                            <p>
+                                                {product.discount ? (
+                                                    <>
+                                                        <del>£E{product.price}</del>{" "}
+                                                        <strong className="text-success">
+                                                            £E{product.price - (product.price * product.discount) / 100}
+                                                        </strong>
+                                                    </>
+                                                ) : (
+                                                    <>£E{product.price}</>
+                                                )}
                                             </p>
-                                        ) : (null)}
-
-
-                                        <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                            <button className="btn border-0" onClick={
-                                                () => {
-                                                    const productToAdd = { ...product, quantity: 1 }
-                                                    addtocart(productToAdd)
-                                                    decrementquantity(product, product.id, 1)
-
-                                                }
-                                            }><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
-                                            <Link><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                            <Link to={`details/${product.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
-                                            <Link><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
+                                            <p>
+                                                {Array.from({ length: 5 }, (_, i) => (
+                                                    <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                                                        &#9733;
+                                                    </span>
+                                                ))}
+                                                <span className="text-muted"> {product.reviews} reviews</span>
+                                            </p>
+                                            <Link to="#" className="btn btn-dark">Buy Now</Link>
                                         </div>
                                     </div>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{product.title}</h5>
-                                        <p>
-                                            {product.discount ? (
-                                                <>
-                                                    <del>${product.price}</del>{" "}
-                                                    <strong className="text-success">
-                                                        ${product.price - (product.price * product.discount) / 100}
-                                                    </strong>
-                                                </>
-                                            ) : (
-                                                <>${product.price}</>
-                                            )}
-                                        </p>
-                                        <p>
-                                            {Array.from({ length: 5 }, (_, i) => (
-                                                <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
-                                                    &#9733;
-                                                </span>
-                                            ))}
-                                            <span className="text-muted"> {product.reviews} reviews</span>
-                                        </p>
-                                        <Link to="#" className="btn btn-dark">Buy Now</Link>
-                                    </div>
-                                </div>
-                            </div>
+                                </div>) : (null)
+
                         ))}
                     </div>
                 </div>

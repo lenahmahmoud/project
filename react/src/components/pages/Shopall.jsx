@@ -194,7 +194,7 @@ function Shopall() {
                 {/* Price Range */}
                 <div className="range mt-5">
                   <h4>Price Range:</h4>
-                  <h6>from 200$ to 700$</h6>
+                  <h6>from £E200 to £E700</h6>
                   <div className="form-group">
                     <input
                       type="range"
@@ -210,7 +210,7 @@ function Shopall() {
                         })
                       }
                     />
-                    <p>Max Price: ${filters.priceRange[1]}</p>
+                    <p>Max Price: £E{filters.priceRange[1]}</p>
                   </div>
                 </div>
 
