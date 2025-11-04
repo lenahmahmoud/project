@@ -31,10 +31,10 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 12,
+      "quantity": 22,
       "discount": 10,
-      "stars": 4,
-      "reviews": 2,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Deep hydration and lasting softness",
         "Lightweight, non-greasy texture",
@@ -51,10 +51,10 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 10,
+      "quantity": 28,
       "discount": 0,
-      "stars": 5,
-      "reviews": 20,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Soothes and refreshes tired skin",
         "Balances skin’s natural pH",
@@ -71,10 +71,10 @@
       "image": [
         "/images/serums/Green_tea_serum.jpg"
       ],
-      "quantity": 10,
+      "quantity": 12,
       "discount": 27,
       "stars": 5,
-      "reviews": 31,
+      "reviews": 1,
       "keyfeatures": [
         "Reduces redness and irritation",
         "Rich in antioxidants for healthy skin",
@@ -91,10 +91,10 @@
       "image": [
         "/images/toners/chamomile_toner.jpg"
       ],
-      "quantity": 11,
+      "quantity": 28,
       "discount": 0,
-      "stars": 3,
-      "reviews": 21,
+      "stars": 5,
+      "reviews": 1,
       "keyfeatures": [
         "Calms and soothes sensitive skin",
         "Helps reduce redness and irritation",
@@ -111,10 +111,10 @@
       "image": [
         "/images/serums/Alpha_Arbutin-serum.jpg"
       ],
-      "quantity": 9,
+      "quantity": 10,
       "discount": 0,
-      "stars": 5,
-      "reviews": 10,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Brightens and evens out skin tone",
         "Fades dark spots and pigmentation",
@@ -131,10 +131,10 @@
       "image": [
         "/images/serums/collagen_Boost_serum.jpg"
       ],
-      "quantity": 12,
+      "quantity": 3,
       "discount": 5,
-      "stars": 3,
-      "reviews": 8,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Boosts collagen for firm skin",
         "Reduces fine lines and wrinkles",
@@ -151,16 +151,17 @@
       "image": [
         "/images/serums/vitaminc_serum.jpg"
       ],
-      "quantity": 2,
+      "quantity": 4,
       "discount": 10,
-      "stars": 4,
-      "reviews": 14,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Brightens dull and tired skin",
         "Reduces dark spots and discoloration",
         "Enhances natural radiance",
         "Protects from environmental stress"
-      ]
+      ],
+      "rate": 5
     },
     {
       "id": "24b1",
@@ -173,8 +174,8 @@
       ],
       "quantity": 14,
       "discount": 0,
-      "stars": 3,
-      "reviews": 23,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Nourishes and hydrates dry skin",
         "Softens and smooths rough areas",
@@ -193,8 +194,8 @@
       ],
       "quantity": 10,
       "discount": 10,
-      "stars": 5,
-      "reviews": 7,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Hydrates and softens dry skin",
         "Restores natural smoothness",
@@ -211,10 +212,10 @@
       "image": [
         "/images/oils/camella_sead_oil.jpg"
       ],
-      "quantity": 10,
+      "quantity": 5,
       "discount": 13,
-      "stars": 3,
-      "reviews": 19,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Deeply hydrates and softens skin",
         "Improves elasticity and radiance",
@@ -233,8 +234,8 @@
       ],
       "quantity": 40,
       "discount": 0,
-      "stars": 4,
-      "reviews": 9,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Soothes and calms sensitive skin",
         "Restores natural moisture barrier",
@@ -253,8 +254,8 @@
       ],
       "quantity": 4,
       "discount": 30,
-      "stars": 4,
-      "reviews": 51,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Calms and refreshes tired skin",
         "Fights dullness and free radicals",
@@ -273,8 +274,8 @@
       ],
       "quantity": 30,
       "discount": 10,
-      "stars": 3,
-      "reviews": 27,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Balances natural oil production",
         "Hydrates without clogging pores",
@@ -293,8 +294,8 @@
       ],
       "quantity": 40,
       "discount": 0,
-      "stars": 3,
-      "reviews": 7,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Deeply nourishes and hydrates",
         "Improves elasticity and tone",
@@ -313,8 +314,8 @@
       ],
       "quantity": 13,
       "discount": 0,
-      "stars": 4,
-      "reviews": 11,
+      "stars": 3,
+      "reviews": 1,
       "keyfeatures": [
         "Draws out impurities and oil",
         "Minimizes pores and refines texture",
@@ -333,8 +334,8 @@
       ],
       "quantity": 8,
       "discount": 20,
-      "stars": 4,
-      "reviews": 11,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Locks in long-lasting moisture",
         "Restores softness and smoothness",
@@ -353,8 +354,8 @@
       ],
       "quantity": 13,
       "discount": 0,
-      "stars": 5,
-      "reviews": 46,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Hydrates and firms the skin",
         "Improves elasticity and texture",
@@ -403,49 +404,28 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [
-    {
-      "id": "cccc",
-      "title": "vitamin c serum",
-      "description": " A brightening and antioxidant-rich serum infused with Vitamin C to protect the skin from free radicals, even out skin tone, and enhance radiance. Helps reduce dark spots and gives the skin a healthy, glowing appearance",
-      "price": 612,
-      "category": "serums",
-      "image": [
-        "/images/serums/vitaminc_serum.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 4,
-      "reviews": 14,
-      "keyfeatures": [
-        "Brightens dull and tired skin",
-        "Reduces dark spots and discoloration",
-        "Enhances natural radiance",
-        "Protects from environmental stress"
-      ]
-    }
-  ],
+  "cartlist": [],
   "reviews": [
     {
-      "id": "fc92",
-      "productId": "ff43",
-      "text": "amazing",
-      "author": "aya aymen",
-      "rating": 4
-        },
-    {
-      "id": "cb2f",
-      "productId": "ea45",
-      "text": "highly recommended this product",
-      "author": "lenah mahmoud",
-      "rating": 5
+      "id": "5f03",
+      "firstname": "lenah",
+      "lastname": "mahmoud",
+      "text": "err",
+      "rating": 5,
+      "productId": "aa13"
     },
     {
-      "id": "defa",
-      "productId": "ea45",
-      "text": "perfect for skin glow ",
-      "author": "tala islam",
-      "rating": 3
+      "id": "7f84",
+      "rating": 5,
+      "productId": "aaa9"
+    },
+    {
+      "id": "5291",
+      "firstname": "lenah",
+      "lastname": "mahmoud",
+      "text": "perfect",
+      "rating": 3,
+      "productId": "235b"
     }
   ]
 }

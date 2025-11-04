@@ -1,44 +1,66 @@
 import { useState, useEffect } from "react";
-import { getproducts, addtocart ,decrementquantity} from "../../../utils/Api";
+import { getproducts, addtocart, decrementquantity } from "../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../style/shop.css";
 const logo = "/images/Logo Brand.png";
 
-function Shopall() {
+function Shopall({ searchInput }) {
+  // products to be rendered 
   const [products, setProducts] = useState([]);
-  const [originalProducts, setOriginalProducts] = useState([]);
+  const [originalProducts, setOriginalProducts] = useState([])
+
+  // search state to be traced
+
+  const [searched, setSearched] = useState([])
+
+  // filters from the form
   const [filters, setFilters] = useState({
     sortAlphabetically: "",
     sortPrice: "",
     priceRange: [200, 700],
   });
 
+  // render products
   useEffect(() => {
     getproducts().then((res) => {
       setProducts(res.data);
-      setOriginalProducts(res.data);
+      setOriginalProducts(res.data)
     });
+
   }, []);
 
+  // search handling
+  useEffect(() => {
+    if (searchInput === " ") {
+      setProducts(originalProducts);
+      setSearched([]);
+    } else {
+      const filtered = originalProducts.filter((p) =>
+        p.title.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setProducts(filtered);
+      setSearched(filtered);
+    }
+  }, [searchInput]);
+
+
+  // apply filterd 
   function applyFilters() {
-    let result = [...originalProducts];
+    let result
+    searched.length > 0 ? (result = [...searched]) : (result = [...originalProducts])
 
     // Sort alphabetically
-    if (filters.sortAlphabetically) {
-      if (filters.sortAlphabetically === "A-Z") {
-        result.sort((a, b) => a.title.localeCompare(b.title));
-      } else if (filters.sortAlphabetically === "Z-A") {
-        result.sort((a, b) => b.title.localeCompare(a.title));
-      }
+    if (filters.sortAlphabetically === "A-Z") {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (filters.sortAlphabetically === "Z-A") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
     }
 
     // Sort by price
-    if (filters.sortPrice) {
-      if (filters.sortPrice === "low-to-high") {
-        result.sort((a, b) => a.price - b.price);
-      } else if (filters.sortPrice === "high-to-low") {
-        result.sort((a, b) => b.price - a.price);
-      }
+    if (filters.sortPrice === "low-to-high") {
+      result.sort((a, b) => a.price - b.price);
+    } else if (filters.sortPrice === "high-to-low") {
+      result.sort((a, b) => b.price - a.price);
     }
 
     // Filter by price range
@@ -46,8 +68,10 @@ function Shopall() {
       (p) => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]
     );
 
+    // update state
     setProducts(result);
   }
+
 
   function clearFilters() {
     setFilters({
@@ -55,7 +79,13 @@ function Shopall() {
       sortPrice: "",
       priceRange: [200, 700],
     });
-    getproducts().then((res) => setProducts(res.data));
+    if (searched.length > 0) {
+      setProducts(searched)
+    }
+    else {
+      setProducts(originalProducts)
+    }
+
   }
 
   return (
@@ -218,7 +248,10 @@ function Shopall() {
                   type="button"
                   className="btn btn-large text-dark form-control mt-5 rounded"
                   style={{ backgroundColor: "#eadac7" }}
-                  onClick={applyFilters}
+                  onClick={
+                    applyFilters
+
+                  }
                 >
                   Apply Filters
                 </button>
@@ -240,69 +273,83 @@ function Shopall() {
       <section className="mt-5" id="shop">
         <div className="container">
           <div className="row justify-content-center shopsec g-5 text-center">
-            {products.map((product) => (
+            {products.map((product) =>
               product.quantity > 0 ? (
-
-                < div key={product.id} className="col-9 col-sm-8 col-lg-3" >
+                <div key={product.id} className="col-9 col-sm-8 col-lg-3">
                   <div className={`parent ${product.discount > 0 ? "position-relative" : ""}`}>
-                    <img src={product.image[0]} alt={product.title} className="rounded w-100" />
-                    {
-                      product.discount > 0 &&
+                    <img
+                      src={product.image[0]}
+                      alt={product.title}
+                      className="rounded w-100"
+                    />
+
+                    {product.discount > 0 && (
                       <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
                         -{product.discount}%
                       </p>
+                    )}
 
-                    }
                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
-
-                      <button className="btn border-0" onClick={() => {
-                        const productToAdd = {
-                          ...product, quantity: 1
-                        }
-                        addtocart(productToAdd)
-                        decrementquantity(product,product.id,1)
-
-
-                      }}>
+                      <button
+                        className="btn border-0"
+                        onClick={async () => {
+                          const productToAdd = { ...product, quantity: 1 };
+                          addtocart(productToAdd);
+                          decrementquantity(product);
+                        }}
+                      >
                         <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
-                      </button >
+                      </button>
+
                       <Link to="#">
                         <i className="bi bi-share rounded-circle p-2 bg-white"></i>
                       </Link>
+
                       <Link to={`/details/${product.id}`}>
                         <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
                       </Link>
-                      <Link to="#" >
+
+                      <Link to="#">
                         <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
                       </Link>
                     </div>
                   </div>
+
                   <div className="text">
                     <p className="fs-5 fw-bold">
-                      {product.title} - <span className="fs-6 text-danger">£E {
-                        product.discount > 0 ? (<>
-
-                          <del>{product.price}</del>{" "}
-
-                        </>) : (<>
-                          {product.price}
-                        </>)
-                      }</span>
+                      {product.title} -{" "}
+                      <span className="fs-6 text-danger">
+                        £E{" "}
+                        {product.discount > 0 ? (
+                          <>
+                            <del>{product.price}</del>{" "}
+                          </>
+                        ) : (
+                          <>{product.price}</>
+                        )}
+                      </span>
                     </p>
+
                     <p>
                       {Array.from({ length: 5 }, (_, i) => (
-                        <span key={i} style={{ color: i < product.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                        <span
+                          key={i}
+                          style={{
+                            color: i < product.stars ? "#ffc107" : "#b4b4b4ff",
+                          }}
+                        >
                           &#9733;
                         </span>
                       ))}
                       <span className="text-muted"> {product.reviews} reviews</span>
                     </p>
                   </div>
-                </div>) : (null)
-
-            ))}
+                </div>
+              ) : null
+            )}
           </div>
         </div>
+
       </section >
 
       {/* FEATURES SECTION */}

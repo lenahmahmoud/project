@@ -99,7 +99,7 @@ function Cart() {
                                 <span className="text-warning-emphasis ms-2 fs-5">Rs.{subtotal}</span>
                             </p>
                             <Link
-                                to="#"
+                                to="/checkout"
                                 className="btn btn-outline-dark mt-4 px-5 py-2 fw-bold mb-4"
                                 type="submit"
                             >

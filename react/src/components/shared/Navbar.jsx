@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import '../style/navbar.css';
 const logo = '/images/Logo Brand.png';
 
-function Navbar() {
+function Navbar({ setSearchInput }) {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [searchInput,setSearchInput]=useState('');
 
     const toggleSearch = () => {
         setIsSearchOpen(!isSearchOpen);
     };
+    function reset(){
+        setSearchInput(" ")
+        toggleSearch()
+    }
 
     return (
         <>
@@ -64,12 +67,16 @@ function Navbar() {
                         className="collapse navbar-collapse mt-md-0 mt-2"
                         id="iconsNav"
                     >
-                        <button onClick={toggleSearch} className="btn btn-special">
-                            <i className="bi bi-search text-dark mx-lg-3 mx-2 fs-4"></i>
-                        </button>
-
-                        {isSearchOpen && <input type="text" placeholder="Search..." className="form-control mx-2 input-special" onChange={(e)=>setSearchInput=e.target.value} />}
-
+                        {
+                            isSearchOpen ? (<>
+                                <button className="btn border-0" onClick={reset}>
+                                    <i class="bi bi-x"></i>   
+                                </button>
+                                <input type="text" placeholder="Search..." className="form-control input-special" onChange={(e) => setSearchInput(e.target.value)} /></>) : (<> <button onClick={toggleSearch} className="btn btn-special">
+                                    <i className="bi bi-search text-dark mx-lg-3 mx-2 fs-4"></i>
+                                </button>
+                                </>)
+                        }
                         <Link to="/profile">
                             <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>
                         </Link>
