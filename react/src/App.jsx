@@ -20,7 +20,6 @@ import Checkout from './components/pages/Checkout';
 import { useState } from 'react';
 function App() {
     const [searchInput, setSearchInput] = useState("");
-
     return (<>
 
         <Navbar setSearchInput={setSearchInput} />
@@ -30,14 +29,14 @@ function App() {
             <Route path="/paymentoptions" element={<PaymentOptions />}></Route>
             <Route path="/privacypolicy" element={<PrivacyPolicy />}></Route>
             <Route path="/shippingfees" element={<ShippingFees />}></Route>
-            <Route path='/shopall' element={<Shopall searchInput={searchInput}/>}></Route>
+            <Route path='/shopall' element={<Shopall searchInput={searchInput} />}></Route>
             <Route path='/about' element={<About />}></Route>
-            <Route path='/oils' element={<Oils />}></Route>
-            <Route path='/masks' element={<Masks />}></Route>
-            <Route path='/toners' element={<Toners />}></Route>
-            <Route path='/serums' element={<Serums />}></Route>
-            <Route path='/moisturizers' element={<Moisturizers />}></Route>
-            <Route path='/cleansers' element={<Cleansers />}></Route>
+            <Route path='/oils' element={<Oils searchInput={searchInput} />}></Route>
+            <Route path='/masks' element={<Masks searchInput={searchInput} />}></Route>
+            <Route path='/toners' element={<Toners searchInput={searchInput} />}></Route>
+            <Route path='/serums' element={<Serums searchInput={searchInput} />}></Route>
+            <Route path='/moisturizers' element={<Moisturizers searchInput={searchInput} />}></Route>
+            <Route path='/cleansers' element={<Cleansers searchInput={searchInput} />}></Route>
             <Route path='/details/:id' element={<Details />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/checkout' element={<Checkout />}></Route>

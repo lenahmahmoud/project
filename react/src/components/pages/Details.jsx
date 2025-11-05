@@ -317,12 +317,13 @@ function Details() {
                                                         alt={p.title}
                                                         style={{ height: "350px" }}
                                                     />
+
                                                     {p.discount ? (
                                                         <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
                                                             -{p.discount}%
                                                         </p>
                                                     ) : null}
-
+                                                 
                                                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
                                                         <button
                                                             className="btn border-0"
@@ -347,15 +348,16 @@ function Details() {
                                                     <p>
                                                         {p.discount ? (
                                                             <>
-                                                                <del>${p.price}</del>{" "}
+                                                                <del>£E{p.price}</del>{" "}
                                                                 <strong className="text-success">
-                                                                    ${p.price - (p.price * p.discount) / 100}
+                                                                    £E{p.price - (p.price * p.discount) / 100}
                                                                 </strong>
                                                             </>
                                                         ) : (
-                                                            <>${p.price}</>
+                                                            <>£E{p.price}</>
                                                         )}
                                                     </p>
+                                                    
                                                     <p>
                                                         {Array.from({ length: 5 }, (_, i) => (
                                                             <span

@@ -7,10 +7,11 @@ const logo = "/images/Logo Brand.png";
 function Shopall({ searchInput }) {
   // products to be rendered 
   const [products, setProducts] = useState([]);
+
+  // template 
   const [originalProducts, setOriginalProducts] = useState([])
 
   // search state to be traced
-
   const [searched, setSearched] = useState([])
 
   // filters from the form

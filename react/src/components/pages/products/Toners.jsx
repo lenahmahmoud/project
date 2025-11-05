@@ -5,15 +5,24 @@ import "../../style/shop.css";
 
 const logo = "/images/Logo Brand.png";
 
-function Toners() {
+function Toners({ searchInput }) {
+  // toners to be rendered
   const [toners, setToners] = useState([]);
+
+  // template
   const [originalToners, setOriginalToners] = useState([]);
+
+  // searched to be traced
+  const [searched, setSearched] = useState([])
+
+  // filters from the form
   const [filters, setFilters] = useState({
     sortAlphabetically: "",
     sortPrice: "",
     priceRange: [10, 500],
   });
 
+  // intial value
   useEffect(() => {
     getcategory("toners").then((res) => {
       setToners(res.data);
@@ -21,8 +30,23 @@ function Toners() {
     });
   }, []);
 
+  // search handling
+  useEffect(() => {
+    if (searchInput === " ") {
+      setToners(originalToners);
+      setSearched([]);
+    } else {
+      const filtered = originalToners.filter((p) =>
+        p.title.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setToners(filtered);
+      setSearched(filtered);
+    }
+  }, [searchInput]);
+
   function applyFilters() {
-    let result = [...originalToners];
+    let result
+    searched.length > 0 ? (result = [...searched]) : (result = [...originalToners])
 
     // Sort alphabetically
     if (filters.sortAlphabetically) {
@@ -54,9 +78,15 @@ function Toners() {
     setFilters({
       sortAlphabetically: "",
       sortPrice: "",
-      priceRange: [10, 500],
+      priceRange: [200, 700],
     });
-    getcategory("toners").then((res) => setToners(res.data));
+    if (searched.length > 0) {
+      setToners(searched)
+    }
+    else {
+      setToners(originalToners)
+    }
+
   }
 
   return (
@@ -75,7 +105,7 @@ function Toners() {
       </header>
 
       {/* FILTER SECTION */}
-      <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
+          <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
         <div className="container">
           <Link
             to="#"
@@ -125,7 +155,9 @@ function Toners() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">A to Z</label>
+                      <label htmlFor="alpha-asc" className="form-label fs-5 mx-2">
+                        A to Z
+                      </label>
                     </div>
                     <div>
                       <input
@@ -140,7 +172,9 @@ function Toners() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">Z to A</label>
+                      <label htmlFor="alpha-desc" className="form-label fs-5 mx-2">
+                        Z to A
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -162,7 +196,9 @@ function Toners() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">Price (Low to High)</label>
+                      <label htmlFor="low-high" className="form-label fs-5 mx-2">
+                        Price (Low to High)
+                      </label>
                     </div>
                     <div>
                       <input
@@ -175,9 +211,13 @@ function Toners() {
                             sortPrice:
                               filters.sortPrice === "high-to-low" ? "" : "high-to-low",
                           })
+
                         }
+
                       />
-                      <label className="form-label fs-5 mx-2">Price (High to Low)</label>
+                      <label htmlFor="high-low" className="form-label fs-5 mx-2">
+                        Price (High to Low)
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -191,8 +231,8 @@ function Toners() {
                       type="range"
                       name="price_range"
                       className="form-range"
-                      min="10"
-                      max="500"
+                      min="200"
+                      max="700"
                       value={filters.priceRange[1]}
                       onChange={(e) =>
                         setFilters({
@@ -209,7 +249,10 @@ function Toners() {
                   type="button"
                   className="btn btn-large text-dark form-control mt-5 rounded"
                   style={{ backgroundColor: "#eadac7" }}
-                  onClick={applyFilters}
+                  onClick={
+                    applyFilters
+
+                  }
                 >
                   Apply Filters
                 </button>
@@ -226,6 +269,7 @@ function Toners() {
           </div>
         </div>
       </section>
+
 
       {/* PRODUCTS SECTION */}
       <section className="mt-5" id="shop">

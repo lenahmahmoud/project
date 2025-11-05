@@ -4,24 +4,53 @@ import { Link } from "react-router-dom";
 import '../../style/shop.css'
 const logo = '/images/Logo Brand.png';
 
-function Moisturizers() {
-    const [moisturizers, setProducts] = useState([]);
-    const [originalProducts, setOriginalProducts] = useState([]);
+function Moisturizers({searchInput}) {
+    // moisturizers to be rendered
+    const [moisturizers, setMoisturizers] = useState([]);
+
+    // template
+    const [originalMoisturizers, setOriginalProducts] = useState([]);
+
+    // search state
+    const [searched, setSearched] = useState([])
+
+    // filters
     const [filters, setFilters] = useState({
         sortAlphabetically: "",
         sortPrice: "",
         priceRange: [10, 500],
     });
-
+    
+    // intial values
     useEffect(() => {
         getcategory("moisturizers").then(res => {
-            setProducts(res.data);
+            setMoisturizers(res.data);
             setOriginalProducts(res.data);
         });
     }, []);
 
+    // search handling
+    useEffect(()=>{
+        if(searchInput===" "){
+            setSearched([])
+            setMoisturizers(originalMoisturizers)
+        }
+        else{
+            const filtered =originalMoisturizers.filter ((p)=>{
+                p.title.toLowerCase().includes(searchInput.toLowerCase())
+
+            })
+            setSearched(filtered)
+            setMoisturizers(filtered)
+        }
+
+    },[searchInput])
+
+
+
     const applyFilters = () => {
-        let result = [...originalProducts];
+        let result 
+        searched.length>0? (result=[...searched]):(result=[...originalMoisturizers])
 
         // Sort Alphabetically
         if (filters.sortAlphabetically === "A-Z") result.sort((a, b) => a.title.localeCompare(b.title));
@@ -34,14 +63,23 @@ function Moisturizers() {
         // Filter by Price Range
         result = result.filter(p => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]);
 
-        setProducts(result);
+        setMoisturizers(result);
     };
 
-    const clearFilters = () => {
-        setFilters({ sortAlphabetically: "", sortPrice: "", priceRange: [10, 500] });
-        setProducts(originalProducts);
-    };
+   function clearFilters() {
+    setFilters({
+      sortAlphabetically: "",
+      sortPrice: "",
+      priceRange: [200, 700],
+    });
+    if (searched.length > 0) {
+      setMoisturizers(searched)
+    }
+    else {
+      setMoisturizers(originalMoisturizers)
+    }
 
+  }
     return (
         <>
             {/* HEADER */}
@@ -54,101 +92,171 @@ function Moisturizers() {
             </header>
 
             {/* FILTER SECTION */}
-            <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
-                <div className="container">
-                    <Link
-                        to="#"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#filterpage"
-                        aria-controls="filterpage"
-                        className="link-opacity-50-hover link-underline-opacity-0 fs-3 text-dark"
-                    >
-                        <i className="bi bi-filter fs-3"></i> filter & sort
-                    </Link>
+      <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
+        <div className="container">
+          <Link
+            to="#"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterpage"
+            aria-controls="filterpage"
+            className="link-opacity-50-hover link-underline-opacity-0 fs-3 text-dark"
+          >
+            <i className="bi bi-filter fs-3"></i> filter & sort
+          </Link>
 
-                    <div className="offcanvas offcanvas-end pt-2 container" tabIndex="-1" id="filterpage">
-                        <div className="offcanvas-header">
-                            <h3 className="offcanvas-title">Filter & Sort</h3>
-                            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <hr />
-                        <div className="offcanvas-body">
-                            <form>
-                                {/* Alphabetical */}
-                                <div className="category">
-                                    <h4>Sort Alphabetically:</h4>
-                                    <div className="formgroup d-flex flex-column">
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="alphabet"
-                                                checked={filters.sortAlphabetically === "A-Z"}
-                                                onChange={() => setFilters({ ...filters, sortAlphabetically: "A-Z" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">A to Z</label>
-                                        </div>
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="alphabet"
-                                                checked={filters.sortAlphabetically === "Z-A"}
-                                                onChange={() => setFilters({ ...filters, sortAlphabetically: "Z-A" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">Z to A</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Price */}
-                                <div className="price mt-5">
-                                    <h4>Sort by Price:</h4>
-                                    <div className="formgroup d-flex flex-column">
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="price"
-                                                checked={filters.sortPrice === "low-to-high"}
-                                                onChange={() => setFilters({ ...filters, sortPrice: "low-to-high" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">Price (Low to High)</label>
-                                        </div>
-                                        <div>
-                                            <input
-                                                type="radio"
-                                                name="price"
-                                                checked={filters.sortPrice === "high-to-low"}
-                                                onChange={() => setFilters({ ...filters, sortPrice: "high-to-low" })}
-                                            />
-                                            <label className="form-label fs-5 mx-2">Price (High to Low)</label>
-                                        </div>
-                                    </div>
-                                </div>
+          <div
+            className="offcanvas offcanvas-end pt-2 container"
+            tabIndex="-1"
+            id="filterpage"
+            aria-labelledby="filterlabel"
+          >
+            <div className="offcanvas-header">
+              <h3 className="offcanvas-title" id="filterlabel">
+                Filter & Sort
+              </h3>
+              <button
+                type="button"
+                className="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <hr />
 
-                                {/* Price Range */}
-                                <div className="range mt-5">
-                                    <h4>Price Range:</h4>
-                                    <h6>from £E10 to £E500</h6>
-                                    <input
-                                        type="range"
-                                        min="10"
-                                        max="500"
-                                        value={filters.priceRange[1]}
-                                        onChange={(e) => setFilters({ ...filters, priceRange: [filters.priceRange[0], Number(e.target.value)] })}
-                                        className="form-range"
-                                    />
-                                    <p>Max Price: £E{filters.priceRange[1]}</p>
-                                </div>
-
-                                <button type="button" className="btn btn-large text-dark form-control mt-5 rounded" style={{ backgroundColor: "#eadac7" }} onClick={applyFilters}>
-                                    Apply Filters
-                                </button>
-                                <button type="button" className="btn btn-large text-dark form-control mt-2 rounded" style={{ backgroundColor: "#eadac7" }} onClick={clearFilters}>
-                                    Clear Filters
-                                </button>
-                            </form>
-                        </div>
+            <div className="offcanvas-body">
+              <form>
+                {/* Sort Alphabetically */}
+                <div className="category">
+                  <h4>Sort Alphabetically:</h4>
+                  <div className="formgroup d-flex flex-column">
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="A-Z"
+                        checked={filters.sortAlphabetically === "A-Z"}
+                        onChange={() =>
+                          setFilters({
+                            ...filters,
+                            sortAlphabetically:
+                              filters.sortAlphabetically === "A-Z" ? "" : "A-Z",
+                          })
+                        }
+                      />
+                      <label htmlFor="alpha-asc" className="form-label fs-5 mx-2">
+                        A to Z
+                      </label>
                     </div>
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="Z-A"
+                        checked={filters.sortAlphabetically === "Z-A"}
+                        onChange={() =>
+                          setFilters({
+                            ...filters,
+                            sortAlphabetically:
+                              filters.sortAlphabetically === "Z-A" ? "" : "Z-A",
+                          })
+                        }
+                      />
+                      <label htmlFor="alpha-desc" className="form-label fs-5 mx-2">
+                        Z to A
+                      </label>
+                    </div>
+                  </div>
                 </div>
-            </section>
+
+                {/* Sort by Price */}
+                <div className="price mt-5">
+                  <h4>Sort by Price:</h4>
+                  <div className="formgroup d-flex flex-column">
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="low-to-high"
+                        checked={filters.sortPrice === "low-to-high"}
+                        onChange={() =>
+                          setFilters({
+                            ...filters,
+                            sortPrice:
+                              filters.sortPrice === "low-to-high" ? "" : "low-to-high",
+                          })
+                        }
+                      />
+                      <label htmlFor="low-high" className="form-label fs-5 mx-2">
+                        Price (Low to High)
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="high-to-low"
+                        checked={filters.sortPrice === "high-to-low"}
+                        onChange={() =>
+                          setFilters({
+                            ...filters,
+                            sortPrice:
+                              filters.sortPrice === "high-to-low" ? "" : "high-to-low",
+                          })
+
+                        }
+
+                      />
+                      <label htmlFor="high-low" className="form-label fs-5 mx-2">
+                        Price (High to Low)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Range */}
+                <div className="range mt-5">
+                  <h4>Price Range:</h4>
+                  <h6>from £E200 to £E700</h6>
+                  <div className="form-group">
+                    <input
+                      type="range"
+                      name="price_range"
+                      className="form-range"
+                      min="200"
+                      max="700"
+                      value={filters.priceRange[1]}
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          priceRange: [filters.priceRange[0], Number(e.target.value)],
+                        })
+                      }
+                    />
+                    <p>Max Price: £E{filters.priceRange[1]}</p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="btn btn-large text-dark form-control mt-5 rounded"
+                  style={{ backgroundColor: "#eadac7" }}
+                  onClick={
+                    applyFilters
+
+                  }
+                >
+                  Apply Filters
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-large text-dark form-control mt-2 rounded"
+                  style={{ backgroundColor: "#eadac7" }}
+                  onClick={clearFilters}
+                >
+                  Clear Filters
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
             {/* moisturizers */}
             <section className="mt-5" id="shop">

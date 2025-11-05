@@ -5,15 +5,24 @@ import "../../style/shop.css";
 
 const logo = "/images/Logo Brand.png";
 
-function Serums() {
+function Serums({searchInput}) {
+  // serums to be rendered
   const [serums, setSerums] = useState([]);
+
+  // template
   const [originalSerums, setOriginalSerums] = useState([]);
+
+  // search state
+  const [searched, setSearched] = useState([])
+
+  // filters 
   const [filters, setFilters] = useState({
     sortAlphabetically: "",
     sortPrice: "",
     priceRange: [10, 500],
   });
 
+  // initial values 
   useEffect(() => {
     getcategory("serums").then((res) => {
       setSerums(res.data);
@@ -21,8 +30,25 @@ function Serums() {
     });
   }, []);
 
+  // search handling
+  useEffect(() => {
+    if (searchInput === " ") {
+      setSerums(originalSerums);
+      setSearched([]);
+    } else {
+      const filtered = originalSerums.filter((p) =>
+        p.title.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setSerums(filtered);
+      setSearched(filtered);
+    }
+  }, [searchInput]);
+
+
   function applyFilters() {
-    let result = [...originalSerums];
+    let result
+    searched.length > 0 ? (result = [...searched]) : (result = [...originalSerums])
+
 
     // Sort alphabetically
     if (filters.sortAlphabetically) {
@@ -54,9 +80,15 @@ function Serums() {
     setFilters({
       sortAlphabetically: "",
       sortPrice: "",
-      priceRange: [10, 500],
+      priceRange: [200, 700],
     });
-    getcategory("serums").then((res) => setSerums(res.data));
+    if (searched.length > 0) {
+      setSerums(searched)
+    }
+    else {
+      setSerums(originalSerums)
+    }
+
   }
 
   return (
@@ -125,7 +157,9 @@ function Serums() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">A to Z</label>
+                      <label htmlFor="alpha-asc" className="form-label fs-5 mx-2">
+                        A to Z
+                      </label>
                     </div>
                     <div>
                       <input
@@ -140,7 +174,9 @@ function Serums() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">Z to A</label>
+                      <label htmlFor="alpha-desc" className="form-label fs-5 mx-2">
+                        Z to A
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -162,7 +198,9 @@ function Serums() {
                           })
                         }
                       />
-                      <label className="form-label fs-5 mx-2">Price (Low to High)</label>
+                      <label htmlFor="low-high" className="form-label fs-5 mx-2">
+                        Price (Low to High)
+                      </label>
                     </div>
                     <div>
                       <input
@@ -175,9 +213,13 @@ function Serums() {
                             sortPrice:
                               filters.sortPrice === "high-to-low" ? "" : "high-to-low",
                           })
+
                         }
+
                       />
-                      <label className="form-label fs-5 mx-2">Price (High to Low)</label>
+                      <label htmlFor="high-low" className="form-label fs-5 mx-2">
+                        Price (High to Low)
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -191,8 +233,8 @@ function Serums() {
                       type="range"
                       name="price_range"
                       className="form-range"
-                      min="10"
-                      max="500"
+                      min="200"
+                      max="700"
                       value={filters.priceRange[1]}
                       onChange={(e) =>
                         setFilters({
@@ -209,7 +251,10 @@ function Serums() {
                   type="button"
                   className="btn btn-large text-dark form-control mt-5 rounded"
                   style={{ backgroundColor: "#eadac7" }}
-                  onClick={applyFilters}
+                  onClick={
+                    applyFilters
+
+                  }
                 >
                   Apply Filters
                 </button>
@@ -226,6 +271,7 @@ function Serums() {
           </div>
         </div>
       </section>
+
 
       {/* PRODUCTS SECTION */}
       <section className="mt-5" id="shop">
