@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2'
+// const Swal = require('sweetalert2')
 const url = "http://localhost:5500"
 import axios from 'axios';
 export async function getproducts() {
@@ -31,12 +33,16 @@ export async function removeitem(id) {
 
 }
 export async function addtocart(obj) {
-
+Swal.fire({
+  title: "Added successfully!",
+  icon: "success",
+  draggable: true,
+  confirmButtonColor: "#000000",
+});
     if (obj.discount > 0) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
 
     }
-
 
     await axios.post(`${url}/cartlist`, obj);
 

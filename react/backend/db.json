@@ -31,7 +31,7 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 22,
+      "quantity": 36,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -51,7 +51,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 28,
+      "quantity": 30,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -212,10 +212,10 @@
       "image": [
         "/images/oils/camella_sead_oil.jpg"
       ],
-      "quantity": 5,
+      "quantity": 11,
       "discount": 13,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 13,
+      "reviews": 2,
       "keyfeatures": [
         "Deeply hydrates and softens skin",
         "Improves elasticity and radiance",
@@ -232,7 +232,7 @@
       "image": [
         "/images/oils/evening_primrose_oil.jpg"
       ],
-      "quantity": 40,
+      "quantity": 39,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -404,7 +404,188 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [],
+  "cartlist": [
+    {
+      "id": "585b",
+      "title": "evening_primrose oil",
+      "description": "A nourishing oil rich in essential fatty acids and antioxidants, designed to soothe, hydrate, and restore the skin’s natural barrier. Helps improve elasticity, reduce inflammation, and leave the skin soft, smooth, and radiant.",
+      "price": 400,
+      "category": "oils",
+      "image": [
+        "/images/oils/evening_primrose_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Soothes and calms sensitive skin",
+        "Restores natural moisture barrier",
+        "Improves elasticity and tone",
+        "Leaves skin smooth and radiant"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    }
+  ],
   "reviews": [
     {
       "id": "5f03",
@@ -426,6 +607,22 @@
       "text": "perfect",
       "rating": 3,
       "productId": "235b"
+    },
+    {
+      "id": "feba",
+      "firstname": "sara",
+      "lastname": "yasser",
+      "text": "not bad\n",
+      "rating": 4,
+      "productId": "785f"
+    },
+    {
+      "id": "a40d",
+      "firstname": "tia",
+      "lastname": "zakaria",
+      "text": "i totally love it",
+      "rating": 5,
+      "productId": "785f"
     }
   ]
 }

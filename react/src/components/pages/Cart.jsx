@@ -7,8 +7,8 @@ function Cart() {
     const [products, setProduct] = useState([])
 
     useEffect(() => {
-        getitems().then(res => setItems(res.data || []));
-        getproducts().then(res => setProduct(res.data || []));
+        getitems().then(res => setItems(res.data ));
+        getproducts().then(res => setProduct(res.data ));
     }, [items]);
 
 
