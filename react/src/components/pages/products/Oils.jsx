@@ -45,7 +45,7 @@ function Oils({ searchInput }) {
 
         }
 
-    })
+    },[searchInput])
 
     const applyFilters = () => {
         let result = [...originalOils];
