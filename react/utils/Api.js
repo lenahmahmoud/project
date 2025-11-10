@@ -28,10 +28,19 @@ export async function getitems() {
     return await axios.get(`${url}/cartlist`)
 
 }
-export async function removeitem(id) {
-    await axios.delete(`${url}/cartlist/${id}`)
 
+export async function removeitem(id) {
+    const existing = await axios.get(`${url}/cartlist?id=${id}`);
+    if (existing.data.length > 0) {
+        const product = existing.data[0];
+        if (product.quantity > 1) {
+            await axios.patch(`${url}/cartlist/${id}`, { quantity: product.quantity - 1 });
+        } else {
+            await axios.delete(`${url}/cartlist/${id}`);
+        }
+    }
 }
+
 export async function addtocart(obj) {
 Swal.fire({
   title: "Added successfully!",
