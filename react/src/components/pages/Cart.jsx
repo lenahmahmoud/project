@@ -19,9 +19,10 @@ function Cart() {
             <section className="cart-section mt-5 pt-5">
                 <div className="container">
                     <div className="row d-flex justify-content-around">
-                        <div className="col-lg-7 col-12" style={{ width: "65%" }}>
+                        <div className="col-lg-7 col-12">
                             {
                                 items.length > 0 ? (
+                                    <div className="table-responsive">
                                     <table className="text-center w-100 fs-5">
                                         <thead style={{ backgroundColor: "#eadac7" }}>
                                             <tr>
@@ -81,7 +82,8 @@ function Cart() {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table>) : (
+                                    </table>
+                                     </div>) : (
                                     <p className="fs-4 fw-semibold text-center text-secondary mt-5">
                                         Your cart is empty 🛍️
                                     </p>
@@ -92,7 +94,7 @@ function Cart() {
 
                         <div
                             className="mb-4 py-4 text-center rounded-2 col-lg-4 col-12"
-                            style={{ backgroundColor: "#eadac7", width: "30%" }} >
+                            style={{ backgroundColor: "#eadac7" }} >
                             <h3 className="fw-bold fs-2 mb-5">Cart Totals</h3>
                             <p className="fw-bold my-4">
                                 Total
