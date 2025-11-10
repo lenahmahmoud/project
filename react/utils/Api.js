@@ -44,7 +44,15 @@ Swal.fire({
 
     }
 
-    await axios.post(`${url}/cartlist`, obj);
+    const existing = await axios.get(`${url}/cartlist?id=${obj.id}`);
+    if (existing.data.length > 0) {
+        const currentQuantity = existing.data[0].quantity || 1;
+        await axios.patch(`${url}/cartlist/${obj.id}`, { quantity: currentQuantity + 1 });
+    } else {
+        obj.quantity = 1;
+        await axios.post(`${url}/cartlist`, obj);
+    }
+    // await axios.post(`${url}/cartlist`, obj);
 
 }
 

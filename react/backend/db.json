@@ -111,7 +111,7 @@
       "image": [
         "/images/serums/Alpha_Arbutin-serum.jpg"
       ],
-      "quantity": 10,
+      "quantity": 7,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -443,6 +443,26 @@
         "Lightweight, non-greasy texture",
         "Rich in vitamins and natural oils",
         "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "1129",
+      "title": "Alpha_Arbutin serum",
+      "description": "A potent brightening serum formulated with Alpha Arbutin to reduce dark spots, even skin tone, and restore radiance. Lightweight and fast-absorbing, it helps fade hyperpigmentation and leaves your skin smooth and luminous.",
+      "price": 340,
+      "category": "serums",
+      "image": [
+        "/images/serums/Alpha_Arbutin-serum.jpg"
+      ],
+      "quantity": 3,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Brightens and evens out skin tone",
+        "Fades dark spots and pigmentation",
+        "Improves skin clarity and radiance",
+        "Lightweight and absorbs quickly"
       ]
     }
   ],
