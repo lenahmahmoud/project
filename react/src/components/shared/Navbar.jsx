@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../style/navbar.css";
+import * as HoverCard from "@radix-ui/react-hover-card";
+
 
 const logo = "/images/Logo Brand.png";
 
@@ -86,16 +88,56 @@ function Navbar({ setSearchInput }) {
                             )}
                         </>
                     )}
-
+                    <HoverCard.Root>
+                    <HoverCard.Trigger asChild>
                     <Link to="/profile">
                         <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>
                     </Link>
+                    </HoverCard.Trigger>
+                    <HoverCard.Portal>
+                    <HoverCard.Content
+                     side="top"          
+                     align="center"
+                     className="tooltip-content"
+                  >
+                      Profile
+                    </HoverCard.Content>
+                    </HoverCard.Portal>
+                    </HoverCard.Root>
+
+                    <HoverCard.Root>
+                    <HoverCard.Trigger asChild>
                     <Link to="/wishlist">
                         <i className="bi bi-heart text-dark mx-lg-3 mx-2 fs-4"></i>
                     </Link>
+                    </HoverCard.Trigger>
+                    <HoverCard.Portal>
+                    <HoverCard.Content
+                     side="top"          
+                     align="center"
+                     className="tooltip-content"
+                  >
+                      Wishlist 
+                    </HoverCard.Content>
+                    </HoverCard.Portal>
+                    </HoverCard.Root>
+
+                    <HoverCard.Root>
+                    <HoverCard.Trigger asChild>
                     <Link to="/cart">
                         <i className="bi bi-bag-heart text-dark mx-lg-3 mx-2 fs-4"></i>
                     </Link>
+                    </HoverCard.Trigger>
+                    <HoverCard.Portal>
+                    <HoverCard.Content
+                     side="top"          
+                     align="center"
+                     className="tooltip-content"
+                  >
+                      Cart
+                    </HoverCard.Content>
+                    </HoverCard.Portal>
+                    </HoverCard.Root>
                 </div>
             </div>
         </nav>
