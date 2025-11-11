@@ -51,7 +51,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 28,
+      "quantity": 30,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -73,8 +73,8 @@
       ],
       "quantity": 12,
       "discount": 27,
-      "stars": 5,
-      "reviews": 1,
+      "stars": 29,
+      "reviews": 4,
       "keyfeatures": [
         "Reduces redness and irritation",
         "Rich in antioxidants for healthy skin",
@@ -214,8 +214,8 @@
       ],
       "quantity": 5,
       "discount": 13,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 13,
+      "reviews": 2,
       "keyfeatures": [
         "Deeply hydrates and softens skin",
         "Improves elasticity and radiance",
@@ -426,6 +426,62 @@
       "text": "perfect",
       "rating": 3,
       "productId": "235b"
+    },
+    {
+      "id": "feba",
+      "firstname": "sara",
+      "lastname": "yasser",
+      "text": "not bad\n",
+      "rating": 4,
+      "productId": "785f"
+    },
+    {
+      "id": "a40d",
+      "firstname": "tia",
+      "lastname": "zakaria",
+      "text": "i totally love it",
+      "rating": 5,
+      "productId": "785f"
+    },
+    {
+      "id": "9ccc",
+      "firstname": "nermeen",
+      "lastname": "alieldin",
+      "text": "perfect",
+      "rating": 5,
+      "productId": "aa13"
+    },
+    {
+      "id": "8847",
+      "firstname": "6g",
+      "lastname": "6t",
+      "text": "6t4e",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "1f39",
+      "firstname": "juh",
+      "lastname": "tgt",
+      "text": "tft",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "cf66",
+      "firstname": "g",
+      "lastname": "6g",
+      "text": "yg",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "b5eb",
+      "firstname": "r",
+      "lastname": "re",
+      "text": "er",
+      "rating": 1,
+      "productId": "aa13"
     }
   ]
 }

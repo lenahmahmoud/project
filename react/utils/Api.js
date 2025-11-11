@@ -1,4 +1,4 @@
-const url = "http://localhost:5500"
+const url = "http://localhost:8000"
 import axios from 'axios';
 export async function getproducts() {
     return await axios.get(`${url}/products`)
@@ -36,7 +36,6 @@ export async function addtocart(obj) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
 
     }
-
 
     await axios.post(`${url}/cartlist`, obj);
 
