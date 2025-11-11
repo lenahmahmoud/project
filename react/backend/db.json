@@ -51,7 +51,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 30,
+      "quantity": 33,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -364,32 +364,7 @@
       ]
     }
   ],
-  "wishlists": [
-    {
-      "id": "3ffc",
-      "user_id": "c944",
-      "products": [
-        {
-          "product_id": "ea45",
-          "quantity": 3
-        }
-      ]
-    },
-    {
-      "id": "f2ac",
-      "user_id": "3bd2",
-      "products": [
-        {
-          "product_id": "ff43",
-          "quantity": 3
-        },
-        {
-          "product_id": "aa13",
-          "quantity": 2
-        }
-      ]
-    }
-  ],
+  "wishlists": [],
   "orders": [
     {
       "id": "ee31",
@@ -404,7 +379,28 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [],
+  "cartlist": [
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    }
+  ],
   "reviews": [
     {
       "id": "5f03",

@@ -18,11 +18,18 @@ import Cart from './components/pages/Cart';
 import { Routes, Route } from 'react-router-dom'
 import Checkout from './components/pages/Checkout';
 import { useState } from 'react';
+import ProfilePage from './components/pages/ProfilePage';
+import Wishlist from './components/pages/Wishlist';
+import { useLocation } from 'react-router-dom';
+
 function App() {
     const [searchInput, setSearchInput] = useState("");
+    const location = useLocation();
+    const hideNavbar = ["/profile"];
+    const hidefooter=["/checkout" ,"/profile"]
     return (<>
 
-        <Navbar setSearchInput={setSearchInput} />
+        {!hideNavbar.includes(location.pathname) && <Navbar setSearchInput={setSearchInput} />}
         <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
@@ -40,8 +47,12 @@ function App() {
             <Route path='/details/:id' element={<Details />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/checkout' element={<Checkout />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
+            <Route path='/wishlist' element={<Wishlist />}></Route>
+
+
         </Routes>
-        <Footer />
+        {!hidefooter.includes(location.pathname) && <Footer />}
     </>);
 }
 

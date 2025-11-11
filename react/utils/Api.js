@@ -1,4 +1,4 @@
-const url = "http://localhost:8000"
+const url = "http://localhost:3000"
 
 import Swal from 'sweetalert2'
 // const Swal = require('sweetalert2')
@@ -42,13 +42,28 @@ export async function removeitem(id) {
     }
 }
 
+export async function addToWishList(obj) {
+    getWishListitems().then(async (res) => {
+        const alreadyExists = res.data.some(item => item.id === obj.id);
+        if (!alreadyExists) {
+            await axios.post(`${url}/wishlists`, obj);
+        }
+    });
+}
+export async function getWishListitems() {
+    return await axios.get(`${url}/wishlists`);
+}
+export async function removeWishlistitem(id) {
+    await axios.delete(`${url}/wishlists/${id}`);
+}
+
 export async function addtocart(obj) {
-Swal.fire({
-  title: "Added successfully!",
-  icon: "success",
-  draggable: true,
-  confirmButtonColor: "#000000",
-});
+    Swal.fire({
+        title: "Added successfully!",
+        icon: "success",
+        draggable: true,
+        confirmButtonColor: "#000000",
+    });
     if (obj.discount > 0) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
 
