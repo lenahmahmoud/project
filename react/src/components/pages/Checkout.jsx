@@ -1,11 +1,24 @@
 import { Link } from "react-router-dom";
+//new lines
+import ThankU from "./ThankU";
+import { useState } from "react";
 
-function Checkout() {
+function Checkout({ openThankU }) {
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    governorate: "",
+    tel: "",
+  });
+  // end new lines
   return (
     <>
       <section className="container-fluid pt-5 mt-5">
-        <div className="row justify-content-around">
-          <div className="col-lg-6 col-8 border-2 rounded">
+        {/* new edits */}
+        <div className="row justify-content-center align-items-start">
+          <div className="col-lg-7 col-md-8 col-12">
             <form>
               {/* Contact */}
               <div className="mb-5">
@@ -15,9 +28,15 @@ function Checkout() {
                 </div>
                 <input
                   type="email"
-                  className="w-100 border-0 p-2 rounded"
+                  className="w-100 border-0 p-2 rounded mb-2"
                   placeholder="Enter your email.."
                   required
+                  //new lines
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  //end new lines
                 />
                 <div className="form-group">
                   <input type="checkbox" name="check" id="check" />
@@ -37,84 +56,118 @@ function Checkout() {
                   <p>Egypt</p>
                 </div>
 
-                <input
-                  type="text"
-                  placeholder="First name"
-                  style={{ width: "49%" }}
-                  className="border-0 p-2 rounded mb-3"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Last name"
-                  style={{ width: "49%" }}
-                  className="border-0 p-2 rounded mb-3"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Apartment, suite..etc.(optional)"
-                  className="w-100 border-0 p-2 rounded mb-3"
-                />
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  placeholder="City"
-                  className="border-0 p-2 rounded mb-3"
-                  style={{ width: "30%" }}
-                />
-                <select
-                  id="governorates"
-                  name="governorates"
-                  className="border-0 p-2 rounded mb-3"
-                  style={{ width: "30%" }}
-                >
-                  <option disabled selected>
-                    Governorate
-                  </option>
-                  <option value="alexandria">Alexandria</option>
-                  <option value="aswan">Aswan</option>
-                  <option value="asyut">Asyut</option>
-                  <option value="beheira">Beheira</option>
-                  <option value="beni_suef">Beni Suef</option>
-                  <option value="cairo">Cairo</option>
-                  <option value="dakahlia">Dakahlia</option>
-                  <option value="damietta">Damietta</option>
-                  <option value="fayoum">Fayoum</option>
-                  <option value="gharbiya">Gharbiya</option>
-                  <option value="giza">Giza</option>
-                  <option value="ismailia">Ismailia</option>
-                  <option value="kafr_el_sheikh">Kafr El Sheikh</option>
-                  <option value="luxor">Luxor</option>
-                  <option value="matruh">Matruh</option>
-                  <option value="minya">Minya</option>
-                  <option value="monufia">Monufia</option>
-                  <option value="new_valley">New Valley</option>
-                  <option value="north_sinai">North Sinai</option>
-                  <option value="portsaid">Port Said</option>
-                  <option value="qalyubia">Qalyubia</option>
-                  <option value="qena">Qena</option>
-                  <option value="red_sea">Red Sea</option>
-                  <option value="sharqia">Sharqia</option>
-                  <option value="sohag">Sohag</option>
-                  <option value="south_sinai">South Sinai</option>
-                  <option value="suez">Suez</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="Postal code (optional)"
-                  className="border-0 p-2 rounded mb-3"
-                  style={{ width: "33%" }}
-                />
+                {/*new edits */}
+                <div className="row mb-3">
+                  <div className="col-md-6 mb-3 mb-md-0">
+                    <input
+                      type="text"
+                      placeholder="First name"
+                      className="form-control border-0 p-2 rounded"
+                      required
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, firstName: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      placeholder="Last name"
+                      className="form-control border-0 p-2 rounded"
+                      required
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, lastName: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3 g-2">
+                  <div className="col-md-4">
+                    <input
+                      type="text"
+                      name="city"
+                      id="city"
+                      placeholder="City"
+                      className="form-control border-0 p-2 rounded"
+                      required
+                      value={formData.city}
+                      onChange={(e) =>
+                        setFormData({ ...formData, city: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <select
+                      id="governorates"
+                      name="governorates"
+                      className="form-control border-0 p-2 rounded"
+                      required
+                      value={formData.governorate}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          governorate: e.target.value,
+                        })
+                      }
+                    >
+                      <option disabled value="">
+                        Governorate
+                      </option>
+                      <option value="alexandria">Alexandria</option>
+                      <option value="aswan">Aswan</option>
+                      <option value="asyut">Asyut</option>
+                      <option value="beheira">Beheira</option>
+                      <option value="beni_suef">Beni Suef</option>
+                      <option value="cairo">Cairo</option>
+                      <option value="dakahlia">Dakahlia</option>
+                      <option value="damietta">Damietta</option>
+                      <option value="fayoum">Fayoum</option>
+                      <option value="gharbiya">Gharbiya</option>
+                      <option value="giza">Giza</option>
+                      <option value="ismailia">Ismailia</option>
+                      <option value="kafr_el_sheikh">Kafr El Sheikh</option>
+                      <option value="luxor">Luxor</option>
+                      <option value="matruh">Matruh</option>
+                      <option value="minya">Minya</option>
+                      <option value="monufia">Monufia</option>
+                      <option value="new_valley">New Valley</option>
+                      <option value="north_sinai">North Sinai</option>
+                      <option value="portsaid">Port Said</option>
+                      <option value="qalyubia">Qalyubia</option>
+                      <option value="qena">Qena</option>
+                      <option value="red_sea">Red Sea</option>
+                      <option value="sharqia">Sharqia</option>
+                      <option value="sohag">Sohag</option>
+                      <option value="south_sinai">South Sinai</option>
+                      <option value="suez">Suez</option>
+                    </select>
+                  </div>
+
+                  <div className="col-md-4">
+                    <input
+                      type="text"
+                      placeholder="Postal code (optional)"
+                      className="form-control border-0 p-2 rounded"
+                    />
+                  </div>
+                </div>
+
                 <input
                   type="tel"
                   name="tel"
                   id="tel"
                   placeholder="phone number"
                   className="w-100 border-0 p-2 rounded"
+                  value={formData.tel}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tel: e.target.value })
+                  }
                 />
               </div>
+              {/* End new edits */}
 
               {/* Shipping */}
               <div className="mb-5">
@@ -141,7 +194,10 @@ function Checkout() {
                         id="cashOption"
                         defaultChecked
                       />
-                      <label className="form-check-label fw-bold" htmlFor="cashOption">
+                      <label
+                        className="form-check-label fw-bold"
+                        htmlFor="cashOption"
+                      >
                         Cash On Delivery (COD)
                       </label>
                     </div>
@@ -155,7 +211,10 @@ function Checkout() {
                         data-bs-target="#cardContent"
                         aria-expanded="false"
                       />
-                      <label className="form-check-label fw-bold" htmlFor="cardOption">
+                      <label
+                        className="form-check-label fw-bold"
+                        htmlFor="cardOption"
+                      >
                         Via (Card / Wallets / Installments / Debit / Credit)
                       </label>
                     </div>
@@ -167,9 +226,9 @@ function Checkout() {
                       <div className="card card-body mb-2 text-center">
                         <i className="bi bi-credit-card-2-front fs-1"></i>
                         <p>
-                          After clicking “Pay now”, you will be redirected to Pay via
-                          (Debit/Credit cards/Wallets/Installments) to complete your
-                          purchase securely.
+                          After clicking “Pay now”, you will be redirected to
+                          Pay via (Debit/Credit cards/Wallets/Installments) to
+                          complete your purchase securely.
                         </p>
                       </div>
                     </div>
@@ -190,7 +249,10 @@ function Checkout() {
                         id="sameAddress"
                         defaultChecked
                       />
-                      <label className="form-check-label fw-bold" htmlFor="sameAddress">
+                      <label
+                        className="form-check-label fw-bold"
+                        htmlFor="sameAddress"
+                      >
                         Same as shipping address
                       </label>
                     </div>
@@ -204,7 +266,10 @@ function Checkout() {
                         data-bs-target="#billingcontent"
                         aria-expanded="false"
                       />
-                      <label className="form-check-label fw-bold" htmlFor="differentAddress">
+                      <label
+                        className="form-check-label fw-bold"
+                        htmlFor="differentAddress"
+                      >
                         Use a different billing address
                       </label>
                     </div>
@@ -221,20 +286,38 @@ function Checkout() {
                 </div>
               </div>
 
-              <button className="btn btn-large w-100 bg-dark text-white">Pay Now</button>
+              {/*new lines */}
+              <button
+                type="button"
+                className="btn btn-large w-100 bg-dark text-white mb-4"
+                onClick={openThankU}
+                disabled={
+                  !formData.firstName ||
+                  !formData.lastName ||
+                  !formData.email ||
+                  !formData.city ||
+                  !formData.governorate ||
+                  !formData.tel
+                }
+              >
+                Complete Order
+              </button>
             </form>
           </div>
+          {/* End new edits */}
 
+          {/*some simple edits */}
           {/* Sidebar */}
-          <aside className="col-lg-5 col-8">
+          <aside className="col-lg-4 col-md-8 col-12">
             <div
               style={{
-                position: "fixed",
+                position: "sticky",
                 top: "100px",
-                right: "20px",
                 backgroundColor: "#fff",
                 padding: "1rem",
+                width: "100%",
               }}
+              //end simple edits
               className="col-lg-5 col-8"
             >
               <div

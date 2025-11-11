@@ -15,6 +15,7 @@ import Cleansers from './components/pages/products/Cleansers';
 import Moisturizers from './components/pages/products/Moisturizers';
 import Details from './components/pages/Details'
 import Cart from './components/pages/Cart';
+import ThankU from './components/pages/ThankU';     //new line
 import { Routes, Route } from 'react-router-dom'
 import Checkout from './components/pages/Checkout';
 import { useState } from 'react';
@@ -23,6 +24,7 @@ import Wishlist from './components/pages/Wishlist';
 import { useLocation } from 'react-router-dom';
 
 function App() {
+    const [thankUVisible, setThankUVisible] = useState(false);            //new line
     const [searchInput, setSearchInput] = useState("");
     const location = useLocation();
     const hideNavbar = ["/profile"];
@@ -46,13 +48,15 @@ function App() {
             <Route path='/cleansers' element={<Cleansers searchInput={searchInput} />}></Route>
             <Route path='/details/:id' element={<Details />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/checkout' element={<Checkout />}></Route>
+            <Route path='/checkout' element={<Checkout openThankU={() => setThankUVisible(true)} />}></Route>  {/*some edits*/}
             <Route path='/profile' element={<ProfilePage />}></Route>
             <Route path='/wishlist' element={<Wishlist />}></Route>
 
 
         </Routes>
         {!hidefooter.includes(location.pathname) && <Footer />}
+        {/* new line */}
+        {thankUVisible && <ThankU closeThankU={setThankUVisible} />}
     </>);
 }
 
