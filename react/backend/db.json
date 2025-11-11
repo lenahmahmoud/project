@@ -31,7 +31,7 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 22,
+      "quantity": 44,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -71,7 +71,7 @@
       "image": [
         "/images/serums/Green_tea_serum.jpg"
       ],
-      "quantity": 12,
+      "quantity": 14,
       "discount": 27,
       "stars": 29,
       "reviews": 4,
@@ -212,7 +212,7 @@
       "image": [
         "/images/oils/camella_sead_oil.jpg"
       ],
-      "quantity": 5,
+      "quantity": 11,
       "discount": 13,
       "stars": 13,
       "reviews": 2,
@@ -442,6 +442,7 @@
       "text": "i totally love it",
       "rating": 5,
       "productId": "785f"
+<<<<<<< HEAD
     },
     {
       "id": "9ccc",
@@ -482,6 +483,8 @@
       "text": "er",
       "rating": 1,
       "productId": "aa13"
+=======
+>>>>>>> 1255298809506d728d802d2f8c3038e246603329
     }
   ]
 }

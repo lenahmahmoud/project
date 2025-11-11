@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 const url = "http://localhost:8000"
+=======
+import Swal from 'sweetalert2'
+// const Swal = require('sweetalert2')
+const url = "http://localhost:5500"
+>>>>>>> 1255298809506d728d802d2f8c3038e246603329
 import axios from 'axios';
 export async function getproducts() {
     return await axios.get(`${url}/products`)
@@ -26,18 +32,44 @@ export async function getitems() {
     return await axios.get(`${url}/cartlist`)
 
 }
+
 export async function removeitem(id) {
-    await axios.delete(`${url}/cartlist/${id}`)
-
+    const existing = await axios.get(`${url}/cartlist?id=${id}`);
+    if (existing.data.length > 0) {
+        const product = existing.data[0];
+        if (product.quantity > 1) {
+            await axios.patch(`${url}/cartlist/${id}`, { quantity: product.quantity - 1 });
+        } else {
+            await axios.delete(`${url}/cartlist/${id}`);
+        }
+    }
 }
-export async function addtocart(obj) {
 
+export async function addtocart(obj) {
+Swal.fire({
+  title: "Added successfully!",
+  icon: "success",
+  draggable: true,
+  confirmButtonColor: "#000000",
+});
     if (obj.discount > 0) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
 
     }
 
+<<<<<<< HEAD
     await axios.post(`${url}/cartlist`, obj);
+=======
+    const existing = await axios.get(`${url}/cartlist?id=${obj.id}`);
+    if (existing.data.length > 0) {
+        const currentQuantity = existing.data[0].quantity || 1;
+        await axios.patch(`${url}/cartlist/${obj.id}`, { quantity: currentQuantity + 1 });
+    } else {
+        obj.quantity = 1;
+        await axios.post(`${url}/cartlist`, obj);
+    }
+    // await axios.post(`${url}/cartlist`, obj);
+>>>>>>> 1255298809506d728d802d2f8c3038e246603329
 
 }
 
