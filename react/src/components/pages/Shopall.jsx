@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { getproducts, addtocart, decrementquantity } from "../../../utils/Api";
+import { getproducts, addtocart, decrementquantity, addToWishList } from "../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../style/shop.css";
+import * as HoverCard from "@radix-ui/react-hover-card";
 const logo = "/images/Logo Brand.png";
 
 function Shopall({ searchInput }) {
@@ -291,28 +292,97 @@ function Shopall({ searchInput }) {
                     )}
 
                     <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                      <button
-                        className="btn border-0"
-                        onClick={async () => {
-                          const productToAdd = { ...product, quantity: 1 };
-                          addtocart(productToAdd);
-                          decrementquantity(product);
-                        }}
-                      >
-                        <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
-                      </button>
+                      <HoverCard.Root>
+                        <HoverCard.Trigger asChild>
+                          <button
+                            className="btn border-0"
+                            onClick={() => {
+                              const productToAdd = { ...product, quantity: 1 };
+                              addtocart(productToAdd);
+                              decrementquantity(product, product.id, 1);
+                            }}
+                          >
+                            <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
+                          </button>
+                        </HoverCard.Trigger>
 
-                      <Link to="#">
-                        <i className="bi bi-share rounded-circle p-2 bg-white"></i>
-                      </Link>
+                        <HoverCard.Portal>
+                          <HoverCard.Content
+                            side="top"
+                            align="center"
+                            className="tooltip-content"
+                          >
+                            Add to Cart
+                          </HoverCard.Content>
+                        </HoverCard.Portal>
+                      </HoverCard.Root>
 
-                      <Link to={`/details/${product.id}`}>
-                        <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
-                      </Link>
+                      <HoverCard.Root>
+                        <HoverCard.Trigger asChild>
+                          <Link>
+                            <i className="bi bi-share rounded-circle p-2 bg-white"></i>
+                          </Link>
+                        </HoverCard.Trigger>
 
-                      <Link to="#">
-                        <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
-                      </Link>
+                        <HoverCard.Portal>
+                          <HoverCard.Content
+                            side="top"
+                            align="center"
+                            className="tooltip-content"
+                          >
+                            Share
+                          </HoverCard.Content>
+                        </HoverCard.Portal>
+                      </HoverCard.Root>
+
+                      <HoverCard.Root>
+                        <HoverCard.Trigger asChild>
+
+                          <Link to={`/details/${product.id}`}>
+                            <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
+                          </Link>
+                        </HoverCard.Trigger>
+
+                        <HoverCard.Portal>
+                          <HoverCard.Content
+                            side="top"
+                            align="center"
+                            className="tooltip-content"
+                          >
+                            quick view
+                          </HoverCard.Content>
+                        </HoverCard.Portal>
+                      </HoverCard.Root>
+
+
+                      <HoverCard.Root>
+                        <HoverCard.Trigger asChild>
+                          <button
+                            className="btn border-0"
+                            onClick={() => {
+                              const productToAddToWishList = {
+                                id: product.id,
+                                price: product.price,
+                                image: product.image,
+                                title: product.title,
+                              };
+                              addToWishList(productToAddToWishList);
+                            }}
+                          >
+                            <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
+                          </button>
+                        </HoverCard.Trigger>
+
+                        <HoverCard.Portal>
+                          <HoverCard.Content
+                            side="top"
+                            align="center"
+                            className="tooltip-content"
+                          >
+                            wishlist
+                          </HoverCard.Content>
+                        </HoverCard.Portal>
+                      </HoverCard.Root>
                     </div>
                   </div>
 

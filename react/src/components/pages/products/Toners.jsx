@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity, addToWishList } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../../style/shop.css";
 
@@ -105,7 +105,7 @@ function Toners({ searchInput }) {
       </header>
 
       {/* FILTER SECTION */}
-          <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
+      <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
         <div className="container">
           <Link
             to="#"
@@ -304,9 +304,19 @@ function Toners({ searchInput }) {
                       <Link to={`/details/${toner.id}`}>
                         <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
                       </Link>
-                      <Link to="#">
+                      <button className="btn border-0"
+                        onClick={async () => {
+                          const productToAddToWishList = {
+                            id: toner.id,
+                            price: toner.price,
+                            image: toner.image,
+                            title: toner.title,
+                          };
+                          addToWishList(productToAddToWishList);
+
+                        }} >
                         <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
-                      </Link>
+                      </button>
                     </div>
                   </div>
 

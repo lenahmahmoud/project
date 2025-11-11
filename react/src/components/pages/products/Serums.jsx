@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity,addToWishList } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../../style/shop.css";
 
 const logo = "/images/Logo Brand.png";
 
-function Serums({searchInput}) {
+function Serums({ searchInput }) {
   // serums to be rendered
   const [serums, setSerums] = useState([]);
 
@@ -306,10 +306,19 @@ function Serums({searchInput}) {
                     <Link to={`/details/${serum.id}`}>
                       <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
                     </Link>
-                    <Link to="#">
+                    <button className="btn border-0"
+                      onClick={async () => {
+                        const productToAddToWishList = {
+                          id: serum.id,
+                          price: serum.price,
+                          image: serum.image,
+                          title: serum.title,
+                        };
+                        addToWishList(productToAddToWishList);
+
+                      }} >
                       <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
-                    </Link>
-                  </div>
+                    </button>                  </div>
                 </div>
 
                 <div className="text">

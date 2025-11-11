@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../style/navbar.css";
 import * as HoverCard from "@radix-ui/react-hover-card";
-
-
 const logo = "/images/Logo Brand.png";
 
 function Navbar({ setSearchInput }) {
@@ -88,12 +86,14 @@ function Navbar({ setSearchInput }) {
                             )}
                         </>
                     )}
+                    {/* profile icon */}
                     <HoverCard.Root>
                     <HoverCard.Trigger asChild>
                     <Link to="/profile">
                         <i className="bi bi-person-exclamation text-dark mx-lg-3 mx-2 fs-4"></i>
                     </Link>
                     </HoverCard.Trigger>
+
                     <HoverCard.Portal>
                     <HoverCard.Content
                      side="top"          
@@ -105,6 +105,7 @@ function Navbar({ setSearchInput }) {
                     </HoverCard.Portal>
                     </HoverCard.Root>
 
+                   {/* wishlist icon */}
                     <HoverCard.Root>
                     <HoverCard.Trigger asChild>
                     <Link to="/wishlist">
@@ -122,6 +123,7 @@ function Navbar({ setSearchInput }) {
                     </HoverCard.Portal>
                     </HoverCard.Root>
 
+                    {/* cart icon */}
                     <HoverCard.Root>
                     <HoverCard.Trigger asChild>
                     <Link to="/cart">

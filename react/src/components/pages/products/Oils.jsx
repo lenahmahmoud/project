@@ -1,96 +1,96 @@
 import { useState, useEffect } from "react";
-import { getcategory, addtocart, decrementquantity } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity ,addToWishList} from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import '../../style/shop.css';
 
 const logo = '/images/Logo Brand.png';
 
 function Oils({ searchInput }) {
-    // oils to be rendered
-    const [oils, setOils] = useState([]);
+  // oils to be rendered
+  const [oils, setOils] = useState([]);
 
-    // template
-    const [originalOils, setOriginalProducts] = useState([]);
+  // template
+  const [originalOils, setOriginalProducts] = useState([]);
 
-    // search state
-    const [searched, setSearched] = useState([])
+  // search state
+  const [searched, setSearched] = useState([])
 
-    // filters
-    const [filters, setFilters] = useState({
-        sortAlphabetically: "",
-        sortPrice: "",
-        priceRange: [10, 500],
+  // filters
+  const [filters, setFilters] = useState({
+    sortAlphabetically: "",
+    sortPrice: "",
+    priceRange: [10, 500],
+  });
+
+  //  initial values 
+  useEffect(() => {
+    getcategory("oils").then(res => {
+      setOils(res.data);
+      setOriginalProducts(res.data);
     });
+  }, []);
 
-    //  initial values 
-    useEffect(() => {
-        getcategory("oils").then(res => {
-            setOils(res.data);
-            setOriginalProducts(res.data);
-        });
-    }, []);
-
-    // search handling
-    useEffect(() => {
-        if (searchInput === " ") {
-            setSearched([])
-            setOils(originalOils)
-        }
-        else {
-            const filtered = originalOils.filter((p) =>
-                p.title.toLowerCase().includes(searchInput.toLowerCase())
-            );
-            setOils(filtered)
-            setSearched(filtered)
-
-        }
-
-    },[searchInput])
-
-    const applyFilters = () => {
-        let result = [...originalOils];
-
-        // Sort Alphabetically
-        if (filters.sortAlphabetically === "A-Z") result.sort((a, b) => a.title.localeCompare(b.title));
-        if (filters.sortAlphabetically === "Z-A") result.sort((a, b) => b.title.localeCompare(a.title));
-
-        // Sort by Price
-        if (filters.sortPrice === "low-to-high") result.sort((a, b) => a.price - b.price);
-        if (filters.sortPrice === "high-to-low") result.sort((a, b) => b.price - a.price);
-
-        // Filter by Price Range
-        result = result.filter(p => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]);
-
-        setOils(result);
-    };
-
-    function clearFilters() {
-        setFilters({
-            sortAlphabetically: "",
-            sortPrice: "",
-            priceRange: [200, 700],
-        });
-        if (searched.length > 0) {
-            setOils(searched)
-        }
-        else {
-            setOils(originalOils)
-        }
+  // search handling
+  useEffect(() => {
+    if (searchInput === " ") {
+      setSearched([])
+      setOils(originalOils)
+    }
+    else {
+      const filtered = originalOils.filter((p) =>
+        p.title.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setOils(filtered)
+      setSearched(filtered)
 
     }
-    
-    return (
-        <>
-            {/* HEADER */}
-            <header className="header-section mt-5 pt-4">
-                <div className="headingText text-center py-5 my-5">
-                    <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
-                    <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>Oils</h1>
-                    <p className="mt-3"><span className="fw-bold">Home</span> / oils-page</p>
-                </div>
-            </header>
 
-            {/* FILTER SECTION */}
+  }, [searchInput])
+
+  const applyFilters = () => {
+    let result = [...originalOils];
+
+    // Sort Alphabetically
+    if (filters.sortAlphabetically === "A-Z") result.sort((a, b) => a.title.localeCompare(b.title));
+    if (filters.sortAlphabetically === "Z-A") result.sort((a, b) => b.title.localeCompare(a.title));
+
+    // Sort by Price
+    if (filters.sortPrice === "low-to-high") result.sort((a, b) => a.price - b.price);
+    if (filters.sortPrice === "high-to-low") result.sort((a, b) => b.price - a.price);
+
+    // Filter by Price Range
+    result = result.filter(p => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1]);
+
+    setOils(result);
+  };
+
+  function clearFilters() {
+    setFilters({
+      sortAlphabetically: "",
+      sortPrice: "",
+      priceRange: [200, 700],
+    });
+    if (searched.length > 0) {
+      setOils(searched)
+    }
+    else {
+      setOils(originalOils)
+    }
+
+  }
+
+  return (
+    <>
+      {/* HEADER */}
+      <header className="header-section mt-5 pt-4">
+        <div className="headingText text-center py-5 my-5">
+          <img src={logo} alt="Aurévia Logo" width="70" height="70" className="mb-4" />
+          <h1 className="fw-bold" style={{ fontSize: "4rem", letterSpacing: "0.3rem" }}>Oils</h1>
+          <p className="mt-3"><span className="fw-bold">Home</span> / oils-page</p>
+        </div>
+      </header>
+
+      {/* FILTER SECTION */}
       <section className="controls py-3" style={{ backgroundColor: "rgb(230, 216, 228)" }}>
         <div className="container">
           <Link
@@ -257,109 +257,121 @@ function Oils({ searchInput }) {
       </section>
 
 
-            {/* OILS SECTION */}
-            <section className="mt-5" id="shop">
-                <div className="container">
-                    <div className="row justify-content-center shopsec g-5 text-center">
-                        {oils.map(oil => (
-                            oil.quantity > 0 ? (<div key={oil.id} className="col-9 col-sm-8 col-lg-3">
-                                <div className="parent position-relative">
-                                    {/* Show Discount Badge */}
-                                    {oil.discount > 0 && (
-                                        <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
-                                            -{oil.discount}%
-                                        </p>
+      {/* OILS SECTION */}
+      <section className="mt-5" id="shop">
+        <div className="container">
+          <div className="row justify-content-center shopsec g-5 text-center">
+            {oils.map(oil => (
+              oil.quantity > 0 ? (<div key={oil.id} className="col-9 col-sm-8 col-lg-3">
+                <div className="parent position-relative">
+                  {/* Show Discount Badge */}
+                  {oil.discount > 0 && (
+                    <p className="badge bg-danger m-2 position-absolute top-0 end-0 fs-4">
+                      -{oil.discount}%
+                    </p>
 
-                                    )}
-                                    <img src={oil.image[0]} alt={oil.title} className="rounded w-100" />
-                                    <div className="overlay d-flex justify-content-around w-100 align-items-center">
-                                        <button onClick={() => {
-                                            const productToAdd = { ...oil, quantity: 1 }
-                                            addtocart(productToAdd)
-                                            decrementquantity(oil, oil.id, 1)
+                  )}
+                  <img src={oil.image[0]} alt={oil.title} className="rounded w-100" />
+                  <div className="overlay d-flex justify-content-around w-100 align-items-center">
+                    <button onClick={() => {
+                      const productToAdd = { ...oil, quantity: 1 }
+                      addtocart(productToAdd)
+                      decrementquantity(oil, oil.id, 1)
 
-                                        }} className="btn border-0"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
-                                        <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to={`/details/${oil.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
-                                        <Link to="#"><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
-                                    </div>
-                                </div>
-                                <div className="text mt-2">
-                                    <p className="fs-5 fw-bold">
-                                        {oil.title} -{" "}
-                                        <span className="fs-6 text-danger">
-                                            £E{" "}
-                                            {oil.discount > 0 ? (
-                                                <>
-                                                    <del>{oil.price}</del>{" "}
-                                                </>
-                                            ) : (
-                                                oil.price
-                                            )}
-                                        </span>
-                                    </p>
+                    }} className="btn border-0"><i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i></button>
+                    <Link to="#"><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
+                    <Link to={`/details/${oil.id}`}><i className="bi bi-eye rounded-circle p-2 bg-white"></i></Link>
+                    <button className="btn border-0"
+                      onClick={async () => {
+                        const productToAddToWishList = {
+                          id: oil.id,
+                          price: oil.price,
+                          image: oil.image,
+                          title: oil.title,
+                        };
+                        addToWishList(productToAddToWishList);
 
-                                    <p>
-                                        {Array.from({ length: 5 }, (_, i) => (
-                                            <span key={i} style={{ color: i < oil.stars ? "#ffc107" : "#b4b4b4ff" }}>
-                                                &#9733;
-                                            </span>
-                                        ))}
-                                        <span className="text-muted"> {oil.reviews} reviews</span>
-                                    </p>
-                                </div>
-                            </div>) : (null)
-
-                        ))}
-                    </div>
+                      }} >
+                      <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
+                    </button>              
+                       </div>
                 </div>
-            </section>
+                <div className="text mt-2">
+                  <p className="fs-5 fw-bold">
+                    {oil.title} -{" "}
+                    <span className="fs-6 text-danger">
+                      £E{" "}
+                      {oil.discount > 0 ? (
+                        <>
+                          <del>{oil.price}</del>{" "}
+                        </>
+                      ) : (
+                        oil.price
+                      )}
+                    </span>
+                  </p>
 
-            {/* FEATURES SECTION */}
-            <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
-                <div className="container-fluid">
-                    <div className="row py-4 text-center text-md-start">
-                        <div className="col-lg-3 col-md-6 col-sm-12">
-                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
-                                <i className="bi bi-trophy fs-1 me-2"></i>
-                                <div>
-                                    <h3 className="fw-bold fs-4">High Quality</h3>
-                                    <p className="text-secondary mb-0">Crafted from top materials</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-12">
-                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
-                                <i className="bi bi-patch-check fs-1 me-2"></i>
-                                <div>
-                                    <h3 className="fw-bold fs-4">Warranty Protection</h3>
-                                    <p className="text-secondary mb-0">Over 2 years</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-12">
-                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
-                                <i className="bi bi-truck fs-1 me-2"></i>
-                                <div>
-                                    <h3 className="fw-bold fs-4">Free Shipping</h3>
-                                    <p className="text-secondary mb-0">Order over 150 £E</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-12">
-                            <div className="d-flex justify-content-center justify-content-md-start align-items-center">
-                                <i className="bi bi-headset fs-1 me-2"></i>
-                                <div>
-                                    <h3 className="fw-bold fs-4">24 / 7 Support</h3>
-                                    <p className="text-secondary mb-0">Dedicated support</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <p>
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <span key={i} style={{ color: i < oil.stars ? "#ffc107" : "#b4b4b4ff" }}>
+                        &#9733;
+                      </span>
+                    ))}
+                    <span className="text-muted"> {oil.reviews} reviews</span>
+                  </p>
                 </div>
+              </div>) : (null)
+
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES SECTION */}
+      <div className="py-5 mt-5" style={{ backgroundColor: "#eadac7" }}>
+        <div className="container-fluid">
+          <div className="row py-4 text-center text-md-start">
+            <div className="col-lg-3 col-md-6 col-sm-12">
+              <div className="d-flex justify-content-center justify-content-md-start align-items-center">
+                <i className="bi bi-trophy fs-1 me-2"></i>
+                <div>
+                  <h3 className="fw-bold fs-4">High Quality</h3>
+                  <p className="text-secondary mb-0">Crafted from top materials</p>
+                </div>
+              </div>
             </div>
-        </>
-    );
+            <div className="col-lg-3 col-md-6 col-sm-12">
+              <div className="d-flex justify-content-center justify-content-md-start align-items-center">
+                <i className="bi bi-patch-check fs-1 me-2"></i>
+                <div>
+                  <h3 className="fw-bold fs-4">Warranty Protection</h3>
+                  <p className="text-secondary mb-0">Over 2 years</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-12">
+              <div className="d-flex justify-content-center justify-content-md-start align-items-center">
+                <i className="bi bi-truck fs-1 me-2"></i>
+                <div>
+                  <h3 className="fw-bold fs-4">Free Shipping</h3>
+                  <p className="text-secondary mb-0">Order over 150 £E</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-12">
+              <div className="d-flex justify-content-center justify-content-md-start align-items-center">
+                <i className="bi bi-headset fs-1 me-2"></i>
+                <div>
+                  <h3 className="fw-bold fs-4">24 / 7 Support</h3>
+                  <p className="text-secondary mb-0">Dedicated support</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Oils;
