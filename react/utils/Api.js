@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 const url = "http://localhost:8000"
-=======
+
 import Swal from 'sweetalert2'
 // const Swal = require('sweetalert2')
-const url = "http://localhost:5500"
->>>>>>> 1255298809506d728d802d2f8c3038e246603329
 import axios from 'axios';
 export async function getproducts() {
     return await axios.get(`${url}/products`)
@@ -57,9 +54,7 @@ Swal.fire({
 
     }
 
-<<<<<<< HEAD
     await axios.post(`${url}/cartlist`, obj);
-=======
     const existing = await axios.get(`${url}/cartlist?id=${obj.id}`);
     if (existing.data.length > 0) {
         const currentQuantity = existing.data[0].quantity || 1;
@@ -68,8 +63,6 @@ Swal.fire({
         obj.quantity = 1;
         await axios.post(`${url}/cartlist`, obj);
     }
-    // await axios.post(`${url}/cartlist`, obj);
->>>>>>> 1255298809506d728d802d2f8c3038e246603329
 
 }
 
