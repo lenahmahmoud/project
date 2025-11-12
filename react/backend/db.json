@@ -1,24 +1,11 @@
 {
   "users": [
     {
-      "id": "c944",
+      "id": "180a",
       "firstName": "lenah",
-      "lastName": "alieldin",
-      "phoneNumber": "04000003",
+      "lastName": "mahmoud",
       "email": "lenah.mahmoud@gmail.com",
-      "password": "L!erA444",
-      "city": "Qalyub",
-      "governorate": "Qalyubia"
-    },
-    {
-      "id": "3bd2",
-      "firstName": "tia",
-      "lastName": "abbas",
-      "phoneNumber": "099000003",
-      "email": "tia.mahmoud@gmail.com",
-      "password": "Ter$erA444",
-      "city": "Qalyub",
-      "governorate": "Qalyubia"
+      "password": "Lenah2005!"
     }
   ],
   "products": [
@@ -31,7 +18,7 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 44,
+      "quantity": 42,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -51,7 +38,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 33,
+      "quantity": 32,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -71,7 +58,7 @@
       "image": [
         "/images/serums/Green_tea_serum.jpg"
       ],
-      "quantity": 14,
+      "quantity": 13,
       "discount": 27,
       "stars": 29,
       "reviews": 4,
@@ -91,7 +78,7 @@
       "image": [
         "/images/toners/chamomile_toner.jpg"
       ],
-      "quantity": 28,
+      "quantity": 25,
       "discount": 0,
       "stars": 5,
       "reviews": 1,
@@ -131,7 +118,7 @@
       "image": [
         "/images/serums/collagen_Boost_serum.jpg"
       ],
-      "quantity": 3,
+      "quantity": -1,
       "discount": 5,
       "stars": 0,
       "reviews": 0,
@@ -151,7 +138,7 @@
       "image": [
         "/images/serums/vitaminc_serum.jpg"
       ],
-      "quantity": 4,
+      "quantity": 1,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -212,7 +199,7 @@
       "image": [
         "/images/oils/camella_sead_oil.jpg"
       ],
-      "quantity": 11,
+      "quantity": -2,
       "discount": 13,
       "stars": 13,
       "reviews": 2,
@@ -252,7 +239,7 @@
       "image": [
         "/images//masks/green_tea_mask.jpg"
       ],
-      "quantity": 4,
+      "quantity": 25,
       "discount": 30,
       "stars": 0,
       "reviews": 0,
@@ -379,28 +366,7 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [
-    {
-      "id": "ff43",
-      "title": "rose water toner",
-      "description": "best toner for your skin glow",
-      "price": 450,
-      "category": "toners",
-      "image": [
-        "/images/toners/rose_water_toner.jpg"
-      ],
-      "quantity": 1,
-      "discount": 0,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Soothes and refreshes tired skin",
-        "Balances skin’s natural pH",
-        "Tightens pores and tones complexion",
-        "Hydrates and revitalizes dull skin"
-      ]
-    }
-  ],
+  "cartlist": [],
   "reviews": [
     {
       "id": "5f03",

@@ -1,4 +1,3 @@
-import React from "react";
 const verify= "../../../public/images/verification.png";
 function ThankU({ closeThankU }) {
   return (

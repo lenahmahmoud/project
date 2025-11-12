@@ -15,49 +15,67 @@ import Cleansers from './components/pages/products/Cleansers';
 import Moisturizers from './components/pages/products/Moisturizers';
 import Details from './components/pages/Details'
 import Cart from './components/pages/Cart';
-import ThankU from './components/pages/ThankU';     //new line
-import { Routes, Route } from 'react-router-dom'
+import ThankU from './components/pages/ThankU';
 import Checkout from './components/pages/Checkout';
-import { useState } from 'react';
 import ProfilePage from './components/pages/ProfilePage';
 import Wishlist from './components/pages/Wishlist';
-import { useLocation } from 'react-router-dom';
+import Login from './components/pages/Login';
+import Signup from './components/pages/SignUp';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
-    const [thankUVisible, setThankUVisible] = useState(false);            //new line
-    const [searchInput, setSearchInput] = useState("");
-    const location = useLocation();
-    const hideNavbar = ["/profile"];
-    const hidefooter=["/checkout" ,"/profile"]
-    return (<>
+  const [thankUVisible, setThankUVisible] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const location = useLocation();
 
-        {!hideNavbar.includes(location.pathname) && <Navbar setSearchInput={setSearchInput} />}
-        <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
-            <Route path="/paymentoptions" element={<PaymentOptions />}></Route>
-            <Route path="/privacypolicy" element={<PrivacyPolicy />}></Route>
-            <Route path="/shippingfees" element={<ShippingFees />}></Route>
-            <Route path='/shopall' element={<Shopall searchInput={searchInput} />}></Route>
-            <Route path='/about' element={<About />}></Route>
-            <Route path='/oils' element={<Oils searchInput={searchInput} />}></Route>
-            <Route path='/masks' element={<Masks searchInput={searchInput} />}></Route>
-            <Route path='/toners' element={<Toners searchInput={searchInput} />}></Route>
-            <Route path='/serums' element={<Serums searchInput={searchInput} />}></Route>
-            <Route path='/moisturizers' element={<Moisturizers searchInput={searchInput} />}></Route>
-            <Route path='/cleansers' element={<Cleansers searchInput={searchInput} />}></Route>
-            <Route path='/details/:id' element={<Details />}></Route>
-            <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/checkout' element={<Checkout openThankU={() => setThankUVisible(true)} />}></Route>  {/*some edits*/}
-            <Route path='/profile' element={<ProfilePage />}></Route>
-            <Route path='/wishlist' element={<Wishlist />}></Route>
+  const hideNavbar = ["/profile", '/login', '/signup'];
+  const hideFooter = ["/checkout", "/profile", '/login', '/signup'];
 
+  // Check if user is logged in
+  const isLoggedIn = () => !!localStorage.getItem("user");
 
-        </Routes>
-        {!hidefooter.includes(location.pathname) && <Footer />}
-        {/* new line */}
-        {thankUVisible && <ThankU closeThankU={setThankUVisible} />}
-    </>);
+  // Protected Route wrapper
+  const ProtectedRoute = ({ children }) => {
+    return isLoggedIn() ? children : <Navigate to="/login" replace />;
+  };
+
+  return (
+    <>
+      {!hideNavbar.includes(location.pathname) && <Navbar setSearchInput={setSearchInput} />}
+      
+      <Routes>
+        <Route path="/" element={<Navigate to={isLoggedIn() ? "/home" : "/login"} replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Protected routes */}
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/shopall" element={<ProtectedRoute><Shopall searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/oils" element={<ProtectedRoute><Oils searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/masks" element={<ProtectedRoute><Masks searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/toners" element={<ProtectedRoute><Toners searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/serums" element={<ProtectedRoute><Serums searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/moisturizers" element={<ProtectedRoute><Moisturizers searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/cleansers" element={<ProtectedRoute><Cleansers searchInput={searchInput} /></ProtectedRoute>} />
+        <Route path="/details/:id" element={<ProtectedRoute><Details /></ProtectedRoute>} />
+        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/checkout" element={<ProtectedRoute><Checkout openThankU={() => setThankUVisible(true)} /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+
+        {/* Public footer pages */}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/paymentoptions" element={<PaymentOptions />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/shippingfees" element={<ShippingFees />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+
+      {!hideFooter.includes(location.pathname) && <Footer />}
+      {thankUVisible && <ThankU closeThankU={setThankUVisible} />}
+    </>
+  );
 }
 
 export default App;

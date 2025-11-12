@@ -1,22 +1,21 @@
-const url = "http://localhost:3000"
-
-import Swal from 'sweetalert2'
-// const Swal = require('sweetalert2')
+import Swal from 'sweetalert2';
 import axios from 'axios';
-export async function getproducts() {
-    return await axios.get(`${url}/products`)
 
+const url = "http://localhost:8000"; // Corrected port
+
+export async function getproducts() {
+    return await axios.get(`${url}/products`);
 }
 
 export async function getcategory(cat) {
-
-    return await axios.get(`${url}/products?category=${cat}`)
-
+    return await axios.get(`${url}/products?category=${cat}`);
 }
+
 export async function getsales() {
     const res = await axios.get(`${url}/products`);
     return { data: res.data.filter(product => product.discount > 0) };
 }
+
 export async function getbestselling() {
     const res = await axios.get(`${url}/products`);
     return { data: res.data.filter(product => product.stars == 5) };
@@ -25,36 +24,13 @@ export async function getbestselling() {
 export async function getproduct(id) {
     return await axios.get(`${url}/products/${id}`);
 }
-export async function getitems() {
-    return await axios.get(`${url}/cartlist`)
 
+export async function getitems() {
+    return await axios.get(`${url}/cartlist`);
 }
 
 export async function removeitem(id) {
-    const existing = await axios.get(`${url}/cartlist?id=${id}`);
-    if (existing.data.length > 0) {
-        const product = existing.data[0];
-        if (product.quantity > 1) {
-            await axios.patch(`${url}/cartlist/${id}`, { quantity: product.quantity - 1 });
-        } else {
-            await axios.delete(`${url}/cartlist/${id}`);
-        }
-    }
-}
-
-export async function addToWishList(obj) {
-    getWishListitems().then(async (res) => {
-        const alreadyExists = res.data.some(item => item.id === obj.id);
-        if (!alreadyExists) {
-            await axios.post(`${url}/wishlists`, obj);
-        }
-    });
-}
-export async function getWishListitems() {
-    return await axios.get(`${url}/wishlists`);
-}
-export async function removeWishlistitem(id) {
-    await axios.delete(`${url}/wishlists/${id}`);
+    await axios.delete(`${url}/cartlist/${id}`);
 }
 
 export async function addtocart(obj) {
@@ -66,42 +42,97 @@ export async function addtocart(obj) {
     });
     if (obj.discount > 0) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
-
     }
-
     await axios.post(`${url}/cartlist`, obj);
-    const existing = await axios.get(`${url}/cartlist?id=${obj.id}`);
-    if (existing.data.length > 0) {
-        const currentQuantity = existing.data[0].quantity || 1;
-        await axios.patch(`${url}/cartlist/${obj.id}`, { quantity: currentQuantity + 1 });
-    } else {
-        obj.quantity = 1;
-        await axios.post(`${url}/cartlist`, obj);
-    }
-
 }
-
 
 export async function decrementquantity(obj, id, amount) {
     obj.quantity -= amount
     await axios.put(`${url}/products/${id}`, obj)
-
 }
+
 export async function incrementquantity(obj, id, amount) {
     obj.quantity += amount
     await axios.put(`${url}/products/${id}`, obj)
-
 }
+
 export async function getreviews() {
-
     return axios.get(`${url}/reviews`)
-
 }
+
 export async function addreview(obj) {
     await axios.post(`${url}/reviews`, obj)
 }
+
 export async function updatereview(id, rate, obj) {
     obj.stars += rate
     obj.reviews += 1
     await axios.put(`${url}/products/${id}`, obj)
+}
+
+export async function addToWishList(obj) {
+    getWishListitems().then(async (res) => {
+        const alreadyExists = res.data.some(item => item.id === obj.id);
+        if (!alreadyExists) {
+            await axios.post(`${url}/wishlists`, obj);
+        }
+    });
+}
+
+export async function getWishListitems() {
+    return await axios.get(`${url}/wishlists`);
+}
+
+export async function removeWishlistitem(id) {
+    await axios.delete(`${url}/wishlists/${id}`);
+}
+
+// =================== AUTH ===================
+
+export function loginUser({ email, password }) {
+    return new Promise((resolve, reject) => {
+        if (!/^\S+@\S+\.\S+$/.test(email))
+            return reject("Invalid email address");
+        if (password.length < 6)
+            return reject("Password must be at least 6 characters");
+
+        axios
+            .get(`${url}/users`, {
+                params: { email, password },
+            })
+            .then((res) => {
+                const users = res.data;
+                if (Array.isArray(users) && users.length > 0) {
+                    resolve(users[0]); // success
+                } else {
+                    reject("Invalid email or password");
+                }
+            })
+            .catch(() => {
+                reject("Failed to connect to the server");
+            });
+    });
+}
+
+export function signupUser({ firstName, lastName, email, password, confirm }) {
+    return new Promise((resolve, reject) => {
+        if (!firstName.trim() || !lastName.trim())
+            return reject("First and last name are required");
+        if (!/^\S+@\S+\.\S+$/.test(email))
+            return reject("Invalid email address");
+        if (password.length < 6)
+            return reject("Password must be at least 6 characters");
+        if (password !== confirm)
+            return reject("Passwords do not match");
+
+        axios
+            .post(`${url}/users`, {
+                firstName,
+                lastName,
+                email,
+                password,
+            })
+            .then((res) => resolve(res.data))
+            .catch(() => reject("Failed to connect to the server"));
+    });
 }
