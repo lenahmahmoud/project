@@ -2,6 +2,7 @@ import "../style/signup.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../../utils/Api";
+import Swal from 'sweetalert2';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -30,6 +31,14 @@ export default function Signup() {
 
       localStorage.setItem("user", JSON.stringify(res)); // store the returned user
     //   alert("Your account has been created successfully!");
+  Swal.fire({
+  icon: "success",
+  title: "Your account has been created successfully!",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+
       navigate("/login");
     } catch (error) {
       setErr(error.response?.data?.message || error.message || error || "Something went wrong");

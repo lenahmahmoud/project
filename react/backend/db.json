@@ -6,6 +6,13 @@
       "lastName": "mahmoud",
       "email": "lenah.mahmoud@gmail.com",
       "password": "Lenah2005!"
+    },
+    {
+      "id": "b04d",
+      "firstName": "Shahd",
+      "lastName": "Yehya",
+      "email": "shahdyehya82@gmail.com",
+      "password": "123456"
     }
   ],
   "products": [
@@ -351,7 +358,16 @@
       ]
     }
   ],
-  "wishlists": [],
+  "wishlists": [
+    {
+      "id": "585b",
+      "price": 400,
+      "image": [
+        "/images/oils/evening_primrose_oil.jpg"
+      ],
+      "title": "evening_primrose oil"
+    }
+  ],
   "orders": [
     {
       "id": "ee31",
