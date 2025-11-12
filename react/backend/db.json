@@ -25,7 +25,7 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 42,
+      "quantity": 39,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -366,6 +366,14 @@
         "/images/oils/evening_primrose_oil.jpg"
       ],
       "title": "evening_primrose oil"
+    },
+    {
+      "id": "ea45",
+      "price": 250,
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "title": "coconut oil"
     }
   ],
   "orders": [
@@ -382,7 +390,68 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [],
+  "cartlist": [
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    }
+  ],
   "reviews": [
     {
       "id": "5f03",
