@@ -31,12 +31,44 @@ November → Back-end side
 December → Project accomplished + Final revision + Last edits
 
 ROLES & RESPNOSIBLITIES:
-Lenah mahmoud: shop process (shop page +shop details) 
-Sara yasser : add to cart page +cart window + search 
-Shahd yehya : log in +sign up + profile page 
-Elaria Ezzat : home page +categories
-Joy Akram: thank you page + APIs +all the links attached to the footer(privacy policy+ shipping fees....) 
-Maurien Yousry : checkout page+payment
+Lenah mahmoud mohammed  (team leader) :
+1- shopall + shop for each category (html +css)
+2- filter and sort ( react)
+3- shop pages (react)
+4-home page (React)
+5- static footer pages 
+6- fix bugs for the rest of the tasks
+7- testing +combining the project
+
+Shahd Yehya  :
+1-profile page (html +Css)
+2-login / sign up (html+css)
+3- hover cards (React)
+4- alerts (React)
+5-one bug fixing
+
+Sara Yasser  :
+1- details page (html+css)
+2- login /sign up (react)
+3- show product (react)
+4- contact us (react)
+
+Elaria Ezzat  :
+1- home page (html +css)
+2-cart page (react)
+3-wishlist (react)
+
+Maurien  youssry  :
+1- Navbar +footer (html +css)
+2-cart page (html+css)
+3- reviews  section (react)
+4-thankyou page (react)
+
+Joy Akram:
+1-cart window (html +css) “ but recently we decided not to add it ,we used alerts instead”
+2- search (react)
+3-checkout section (react)
+
 
 REVIEW & FINALIZATION
 We will review the project to ensure all features work correctly, including product listings, 
