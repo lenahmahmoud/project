@@ -35,7 +35,7 @@ export async function removeitem(id) {
 
 export async function addtocart(obj) {
     Swal.fire({
-        title: "Added successfully!",
+        title: "Added to cart successfully!",
         icon: "success",
         draggable: true,
         confirmButtonColor: "#000000",
@@ -76,6 +76,12 @@ export async function addToWishList(obj) {
         if (!alreadyExists) {
             await axios.post(`${url}/wishlists`, obj);
         }
+    });
+    Swal.fire({
+        title: "Added to wishlist successfully!",
+        icon: "success",
+        draggable: true,
+        confirmButtonColor: "#000000",
     });
 }
 

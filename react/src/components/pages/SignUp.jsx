@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 //import "./style/signup"
 import { signupUser } from "../../../utils/Api";
+import Swal from 'sweetalert2';
 
 
 export default function Signup() {
@@ -22,11 +23,27 @@ export default function Signup() {
     setLoading(true);
     try {
       const res = await signupUser({ firstName, lastName, email, password, confirm });
+<<<<<<< HEAD
        console.log ('user saved:', user );
       //localStorage.setItem('user saved:', user );
       //localStorage.setItem('user', JSON.stringify(res.user));
       alert ('your account is creat');
       navigate('/login');
+=======
+      console.log("user saved:", res);
+
+      localStorage.setItem("user", JSON.stringify(res)); // store the returned user
+    //   alert("Your account has been created successfully!");
+  Swal.fire({
+  icon: "success",
+  title: "Your account has been created successfully!",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+
+      navigate("/login");
+>>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     } catch (error) {
       setErr(error.message || 'error');
     } finally {
