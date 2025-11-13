@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import ThankU from "./ThankU";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getitems } from "../../../utils/Api";
+
 
 function Checkout({ openThankU }) {
+  const [cartItems, setCartItems] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -11,6 +14,13 @@ function Checkout({ openThankU }) {
     governorate: "",
     tel: "",
   });
+  useEffect(() => {
+
+    getitems().then((res) => setCartItems(res.data));
+
+  }, []);
+  const subtotal = cartItems.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
+
 
   return (
     <>
@@ -340,32 +350,33 @@ function Checkout({ openThankU }) {
                 top: "100px",
                 backgroundColor: "#fff",
                 padding: "1rem",
-                width: "100%",
+                width: "620px",
+                 zIndex: 2000
               }}
-              className="col-lg-5 col-8"
             >
-              <div
-                style={{ overflowY: "auto", height: "35vh" }}
-                className="mb-5"
-              >
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <div className="image d-flex align-items-center position-relative">
-                    <img
-                      src="../assets/images/facial_set.jpg"
-                      style={{ width: "14%" }}
-                      className="shadow rounded"
-                      alt="facial set"
-                    />
-                    <p className="fw-bold mx-3">Cleanser</p>
-                    <p className="badge bg-danger position-absolute top-0 start-0">
-                      1
-                    </p>
-                  </div>
-                  <div>E£510</div>
-                </div>
+              <div style={{ overflowY: "auto", height: "35vh" }} className="mb-5">
+                {cartItems.length > 0 &&
+                  cartItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={item.image[0]}
+                          style={{ width: "50px", height: "50px" }}
+                          className="rounded shadow"
+                          alt={item.title}
+                        />
+                        <p className="fw-bold mx-3">{item.title}</p>
+                      </div>
+                      <p>E£{item.price * item.quantity}</p>
+                    </div>
+                  ))
+                }
               </div>
 
-              <form className="mt-5">
+              {/* <form className="mt-5">
                 <input
                   type="text"
                   name="discount"
@@ -374,24 +385,25 @@ function Checkout({ openThankU }) {
                   className="w-75 py-2 border-0 ps-2"
                 />
                 <button className="btn py-3">Apply</button>
-              </form>
+              </form> */}
 
               <section className="mt-5">
                 <div className="d-flex justify-content-between mb-2">
-                  <p>Subtotal</p>
-                  <p>E£520</p>
+                  <p>subtotal</p>
+                  <p>E£{subtotal}</p>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
-                  <p>Shipping</p>
-                  <p>E£50</p>
+                  <p>shipping</p>
+                  <p>E£ 50</p>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <p className="fw-bold">Total</p>
-                  <p>E£570</p>
+                  <p>E£{subtotal + 50}</p>
                 </div>
               </section>
             </div>
           </aside>
+
         </div>
       </section>
     </>

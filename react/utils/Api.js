@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const url = "http://localhost:8000"; // Corrected port
+const url = "http://localhost:5000"; 
 
 export async function getproducts() {
     return await axios.get(`${url}/products`);
@@ -89,50 +89,55 @@ export async function removeWishlistitem(id) {
 
 // =================== AUTH ===================
 
-export function loginUser({ email, password }) {
-    return new Promise((resolve, reject) => {
-        if (!/^\S+@\S+\.\S+$/.test(email))
-            return reject("Invalid email address");
-        if (password.length < 6)
-            return reject("Password must be at least 6 characters");
 
-        axios
-            .get(`${url}/users`, {
-                params: { email, password },
-            })
-            .then((res) => {
-                const users = res.data;
-                if (Array.isArray(users) && users.length > 0) {
-                    resolve(users[0]); // success
-                } else {
-                    reject("Invalid email or password");
-                }
-            })
-            .catch(() => {
-                reject("Failed to connect to the server");
-            });
-    });
+export function loginUser({ email, password }) {
+  return new Promise((resolve, reject) => {
+    if (!/^\S+@\S+\.\S+$/.test(email))
+      return reject("Invalid email address");
+    if (password.length < 6)
+      return reject("Password must be at least 6 characters");
+
+    axios
+      .get(`${url}/users`, {
+        params: { email, password },
+      })
+      .then((res) => {
+        const users = res.data;
+        if (Array.isArray(users) && users.length > 0) {
+          resolve(users[0]); // success
+        } else {
+          reject("Invalid email or password");
+        }
+      })
+      .catch(() => {
+        reject("Failed to connect to the server");
+      });
+  });
 }
 
-export function signupUser({ firstName, lastName, email, password, confirm }) {
-    return new Promise((resolve, reject) => {
-        if (!firstName.trim() || !lastName.trim())
-            return reject("First and last name are required");
-        if (!/^\S+@\S+\.\S+$/.test(email))
-            return reject("Invalid email address");
-        if (password.length < 6)
-            return reject("Password must be at least 6 characters");
-        if (password !== confirm)
-            return reject("Passwords do not match");
 
-        axios
-            .post(`${url}/users`, {
-                firstName,
-                lastName,
-                email,
-                password,
-            })
-            .then((res) => resolve(res.data))
-            .catch(() => reject("Failed to connect to the server"));
-    });
+
+export function signupUser({ firstName, lastName, email, password, confirm }) {
+  return new Promise((resolve, reject) => {
+    // Basic validation
+    if (!firstName.trim() || !lastName.trim())
+      return reject("First and last name are required");
+    if (!/^\S+@\S+\.\S+$/.test(email))
+      return reject("Invalid email address");
+    if (password.length < 6)
+      return reject("Password must be at least 6 characters");
+    if (password !== confirm)
+      return reject("Passwords do not match");
+
+    // POST request to JSON Server
+    axios
+      .post(`${url}/users`, {
+        firstName,
+        lastName,
+        email,
+        password,
+      })
+      .then((res) => resolve(res.data))
+      .catch(() => reject("Failed to connect to the server"));
+  });
 }

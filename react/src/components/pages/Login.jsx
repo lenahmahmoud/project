@@ -1,6 +1,6 @@
-import '../style/login.css';
+import '../style/Login.css';
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../utils/Api";
 
 export default function Login() {
@@ -18,14 +18,14 @@ export default function Login() {
     try {
       const user = await loginUser({ email, password });
 
-      // Save login data
+      // Simulate login and save to localStorage
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(user));
 
-    //   alert("Login successful!");
-      navigate("/home"); // Navigate to home
+      alert("Login successful!");
+      navigate("/home");
     } catch (error) {
-      const message = typeof error === "string" ? error : (error?.message || error || "Something went wrong");
+      const message = typeof error === "string" ? error : (error?.message || "Something went wrong");
       setErr(message);
     } finally {
       setLoading(false);
@@ -57,7 +57,7 @@ export default function Login() {
           <input
             type="password"
             className="form-control"
-            placeholder="enter your password"
+            placeholder="••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -71,13 +71,13 @@ export default function Login() {
         </button>
 
         <div className="text-center small-muted">
-          Forgot your password? <Link to="#">Reset it here</Link>.
+          Forgot your password? <a href="#">Reset it here</a>.
         </div>
 
         <hr />
 
         <div className="text-center small-muted mt-2">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don't have an account? <a href="/signup">Sign up</a>
         </div>
       </form>
     </div>

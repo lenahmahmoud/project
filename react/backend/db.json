@@ -1,11 +1,7 @@
 {
   "users": [
     {
-      "id": "180a",
-      "firstName": "lenah",
-      "lastName": "mahmoud",
-      "email": "lenah.mahmoud@gmail.com",
-      "password": "Lenah2005!"
+      
     }
   ],
   "products": [
@@ -38,7 +34,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 32,
+      "quantity": 28,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -351,7 +347,16 @@
       ]
     }
   ],
-  "wishlists": [],
+  "wishlists": [
+    {
+      "id": "aa13",
+      "price": 440,
+      "image": [
+        "/images/serums/Green_tea_serum.jpg"
+      ],
+      "title": "green tea serum"
+    }
+  ],
   "orders": [
     {
       "id": "ee31",
@@ -366,7 +371,48 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [],
+  "cartlist": [
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    },
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 3,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    }
+  ],
   "reviews": [
     {
       "id": "5f03",

@@ -13,7 +13,6 @@ function Cart() {
 
 
     const subtotal = items.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
-
     return (
         <>
             <section className="cart-section mt-5 pt-5">
