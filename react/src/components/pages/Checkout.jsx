@@ -346,12 +346,12 @@ function Checkout({ openThankU }) {
           <aside className="col-lg-4 col-md-8 col-12">
             <div
               style={{
-                position: "fixed",
+                position: "sticky",
                 top: "100px",
                 backgroundColor: "#fff",
                 padding: "1rem",
-                width: "620px",
-                 zIndex: 2000
+                width: "100%",
+                zIndex: 2000
               }}
             >
               <div style={{ overflowY: "auto", height: "35vh" }} className="mb-5">

@@ -1,9 +1,6 @@
 {
   "users": [
     {
-<<<<<<< HEAD
-      
-=======
       "id": "180a",
       "firstName": "lenah",
       "lastName": "mahmoud",
@@ -16,7 +13,6 @@
       "lastName": "Yehya",
       "email": "shahdyehya82@gmail.com",
       "password": "123456"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     }
   ],
   "products": [
@@ -31,8 +27,8 @@
       ],
       "quantity": 39,
       "discount": 10,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 3,
+      "reviews": 1,
       "keyfeatures": [
         "Deep hydration and lasting softness",
         "Lightweight, non-greasy texture",
@@ -49,7 +45,7 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 28,
+      "quantity": 27,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -89,7 +85,7 @@
       "image": [
         "/images/toners/chamomile_toner.jpg"
       ],
-      "quantity": 25,
+      "quantity": 24,
       "discount": 0,
       "stars": 5,
       "reviews": 1,
@@ -364,14 +360,6 @@
   ],
   "wishlists": [
     {
-<<<<<<< HEAD
-      "id": "aa13",
-      "price": 440,
-      "image": [
-        "/images/serums/Green_tea_serum.jpg"
-      ],
-      "title": "green tea serum"
-=======
       "id": "585b",
       "price": 400,
       "image": [
@@ -386,7 +374,6 @@
         "/images/oils/coconut_oil.jpg"
       ],
       "title": "coconut oil"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     }
   ],
   "orders": [
@@ -405,7 +392,46 @@
   ],
   "cartlist": [
     {
-<<<<<<< HEAD
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "aaa9",
+      "title": "chamomile toner",
+      "description": "A gentle, soothing toner enriched with chamomile extract to calm and refresh sensitive skin. Helps balance the skin’s pH, reduce redness, and prepare your skin for better absorption of serums and moisturizers",
+      "price": 330,
+      "category": "toners",
+      "image": [
+        "/images/toners/chamomile_toner.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 1,
+      "keyfeatures": [
+        "Calms and soothes sensitive skin",
+        "Helps reduce redness and irritation",
+        "Balances pH for smoother texture",
+        "Prepares skin for serums and creams"
+      ]
+    },
+    {
       "id": "ff43",
       "title": "rose water toner",
       "description": "best toner for your skin glow",
@@ -426,24 +452,6 @@
       ]
     },
     {
-      "id": "ff43",
-      "title": "rose water toner",
-      "description": "best toner for your skin glow",
-      "price": 450,
-      "category": "toners",
-      "image": [
-        "/images/toners/rose_water_toner.jpg"
-      ],
-      "quantity": 3,
-      "discount": 0,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Soothes and refreshes tired skin",
-        "Balances skin’s natural pH",
-        "Tightens pores and tones complexion",
-        "Hydrates and revitalizes dull skin"
-=======
       "id": "ea45",
       "title": "coconut oil",
       "description": "pure coconut oil for your skin glow",
@@ -452,7 +460,7 @@
       "image": [
         "/images/oils/coconut_oil.jpg"
       ],
-      "quantity": 1,
+      "quantity": 2,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -461,47 +469,6 @@
         "Lightweight, non-greasy texture",
         "Rich in vitamins and natural oils",
         "Protects skin from dryness and stress"
-      ]
-    },
-    {
-      "id": "ea45",
-      "title": "coconut oil",
-      "description": "pure coconut oil for your skin glow",
-      "price": 225,
-      "category": "oils",
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Deep hydration and lasting softness",
-        "Lightweight, non-greasy texture",
-        "Rich in vitamins and natural oils",
-        "Protects skin from dryness and stress"
-      ]
-    },
-    {
-      "id": "ea45",
-      "title": "coconut oil",
-      "description": "pure coconut oil for your skin glow",
-      "price": 225,
-      "category": "oils",
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Deep hydration and lasting softness",
-        "Lightweight, non-greasy texture",
-        "Rich in vitamins and natural oils",
-        "Protects skin from dryness and stress"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
       ]
     }
   ],
@@ -582,6 +549,14 @@
       "text": "er",
       "rating": 1,
       "productId": "aa13"
+    },
+    {
+      "id": "be4f",
+      "firstname": "maurien",
+      "lastname": "yousry",
+      "text": "........\n",
+      "rating": 3,
+      "productId": "ea45"
     }
   ]
 }

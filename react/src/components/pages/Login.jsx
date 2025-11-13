@@ -23,10 +23,6 @@ export default function Login() {
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(user));
 
-<<<<<<< HEAD
-      alert("Login successful!");
-      navigate("/home");
-=======
     //   alert("Login successful!");
   Swal.fire({
   icon: "success",
@@ -36,7 +32,6 @@ export default function Login() {
 });
 
       navigate("/home"); // Navigate to home
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     } catch (error) {
       const message = typeof error === "string" ? error : (error?.message || "Something went wrong");
       setErr(message);

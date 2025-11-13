@@ -23,13 +23,6 @@ export default function Signup() {
     setLoading(true);
     try {
       const res = await signupUser({ firstName, lastName, email, password, confirm });
-<<<<<<< HEAD
-       console.log ('user saved:', user );
-      //localStorage.setItem('user saved:', user );
-      //localStorage.setItem('user', JSON.stringify(res.user));
-      alert ('your account is creat');
-      navigate('/login');
-=======
       console.log("user saved:", res);
 
       localStorage.setItem("user", JSON.stringify(res)); // store the returned user
@@ -43,7 +36,6 @@ export default function Signup() {
 
 
       navigate("/login");
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     } catch (error) {
       setErr(error.message || 'error');
     } finally {
