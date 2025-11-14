@@ -226,7 +226,8 @@ function Details() {
                                                             rating: writtenreview.rating,
                                                         };
 
-                                                        addreview(reviewToAdd).then(() => {
+                                                        addreview(
+                                                            reviewToAdd).then(() => {
                                                             setReviews((prev) => [...prev, reviewToAdd]);
                                                             const rate = totalRate([...filteredreviews, reviewToAdd], product);
                                                             updatereview(id, rate, product);
@@ -241,14 +242,6 @@ function Details() {
                                         </div>
                                     </div>
                                 )}
-
-                                <h5>
-                                    {isNaN(totalRate(filteredreviews, product))
-                                        ? "0"
-                                        : totalRate(filteredreviews, product)}{" "}
-                                    <small className="text-muted">Based On </small>
-                                    {product.reviews} <small className="text-muted">Reviews</small>
-                                </h5>
 
                                 <div>
                                     <span className="text-warning">
