@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const url = "http://localhost:8001"; 
+const url = "http://localhost:5000"; 
 
 export async function getproducts() {
     return await axios.get(`${url}/products`);

@@ -23,10 +23,6 @@ export default function Signup() {
     setLoading(true);
     try {
       const res = await signupUser({ firstName, lastName, email, password, confirm });
-<<<<<<< HEAD
-=======
-      console.log("user saved:", res);
->>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
 
       navigate('/login');
 

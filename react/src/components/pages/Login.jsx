@@ -1,6 +1,6 @@
 import '../style/Login.css';
 import { useState } from "react";
-import { useNavigate ,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../../utils/Api";
 import Swal from 'sweetalert2';
 
@@ -23,7 +23,6 @@ export default function Login() {
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(user));
 
-<<<<<<< HEAD
       navigate("/home");
       Swal.fire({
         icon: "success",
@@ -31,15 +30,12 @@ export default function Login() {
         showConfirmButton: false,
         timer: 1500
       });
-=======
-    //   alert("Login successful!");
-  Swal.fire({
-  icon: "success",
-  title: "Login successful!",
-  showConfirmButton: false,
-  timer: 1500
-});
->>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
+      Swal.fire({
+        icon: "success",
+        title: "Login successful!",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
       navigate("/home"); // Navigate to home
     } catch (error) {
