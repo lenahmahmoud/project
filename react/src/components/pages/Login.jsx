@@ -1,6 +1,6 @@
 import '../style/Login.css';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link } from "react-router-dom";
 import { loginUser } from "../../../utils/Api";
 import Swal from 'sweetalert2';
 
@@ -23,20 +23,15 @@ export default function Login() {
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(user));
 
-<<<<<<< HEAD
-      alert("Login successful!");
       navigate("/home");
-=======
-    //   alert("Login successful!");
-  Swal.fire({
-  icon: "success",
-  title: "Login successful!",
-  showConfirmButton: false,
-  timer: 1500
-});
+      Swal.fire({
+        icon: "success",
+        title: "Login successful!",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
       navigate("/home"); // Navigate to home
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
     } catch (error) {
       const message = typeof error === "string" ? error : (error?.message || "Something went wrong");
       setErr(message);
@@ -84,13 +79,13 @@ export default function Login() {
         </button>
 
         <div className="text-center small-muted">
-          Forgot your password? <a href="#">Reset it here</a>.
+          Forgot your password? <Link to="#">Reset it here</Link>.
         </div>
 
         <hr />
 
         <div className="text-center small-muted mt-2">
-          Don't have an account? <a href="/signup">Sign up</a>
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </div>
       </form>
     </div>

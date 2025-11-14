@@ -1,22 +1,18 @@
 {
   "users": [
     {
-<<<<<<< HEAD
-      
-=======
-      "id": "180a",
-      "firstName": "lenah",
-      "lastName": "mahmoud",
-      "email": "lenah.mahmoud@gmail.com",
-      "password": "Lenah2005!"
-    },
-    {
       "id": "b04d",
       "firstName": "Shahd",
       "lastName": "Yehya",
       "email": "shahdyehya82@gmail.com",
       "password": "123456"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
+    },
+    {
+      "id": "922e",
+      "firstName": "lenah",
+      "lastName": "mahmoud",
+      "email": "lenah.mahmoud@gmail.com",
+      "password": "Lenah2"
     }
   ],
   "products": [
@@ -49,10 +45,10 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
-      "quantity": 28,
+      "quantity": 31,
       "discount": 0,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 3,
+      "reviews": 2,
       "keyfeatures": [
         "Soothes and refreshes tired skin",
         "Balances skin’s natural pH",
@@ -71,8 +67,8 @@
       ],
       "quantity": 13,
       "discount": 27,
-      "stars": 29,
-      "reviews": 4,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Reduces redness and irritation",
         "Rich in antioxidants for healthy skin",
@@ -91,8 +87,8 @@
       ],
       "quantity": 25,
       "discount": 0,
-      "stars": 5,
-      "reviews": 1,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Calms and soothes sensitive skin",
         "Helps reduce redness and irritation",
@@ -129,7 +125,7 @@
       "image": [
         "/images/serums/collagen_Boost_serum.jpg"
       ],
-      "quantity": -1,
+      "quantity": 10,
       "discount": 5,
       "stars": 0,
       "reviews": 0,
@@ -149,7 +145,7 @@
       "image": [
         "/images/serums/vitaminc_serum.jpg"
       ],
-      "quantity": 1,
+      "quantity": 12,
       "discount": 10,
       "stars": 0,
       "reviews": 0,
@@ -210,10 +206,10 @@
       "image": [
         "/images/oils/camella_sead_oil.jpg"
       ],
-      "quantity": -2,
+      "quantity": 12,
       "discount": 13,
-      "stars": 13,
-      "reviews": 2,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Deeply hydrates and softens skin",
         "Improves elasticity and radiance",
@@ -232,8 +228,8 @@
       ],
       "quantity": 40,
       "discount": 0,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 5,
+      "reviews": 1,
       "keyfeatures": [
         "Soothes and calms sensitive skin",
         "Restores natural moisture barrier",
@@ -312,8 +308,8 @@
       ],
       "quantity": 13,
       "discount": 0,
-      "stars": 3,
-      "reviews": 1,
+      "stars": 0,
+      "reviews": 0,
       "keyfeatures": [
         "Draws out impurities and oil",
         "Minimizes pores and refines texture",
@@ -362,33 +358,7 @@
       ]
     }
   ],
-  "wishlists": [
-    {
-<<<<<<< HEAD
-      "id": "aa13",
-      "price": 440,
-      "image": [
-        "/images/serums/Green_tea_serum.jpg"
-      ],
-      "title": "green tea serum"
-=======
-      "id": "585b",
-      "price": 400,
-      "image": [
-        "/images/oils/evening_primrose_oil.jpg"
-      ],
-      "title": "evening_primrose oil"
-    },
-    {
-      "id": "ea45",
-      "price": 250,
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "title": "coconut oil"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
-    }
-  ],
+  "wishlists": [],
   "orders": [
     {
       "id": "ee31",
@@ -403,185 +373,31 @@
       "status": "delivered"
     }
   ],
-  "cartlist": [
-    {
-<<<<<<< HEAD
-      "id": "ff43",
-      "title": "rose water toner",
-      "description": "best toner for your skin glow",
-      "price": 450,
-      "category": "toners",
-      "image": [
-        "/images/toners/rose_water_toner.jpg"
-      ],
-      "quantity": 1,
-      "discount": 0,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Soothes and refreshes tired skin",
-        "Balances skin’s natural pH",
-        "Tightens pores and tones complexion",
-        "Hydrates and revitalizes dull skin"
-      ]
-    },
-    {
-      "id": "ff43",
-      "title": "rose water toner",
-      "description": "best toner for your skin glow",
-      "price": 450,
-      "category": "toners",
-      "image": [
-        "/images/toners/rose_water_toner.jpg"
-      ],
-      "quantity": 3,
-      "discount": 0,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Soothes and refreshes tired skin",
-        "Balances skin’s natural pH",
-        "Tightens pores and tones complexion",
-        "Hydrates and revitalizes dull skin"
-=======
-      "id": "ea45",
-      "title": "coconut oil",
-      "description": "pure coconut oil for your skin glow",
-      "price": 225,
-      "category": "oils",
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Deep hydration and lasting softness",
-        "Lightweight, non-greasy texture",
-        "Rich in vitamins and natural oils",
-        "Protects skin from dryness and stress"
-      ]
-    },
-    {
-      "id": "ea45",
-      "title": "coconut oil",
-      "description": "pure coconut oil for your skin glow",
-      "price": 225,
-      "category": "oils",
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Deep hydration and lasting softness",
-        "Lightweight, non-greasy texture",
-        "Rich in vitamins and natural oils",
-        "Protects skin from dryness and stress"
-      ]
-    },
-    {
-      "id": "ea45",
-      "title": "coconut oil",
-      "description": "pure coconut oil for your skin glow",
-      "price": 225,
-      "category": "oils",
-      "image": [
-        "/images/oils/coconut_oil.jpg"
-      ],
-      "quantity": 1,
-      "discount": 10,
-      "stars": 0,
-      "reviews": 0,
-      "keyfeatures": [
-        "Deep hydration and lasting softness",
-        "Lightweight, non-greasy texture",
-        "Rich in vitamins and natural oils",
-        "Protects skin from dryness and stress"
->>>>>>> c549fcd2600551edf6485336ded08db8e9314f6a
-      ]
-    }
-  ],
+  "cartlist": [],
   "reviews": [
     {
-      "id": "5f03",
-      "firstname": "lenah",
-      "lastname": "mahmoud",
-      "text": "err",
-      "rating": 5,
-      "productId": "aa13"
-    },
-    {
-      "id": "7f84",
-      "rating": 5,
-      "productId": "aaa9"
-    },
-    {
-      "id": "5291",
+      "id": "d52f",
       "firstname": "lenah",
       "lastname": "mahmoud",
       "text": "perfect",
-      "rating": 3,
-      "productId": "235b"
+      "rating": 5,
+      "productId": "ff43"
     },
     {
-      "id": "feba",
+      "id": "f924",
       "firstname": "sara",
       "lastname": "yasser",
-      "text": "not bad\n",
-      "rating": 4,
-      "productId": "785f"
+      "text": "not bad",
+      "rating": 1,
+      "productId": "ff43"
     },
     {
-      "id": "a40d",
-      "firstname": "tia",
-      "lastname": "zakaria",
-      "text": "i totally love it",
+      "id": "13f6",
+      "firstname": "joy",
+      "lastname": "akram",
+      "text": "excellent",
       "rating": 5,
-      "productId": "785f"
-    },
-    {
-      "id": "9ccc",
-      "firstname": "nermeen",
-      "lastname": "alieldin",
-      "text": "perfect",
-      "rating": 5,
-      "productId": "aa13"
-    },
-    {
-      "id": "8847",
-      "firstname": "6g",
-      "lastname": "6t",
-      "text": "6t4e",
-      "rating": 1,
-      "productId": "aa13"
-    },
-    {
-      "id": "1f39",
-      "firstname": "juh",
-      "lastname": "tgt",
-      "text": "tft",
-      "rating": 1,
-      "productId": "aa13"
-    },
-    {
-      "id": "cf66",
-      "firstname": "g",
-      "lastname": "6g",
-      "text": "yg",
-      "rating": 1,
-      "productId": "aa13"
-    },
-    {
-      "id": "b5eb",
-      "firstname": "r",
-      "lastname": "re",
-      "text": "er",
-      "rating": 1,
-      "productId": "aa13"
+      "productId": "585b"
     }
   ]
 }

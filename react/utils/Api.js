@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const url = "http://localhost:5000"; 
+const url = "http://localhost:8001"; 
 
 export async function getproducts() {
     return await axios.get(`${url}/products`);
@@ -64,11 +64,13 @@ export async function addreview(obj) {
     await axios.post(`${url}/reviews`, obj)
 }
 
-export async function updatereview(id, rate, obj) {
-    obj.stars += rate
-    obj.reviews += 1
-    await axios.put(`${url}/products/${id}`, obj)
+export async function updatereview(id, newAverage, newCount) {
+    await axios.patch(`${url}/products/${id}`, {
+        stars: newAverage,      
+        reviews: newCount        
+    });
 }
+
 
 export async function addToWishList(obj) {
     getWishListitems().then(async (res) => {

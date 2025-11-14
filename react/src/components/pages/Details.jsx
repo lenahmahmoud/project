@@ -1,35 +1,50 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import '../style/home.css';
-import { getproduct, decrementquantity, getproducts, getreviews, addreview, updatereview } from "../../../utils/Api";
+import "../style/home.css";
+import {
+    getproduct,
+    decrementquantity,
+    getproducts,
+    getreviews,
+    addreview,
+    updatereview,
+} from "../../../utils/Api";
 import { addtocart } from "../../../utils/Api";
-import '../style/details.css';
+import "../style/details.css";
 import { FaStar } from "react-icons/fa";
 
 function Details() {
+    // id for the main product
     const { id } = useParams();
+    // the main product
     const [product, setProduct] = useState({});
+    // the whole products
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // the quantity
     const [Quantity, setQuantity] = useState(1);
+    // the whole reviews tht need to be filtered
     const [reviews, setReviews] = useState([]);
+    // written review
     const [writtenreview, setWrittenreview] = useState({});
+    // hover state
     const [hover, setHover] = useState(null);
+    // toggle form state
     const [showform, setShowform] = useState(false);
-    const filteredreviews = reviews.filter((review) => review.productId === product.id);
 
+    // reviews for this product
+    const filteredreviews = reviews.filter(
+        (review) => String(review.productId) === String(product.id)
+    );
+    
+    // getting data
     useEffect(() => {
-        setLoading(true);
-        Promise.all([getproduct(id), getproducts(), getreviews()])
-            .then(([productRes, productsRes, reviewsRes]) => {
-                setProduct(productRes.data);
-                setProducts(productsRes.data);
-                setReviews(reviewsRes.data);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
+        getproduct(id).then((res) => setProduct(res.data));
+        getproducts().then((res) => setProducts(res.data));
+        getreviews().then((res) => setReviews(res.data));
     }, [id]);
 
+
+    // functions for the quantity buttons
     function increment() {
         if (product.quantity > Quantity) {
             setQuantity(Quantity + 1);
@@ -42,14 +57,16 @@ function Details() {
         }
     }
 
-    function totalRate(filtered, product) {
-        const totalrate = filtered.reduce((sum, review) => sum + (review.rating || 0), 0);
-        const average = totalrate / (product.reviews || 1);
-        return Math.ceil(average);
+    // average calculation
+    function totalRate(filtered) {
+        if (!filtered || filtered.length === 0) return 0;
+        const total = filtered.reduce(
+            (sum, r) => sum + (Number(r.rating) || 0),
+            0
+        );
+        const avg = total / filtered.length;
+        return Math.round(avg); 
     }
-
-    if (loading) return <p className="text-center mt-5">Loading...</p>;
-    if (!product) return <p className="text-center mt-5">Product not found.</p>;
 
     return (
         <>
@@ -59,7 +76,7 @@ function Details() {
                         <div className="row">
                             <div className="col-md-6 text-center">
                                 <img
-                                    src={product.image[0]}
+                                    src={product.image?.[0]}
                                     alt={product.title}
                                     className="img-fluid rounded shadow"
                                     style={{ width: "400px", height: "500px" }}
@@ -77,7 +94,11 @@ function Details() {
                                             <>
                                                 <del>£E {product.price}</del>{" "}
                                                 <span className="text-success">
-                                                    £E {product.price - (product.discount * product.price) / 100}
+                                                    £E{" "}
+                                                    {product.price -
+                                                        (product.discount *
+                                                            product.price) /
+                                                        100}
                                                 </span>
                                             </>
                                         ) : (
@@ -87,12 +108,16 @@ function Details() {
                                 </div>
 
                                 <div className="mt-2">
-                                    <h5 style={{ color: "#CA554D" }} className="fw-bold">Description</h5>
+                                    <h5 style={{ color: "#CA554D" }} className="fw-bold">
+                                        Description
+                                    </h5>
                                     <p>{product.description}</p>
                                 </div>
 
                                 <div>
-                                    <h5 style={{ color: "#CA554D" }} className="fw-bold">Key Features</h5>
+                                    <h5 style={{ color: "#CA554D" }} className="fw-bold">
+                                        Key Features
+                                    </h5>
                                     <ul>
                                         {product.keyfeatures?.map((f, index) => (
                                             <li key={index}>{f}</li>
@@ -102,9 +127,13 @@ function Details() {
 
                                 <div className="mt-2">
                                     <div className="quantity-control mb-3">
-                                        <button className="btn btn-outline-dark" onClick={decrement}>-</button>
+                                        <button className="btn btn-outline-dark" onClick={decrement}>
+                                            -
+                                        </button>
                                         <span className="mx-3">{Quantity}</span>
-                                        <button className="btn btn-outline-dark" onClick={increment}>+</button>
+                                        <button className="btn btn-outline-dark" onClick={increment}>
+                                            +
+                                        </button>
                                     </div>
 
                                     <button
@@ -117,27 +146,41 @@ function Details() {
                                     >
                                         Add to Cart
                                     </button>
-                                    <Link to="/shopall" className="btn btn-outline-secondary">Back to Shop</Link>
+                                    <Link to="/shopall" className="btn btn-outline-secondary">
+                                        Back to Shop
+                                    </Link>
                                 </div>
                             </div>
                         </div>
 
-                        {/* ------------------- Reviews Section ------------------- */}
+                        {/* Reviews */}
                         <section className="mt-5">
                             <div className="product-card container">
                                 {!showform ? (
                                     <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <h3 className="fw-bold" style={{ color: "#7a312cff" }}>Customers Reviews</h3>
-                                        <button className="btn bg-white" onClick={() => setShowform(true)}>Write a Review</button>
+                                        <h3 className="fw-bold" style={{ color: "#7a312cff" }}>
+                                            Customers Reviews
+                                        </h3>
+                                        <button
+                                            className="btn bg-white"
+                                            onClick={() => setShowform(true)}
+                                        >
+                                            Write a Review
+                                        </button>
                                     </div>
                                 ) : null}
 
                                 {showform && (
                                     <div className="popup-overlay position-relative d-flex justify-content-center">
                                         <div className="popup-window position-absolute w-100">
-                                            <form className="w-100 mx-auto" style={{ backgroundColor: "#f6f0ed" }}>
+                                            <form
+                                                className="w-100 mx-auto"
+                                                style={{ backgroundColor: "#f6f0ed" }}
+                                            >
                                                 <div className="d-flex justify-content-between p-2">
-                                                    <h4 className="fw-bold" style={{ color: "#7a312cff" }}>Write A Review</h4>
+                                                    <h4 className="fw-bold" style={{ color: "#7a312cff" }}>
+                                                        Write A Review
+                                                    </h4>
                                                     <button
                                                         type="button"
                                                         className="btn border-0"
@@ -154,10 +197,15 @@ function Details() {
                                                         id="floatingName"
                                                         placeholder="Name"
                                                         onChange={(e) =>
-                                                            setWrittenreview({ ...writtenreview, firstname: e.target.value })
+                                                            setWrittenreview({
+                                                                ...writtenreview,
+                                                                firstname: e.target.value,
+                                                            })
                                                         }
                                                     />
-                                                    <label htmlFor="floatingName" className="py-2">First name</label>
+                                                    <label htmlFor="floatingName" className="py-2">
+                                                        First name
+                                                    </label>
                                                 </div>
 
                                                 <div className="form-floating mb-3">
@@ -167,10 +215,15 @@ function Details() {
                                                         id="floatingLast"
                                                         placeholder="Last name"
                                                         onChange={(e) =>
-                                                            setWrittenreview({ ...writtenreview, lastname: e.target.value })
+                                                            setWrittenreview({
+                                                                ...writtenreview,
+                                                                lastname: e.target.value,
+                                                            })
                                                         }
                                                     />
-                                                    <label htmlFor="floatingLast" className="py-2">Last name</label>
+                                                    <label htmlFor="floatingLast" className="py-2">
+                                                        Last name
+                                                    </label>
                                                 </div>
 
                                                 <div className="form-floating mb-3">
@@ -179,13 +232,15 @@ function Details() {
                                                         id="floatingMessage"
                                                         placeholder="Message"
                                                         onChange={(e) =>
-                                                            setWrittenreview({ ...writtenreview, text: e.target.value })
+                                                            setWrittenreview({
+                                                                ...writtenreview,
+                                                                text: e.target.value,
+                                                            })
                                                         }
                                                     ></textarea>
                                                     <label htmlFor="floatingMessage">Comment</label>
                                                 </div>
 
-                                                {/* Star Rating */}
                                                 <div className="mb-3">
                                                     <p className="mb-1">Rate this product:</p>
                                                     {Array.from({ length: 5 }).map((_, index) => {
@@ -196,12 +251,16 @@ function Details() {
                                                                 size={25}
                                                                 className="me-1"
                                                                 color={
-                                                                    starValue <= (hover || writtenreview.rating)
+                                                                    starValue <=
+                                                                        (hover || writtenreview.rating)
                                                                         ? "#ffc107"
                                                                         : "#e4e5e9"
                                                                 }
                                                                 onClick={() =>
-                                                                    setWrittenreview({ ...writtenreview, rating: starValue })
+                                                                    setWrittenreview({
+                                                                        ...writtenreview,
+                                                                        rating: starValue,
+                                                                    })
                                                                 }
                                                                 onMouseEnter={() => setHover(starValue)}
                                                                 onMouseLeave={() => setHover(null)}
@@ -212,42 +271,50 @@ function Details() {
                                                 </div>
 
                                                 <button
-                                                    type="button"
+                                                    type="submit"
                                                     className="btn btn-dark"
-                                                    onClick={() => {
-                                                        if (!writtenreview.rating) {
-                                                            alert("Please select a rating before submitting.");
-                                                            return;
-                                                        }
+                                                    onClick={async (e) => {
+                                                        e.preventDefault();
 
                                                         const reviewToAdd = {
                                                             ...writtenreview,
                                                             productId: id,
-                                                            rating: writtenreview.rating,
+                                                            rating: Number(writtenreview.rating) || 0,
                                                         };
 
-                                                        addreview(reviewToAdd).then(() => {
-                                                            setReviews((prev) => [...prev, reviewToAdd]);
-                                                            const rate = totalRate([...filteredreviews, reviewToAdd], product);
-                                                            updatereview(id, rate, product);
-                                                            setWrittenreview({});
-                                                            setShowform(false);
-                                                        });
+                                                        await addreview(reviewToAdd);
+                                                        setReviews((prev) => [...prev, reviewToAdd]);
+
+                                                        const newFiltered = [...filteredreviews, reviewToAdd];
+
+                                                        const rate = totalRate(newFiltered);
+
+                                                        const updatedProduct = {
+                                                            ...product,
+                                                            reviews: newFiltered.length,
+                                                            stars: rate,
+                                                        };
+                                                        setProduct(updatedProduct);
+
+                                                        await updatereview(id, rate, newFiltered.length);
+
+                                                        setWrittenreview({});
+                                                        setShowform(false);
                                                     }}
                                                 >
                                                     Submit
                                                 </button>
+
                                             </form>
                                         </div>
                                     </div>
                                 )}
 
                                 <h5>
-                                    {isNaN(totalRate(filteredreviews, product))
-                                        ? "0"
-                                        : totalRate(filteredreviews, product)}{" "}
+                                    {totalRate(filteredreviews)}{" "}
                                     <small className="text-muted">Based On </small>
-                                    {product.reviews} <small className="text-muted">Reviews</small>
+                                    {filteredreviews.length}{" "}
+                                    <small className="text-muted">Reviews</small>
                                 </h5>
 
                                 <div>
@@ -257,12 +324,12 @@ function Details() {
                                                 key={i}
                                                 style={{
                                                     color:
-                                                        i < totalRate(filteredreviews, product)
+                                                        i < totalRate(filteredreviews)
                                                             ? "#ffc107"
                                                             : "#b4b4b4ff",
                                                 }}
                                             >
-                                                &#9733;
+                                                ★
                                             </span>
                                         ))}
                                     </span>
@@ -273,25 +340,24 @@ function Details() {
                                         <div className="list-group-item">
                                             <div className="d-flex justify-content-between">
                                                 <div>
-                                                    <strong>{r.firstname} {r.lastname}</strong>
+                                                    <strong>
+                                                        {r.firstname} {r.lastname}
+                                                    </strong>
                                                 </div>
                                                 <div>
-                                                    <span className="text-warning">
-                                                        {Array.from({ length: 5 }, (_, i) => (
-                                                            <span
-                                                                key={i}
-                                                                style={{
-                                                                    color:
-                                                                        i < (r.rating || 0)
-                                                                            ? "#ffc107"
-                                                                            : "#b4b4b4ff",
-                                                                }}
-                                                                className="fs-5"
-                                                            >
-                                                                &#9733;
-                                                            </span>
-                                                        ))}
-                                                    </span>
+                                                    {Array.from({ length: 5 }, (_, i) => (
+                                                        <span
+                                                            key={i}
+                                                            style={{
+                                                                color:
+                                                                    i < r.rating
+                                                                        ? "#ffc107"
+                                                                        : "#b4b4b4ff",
+                                                            }}
+                                                        >
+                                                            ★
+                                                        </span>
+                                                    ))}
                                                 </div>
                                             </div>
                                             <p>{r.text}</p>
@@ -301,9 +367,11 @@ function Details() {
                             </div>
                         </section>
 
-                        {/* ------------------- Suggested Products ------------------- */}
+                        {/* Suggested */}
                         <section className="mt-5 container">
-                            <h3 className="mb-4 fw-bold" style={{ color: "#7a312cff" }}>You May Also Like</h3>
+                            <h3 className="mb-4 fw-bold" style={{ color: "#7a312cff" }}>
+                                You May Also Like
+                            </h3>
                             <div className="row g-3 justify-content-center">
                                 {products
                                     .filter((p) => p.category === product.category)
@@ -312,7 +380,7 @@ function Details() {
                                             <div className="card shadow-sm">
                                                 <div className="parent position-relative">
                                                     <img
-                                                        src={p.image[0]}
+                                                        src={p.image?.[0]}
                                                         className="card-img-top"
                                                         alt={p.title}
                                                         style={{ height: "350px" }}
@@ -328,17 +396,21 @@ function Details() {
                                                             className="btn border-0"
                                                             onClick={() => {
                                                                 const productToAdd = { ...p, quantity: 1 };
-                                                                addtocart(productToAdd,items);
+                                                                addtocart(productToAdd);
                                                                 decrementquantity(p, p.id, 1);
                                                             }}
                                                         >
                                                             <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
                                                         </button>
-                                                        <Link><i className="bi bi-share rounded-circle p-2 bg-white"></i></Link>
+                                                        <Link>
+                                                            <i className="bi bi-share rounded-circle p-2 bg-white"></i>
+                                                        </Link>
                                                         <Link to={`/details/${p.id}`}>
                                                             <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
                                                         </Link>
-                                                        <Link><i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i></Link>
+                                                        <Link>
+                                                            <i className="bi bi-suit-heart rounded-circle p-2 bg-white"></i>
+                                                        </Link>
                                                     </div>
                                                 </div>
 
@@ -349,7 +421,10 @@ function Details() {
                                                             <>
                                                                 <del>${p.price}</del>{" "}
                                                                 <strong className="text-success">
-                                                                    ${p.price - (p.price * p.discount) / 100}
+                                                                    $
+                                                                    {p.price -
+                                                                        (p.price * p.discount) /
+                                                                        100}
                                                                 </strong>
                                                             </>
                                                         ) : (
@@ -361,15 +436,23 @@ function Details() {
                                                             <span
                                                                 key={i}
                                                                 style={{
-                                                                    color: i < (p.stars || 0) ? "#ffc107" : "#b4b4b4ff",
+                                                                    color:
+                                                                        i < (p.stars || 0)
+                                                                            ? "#ffc107"
+                                                                            : "#b4b4b4ff",
                                                                 }}
                                                             >
-                                                                &#9733;
+                                                                ★
                                                             </span>
                                                         ))}
-                                                        <span className="text-muted"> {p.reviews} reviews</span>
+                                                        <span className="text-muted">
+                                                            {" "}
+                                                            {p.reviews} reviews
+                                                        </span>
                                                     </p>
-                                                    <Link to="#" className="btn btn-dark">Buy Now</Link>
+                                                    <Link to="#" className="btn btn-dark">
+                                                        Buy Now
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -383,7 +466,11 @@ function Details() {
                             Out Of Stock <span className="text-danger">!!</span>
                         </p>
                         <div className="text-center">
-                            <Link to="/shopall" className="btn btn-large text-dark" style={{ backgroundColor: "#d7c3b9ff" }}>
+                            <Link
+                                to="/shopall"
+                                className="btn btn-large text-dark"
+                                style={{ backgroundColor: "#d7c3b9ff" }}
+                            >
                                 Return To Shop
                             </Link>
                         </div>

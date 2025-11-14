@@ -22,32 +22,18 @@ import Wishlist from './components/pages/Wishlist';
 import Login from './components/pages/Login';
 import Signup from './components/pages/SignUp';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [thankUVisible, setThankUVisible] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("user"));
   const location = useLocation();
 
   // Hide navbar or footer on specific routes
   const hideNavbar = ["/profile", '/login', '/signup'];
   const hideFooter = ["/checkout", "/profile", '/login', '/signup'];
 
-  // Sync login state across tabs and refreshes
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedIn(!!localStorage.getItem("user"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
-  // Protected route wrapper
-  const ProtectedRoute = ({ children }) => {
-    return isLoggedIn ? children : <Navigate to="/login" replace />;
-  };
+  
 
   return (
     <>
@@ -56,128 +42,29 @@ function App() {
       )}
 
       <Routes>
-        {/* Redirect root to home or login */}
-        <Route
-          path="/"
-          element={<Navigate to={isLoggedIn ? "/home" : "/login"} replace />}
-        />
 
-        {/* Public routes */}
+
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
-        {/* Protected routes */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/shopall"
-          element={
-            <ProtectedRoute>
-              <Shopall searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/oils"
-          element={
-            <ProtectedRoute>
-              <Oils searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/masks"
-          element={
-            <ProtectedRoute>
-              <Masks searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/toners"
-          element={
-            <ProtectedRoute>
-              <Toners searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/serums"
-          element={
-            <ProtectedRoute>
-              <Serums searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/moisturizers"
-          element={
-            <ProtectedRoute>
-              <Moisturizers searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cleansers"
-          element={
-            <ProtectedRoute>
-              <Cleansers searchInput={searchInput} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/details/:id"
-          element={
-            <ProtectedRoute>
-              <Details />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
-              <Checkout openThankU={() => setThankUVisible(true)} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <ProtectedRoute>
-              <Wishlist />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Public footer pages */}
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/paymentoptions" element={<PaymentOptions />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/shippingfees" element={<ShippingFees />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/paymentoptions" element={<PaymentOptions />}></Route>
+        <Route path="/privacypolicy" element={<PrivacyPolicy />}></Route>
+        <Route path="/shippingfees" element={<ShippingFees />}></Route>
+        <Route path='/shopall' element={<Shopall searchInput={searchInput} />}></Route>
+        <Route path='/about' element={<About />}></Route>
+        <Route path='/oils' element={<Oils searchInput={searchInput} />}></Route>
+        <Route path='/masks' element={<Masks searchInput={searchInput} />}></Route>
+        <Route path='/toners' element={<Toners searchInput={searchInput} />}></Route>
+        <Route path='/serums' element={<Serums searchInput={searchInput} />}></Route>
+        <Route path='/moisturizers' element={<Moisturizers searchInput={searchInput} />}></Route>
+        <Route path='/cleansers' element={<Cleansers searchInput={searchInput} />}></Route>
+        <Route path='/details/:id' element={<Details />}></Route>
+        <Route path='/cart' element={<Cart />}></Route>
+        <Route path='/checkout' element={<Checkout />}></Route>
+        <Route path='/wishlist' element={<Wishlist/>}></Route>
+        <Route path='/profile' element={<ProfilePage/>}></Route>
       </Routes>
 
       {!hideFooter.includes(location.pathname) && <Footer />}
