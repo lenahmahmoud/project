@@ -26,7 +26,7 @@ export default function Signup() {
 
       navigate('/login');
 
-      localStorage.setItem("user", JSON.stringify(res)); // store the returned user
+      localStorage.setItem("user", JSON.stringify(res)); 
       Swal.fire({
         icon: "success",
         title: "Your account has been created successfully!",

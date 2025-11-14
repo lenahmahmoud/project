@@ -1,12 +1,15 @@
-const verify= "../../../public/images/verification.png";
+const verify = "/images/verification.png";
+import { Link } from "react-router-dom";
 function ThankU({ closeThankU }) {
   return (
     <div
       className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
       style={{ backgroundColor: "rgba(0,0,0,0.4)", zIndex: 9999 }}
     >
-      <div className="bg-white rounded-4 shadow p-4 text-center" style={{ maxWidth: "500px", width: "90%" }}>
-        
+      <div
+        className="bg-white rounded-4 shadow p-4 text-center"
+        style={{ maxWidth: "500px", width: "90%" }}
+      >
         <div className="d-flex justify-content-end">
           <button
             type="button"
@@ -16,7 +19,12 @@ function ThankU({ closeThankU }) {
           ></button>
         </div>
         <div className="verifyImage">
-             <img src={verify} alt="verify" style={{ width: 50, height: 50 }} className="me-2 mb-3" />
+          <img
+            src={verify}
+            alt="verify"
+            style={{ width: 50, height: 50 }}
+            className="me-2 mb-3"
+          />
         </div>
         <div className="mb-4">
           <h2 className="fw-bold text-dark">
@@ -30,12 +38,9 @@ function ThankU({ closeThankU }) {
           invoice has been sent.
         </p>
 
-        <button
-          className="btn btn-dark w-100 rounded-pill py-2 mb-3"
-          onClick={() => (window.location.href = "/")}
-        >
+        <Link to="/" className="btn btn-dark w-100 rounded-pill py-2 mb-3">
           Continue Shopping
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { getitems } from "../../../utils/Api";
 
 
-function Checkout({ openThankU }) {
+function Checkout() {
+  const [showThankU, setShowThankU] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
@@ -32,7 +33,6 @@ function Checkout({ openThankU }) {
               <div className="mb-5">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h2>Contact</h2>
-                  <Link to="#">Sign in</Link>
                 </div>
                 <input
                   type="email"
@@ -327,7 +327,7 @@ function Checkout({ openThankU }) {
               <button
                 type="button"
                 className="btn btn-large w-100 bg-dark text-white mb-4"
-                onClick={openThankU}
+                onClick={() => setShowThankU(true)}
                 disabled={
                   !formData.firstName ||
                   !formData.lastName ||
@@ -350,8 +350,7 @@ function Checkout({ openThankU }) {
                 top: "100px",
                 backgroundColor: "#fff",
                 padding: "1rem",
-                width: "620px",
-                 zIndex: 2000
+                width: "100%",
               }}
             >
               <div style={{ overflowY: "auto", height: "35vh" }} className="mb-5">
@@ -406,6 +405,7 @@ function Checkout({ openThankU }) {
 
         </div>
       </section>
+      {showThankU && <ThankU closeThankU={setShowThankU} />}
     </>
   );
 }
