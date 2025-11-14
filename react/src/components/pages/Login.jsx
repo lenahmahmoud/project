@@ -23,6 +23,7 @@ export default function Login() {
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(user));
 
+<<<<<<< HEAD
       navigate("/home");
       Swal.fire({
         icon: "success",
@@ -30,6 +31,15 @@ export default function Login() {
         showConfirmButton: false,
         timer: 1500
       });
+=======
+    //   alert("Login successful!");
+  Swal.fire({
+  icon: "success",
+  title: "Login successful!",
+  showConfirmButton: false,
+  timer: 1500
+});
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
 
       navigate("/home"); // Navigate to home
     } catch (error) {

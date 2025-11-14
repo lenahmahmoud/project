@@ -1,11 +1,22 @@
 {
   "users": [
     {
+<<<<<<< HEAD
+=======
+      "id": "180a",
+      "firstName": "lenah",
+      "lastName": "mahmoud",
+      "email": "lenah.mahmoud@gmail.com",
+      "password": "Lenah2005!"
+    },
+    {
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
       "id": "b04d",
       "firstName": "Shahd",
       "lastName": "Yehya",
       "email": "shahdyehya82@gmail.com",
       "password": "123456"
+<<<<<<< HEAD
     },
     {
       "id": "922e",
@@ -13,6 +24,8 @@
       "lastName": "mahmoud",
       "email": "lenah.mahmoud@gmail.com",
       "password": "Lenah2"
+=======
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
     }
   ],
   "products": [
@@ -27,8 +40,8 @@
       ],
       "quantity": 39,
       "discount": 10,
-      "stars": 0,
-      "reviews": 0,
+      "stars": 3,
+      "reviews": 1,
       "keyfeatures": [
         "Deep hydration and lasting softness",
         "Lightweight, non-greasy texture",
@@ -45,7 +58,11 @@
       "image": [
         "/images/toners/rose_water_toner.jpg"
       ],
+<<<<<<< HEAD
       "quantity": 31,
+=======
+      "quantity": 27,
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
       "discount": 0,
       "stars": 3,
       "reviews": 2,
@@ -85,7 +102,7 @@
       "image": [
         "/images/toners/chamomile_toner.jpg"
       ],
-      "quantity": 25,
+      "quantity": 24,
       "discount": 0,
       "stars": 0,
       "reviews": 0,
@@ -358,7 +375,28 @@
       ]
     }
   ],
+<<<<<<< HEAD
   "wishlists": [],
+=======
+  "wishlists": [
+    {
+      "id": "585b",
+      "price": 400,
+      "image": [
+        "/images/oils/evening_primrose_oil.jpg"
+      ],
+      "title": "evening_primrose oil"
+    },
+    {
+      "id": "ea45",
+      "price": 250,
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "title": "coconut oil"
+    }
+  ],
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
   "orders": [
     {
       "id": "ee31",
@@ -373,7 +411,92 @@
       "status": "delivered"
     }
   ],
+<<<<<<< HEAD
   "cartlist": [],
+=======
+  "cartlist": [
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 1,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    },
+    {
+      "id": "aaa9",
+      "title": "chamomile toner",
+      "description": "A gentle, soothing toner enriched with chamomile extract to calm and refresh sensitive skin. Helps balance the skin’s pH, reduce redness, and prepare your skin for better absorption of serums and moisturizers",
+      "price": 330,
+      "category": "toners",
+      "image": [
+        "/images/toners/chamomile_toner.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 5,
+      "reviews": 1,
+      "keyfeatures": [
+        "Calms and soothes sensitive skin",
+        "Helps reduce redness and irritation",
+        "Balances pH for smoother texture",
+        "Prepares skin for serums and creams"
+      ]
+    },
+    {
+      "id": "ff43",
+      "title": "rose water toner",
+      "description": "best toner for your skin glow",
+      "price": 450,
+      "category": "toners",
+      "image": [
+        "/images/toners/rose_water_toner.jpg"
+      ],
+      "quantity": 1,
+      "discount": 0,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Soothes and refreshes tired skin",
+        "Balances skin’s natural pH",
+        "Tightens pores and tones complexion",
+        "Hydrates and revitalizes dull skin"
+      ]
+    },
+    {
+      "id": "ea45",
+      "title": "coconut oil",
+      "description": "pure coconut oil for your skin glow",
+      "price": 225,
+      "category": "oils",
+      "image": [
+        "/images/oils/coconut_oil.jpg"
+      ],
+      "quantity": 2,
+      "discount": 10,
+      "stars": 0,
+      "reviews": 0,
+      "keyfeatures": [
+        "Deep hydration and lasting softness",
+        "Lightweight, non-greasy texture",
+        "Rich in vitamins and natural oils",
+        "Protects skin from dryness and stress"
+      ]
+    }
+  ],
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
   "reviews": [
     {
       "id": "d52f",
@@ -397,7 +520,59 @@
       "lastname": "akram",
       "text": "excellent",
       "rating": 5,
+<<<<<<< HEAD
       "productId": "585b"
+=======
+      "productId": "785f"
+    },
+    {
+      "id": "9ccc",
+      "firstname": "nermeen",
+      "lastname": "alieldin",
+      "text": "perfect",
+      "rating": 5,
+      "productId": "aa13"
+    },
+    {
+      "id": "8847",
+      "firstname": "6g",
+      "lastname": "6t",
+      "text": "6t4e",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "1f39",
+      "firstname": "juh",
+      "lastname": "tgt",
+      "text": "tft",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "cf66",
+      "firstname": "g",
+      "lastname": "6g",
+      "text": "yg",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "b5eb",
+      "firstname": "r",
+      "lastname": "re",
+      "text": "er",
+      "rating": 1,
+      "productId": "aa13"
+    },
+    {
+      "id": "be4f",
+      "firstname": "maurien",
+      "lastname": "yousry",
+      "text": "........\n",
+      "rating": 3,
+      "productId": "ea45"
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
     }
   ]
 }

@@ -282,6 +282,7 @@ function Details() {
                                                             rating: Number(writtenreview.rating) || 0,
                                                         };
 
+<<<<<<< HEAD
                                                         await addreview(reviewToAdd);
                                                         setReviews((prev) => [...prev, reviewToAdd]);
 
@@ -300,6 +301,16 @@ function Details() {
 
                                                         setWrittenreview({});
                                                         setShowform(false);
+=======
+                                                        addreview(
+                                                            reviewToAdd).then(() => {
+                                                            setReviews((prev) => [...prev, reviewToAdd]);
+                                                            const rate = totalRate([...filteredreviews, reviewToAdd], product);
+                                                            updatereview(id, rate, product);
+                                                            setWrittenreview({});
+                                                            setShowform(false);
+                                                        });
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
                                                     }}
                                                 >
                                                     Submit
@@ -310,6 +321,7 @@ function Details() {
                                     </div>
                                 )}
 
+<<<<<<< HEAD
                                 <h5>
                                     {totalRate(filteredreviews)}{" "}
                                     <small className="text-muted">Based On </small>
@@ -317,6 +329,8 @@ function Details() {
                                     <small className="text-muted">Reviews</small>
                                 </h5>
 
+=======
+>>>>>>> 5246202243c0a15e0a4a6905914ca0668eec59b8
                                 <div>
                                     <span className="text-warning">
                                         {Array.from({ length: 5 }, (_, i) => (
