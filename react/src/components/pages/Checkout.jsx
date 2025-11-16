@@ -346,7 +346,7 @@ function Checkout() {
           <aside className="col-lg-4 col-md-8 col-12">
             <div
               style={{
-                position: "sticky",
+                position: "fixed",
                 top: "100px",
                 backgroundColor: "#fff",
                 padding: "1rem",

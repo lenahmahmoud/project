@@ -7,6 +7,8 @@ import {
     decrementquantity,
 } from "../../../utils/Api";
 import * as HoverCard from "@radix-ui/react-hover-card";
+import { motion } from "framer-motion";
+
 const oils = "/images/categories/oils_cat.jpg";
 const serums = "/images/categories/serums_cat.jpg";
 const moisturizers = "/images/categories/moisturizers_cat.jpg";
@@ -33,17 +35,30 @@ function Home() {
     return (
         <>
             <header className="p-5 mt-5">
-                <div className="text">
+                <motion.div style={{ position: "absolute" }}
+                    initial={{ bottom: "100%" }}
+                    whileInView={{ bottom: "45%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+
+                >
                     <h1 className="display-4 fw-bold">Be Your Own kind Of Beauty</h1>
                     <p className="text-secondary fs-3 fs-lg-3 fs-md-2">
                         Aurévia – Crafting Natural Beauty, One Glow at a Time"{" "}
                     </p>
-                </div>
-                <div className="button">
+
+                </motion.div>
+                <motion.div
+                    style={{ position: "absolute" }}
+                    initial={{ top: "100%" }}
+                    whileInView={{ top: "70%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+
+
+                >
                     <Link to="/shopall" className="btn btn-large bg-dark px-4 text-white">
                         Shop Now
                     </Link>
-                </div>
+                </motion.div>
             </header>
 
             {/* Categories Section */}
@@ -101,14 +116,40 @@ function Home() {
                     style={{ height: "90vh", backgroundColor: "#e0d4c2" }}
                 ></div>
 
-                <div className="position-absolute image_one" style={{ width: "35%" }}>
-                    <img src={image_1} className="w-100" />
-                </div>
-                <div className="position-absolute image_two" style={{ width: "20%" }}>
-                    <img src={image_2} className="w-100" />
-                </div>
+                <motion.img
+                    src={image_1}
+                    style={{
+                        position: "absolute",
+                        width: "35%",
+                        zIndex: 2,
+                    }}
+                    initial={{ top: "70%"  }}
+                    whileInView={{ top: "7%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                />
 
-                <div className="position-absolute w-50 fw-bold text-center Text">
+                <motion.img
+                    src={image_2}
+                    style={{
+                        position: "absolute",
+                        width: "20%",
+                        zIndex: 2
+                    }}
+                    initial={{ top: "70%", left: "80%" }
+
+                    }
+                    whileInView={{ top: "15%", left: "80%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+
+                />
+
+
+
+                <motion.div className="position-absolute w-50 fw-bold text-center"
+                    initial={{ left: "27%", top: "70%" }}
+                    whileInView={{ left: "27%", top: "40%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                >
                     <h2 className="display-4 text-center">
                         Because You Need Time for Yourself. Blend Beauty in You
                     </h2>
@@ -125,14 +166,40 @@ function Home() {
                             Shop Now
                         </Link>
                     </div>
-                </div>
 
-                <div className="position-absolute image_three" style={{ width: "15%" }}>
-                    <img src={image_3} className="w-100" />
-                </div>
-                <div className="position-absolute image_four" style={{ width: "10%" }}>
-                    <img src={image_4} className="w-100" />
-                </div>
+                </motion.div>
+
+                <motion.img src={image_3
+
+                }
+                    style={{
+                        width: "15%",
+                        position: "absolute",
+                        zIndex: 2
+                    }}
+                    initial={{ top: "70%", left: "80%" }}
+                    whileInView={{ top: "66%", left: "80%" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+
+                />
+
+
+
+                <motion.img src={image_4}
+                    style={{
+                        position: "absolute",
+                        width: "10%",
+                        zIndex: 2
+                    }}
+                    initial={{ left: "5%", top: "70%" }
+                    }
+                    whileInView={{ top: "66%", left: "5%" }}
+                    transition={{ duration: 1, ease: "circInOut" }}
+
+
+                />
+
+
             </section>
 
             {/* Special Sales */}
@@ -282,7 +349,7 @@ function Home() {
                                                 {product.reviews} reviews
                                             </span>
                                         </p>
-                                        <Link to="/" className="btn btn-dark">
+                                        <Link to={`/details/${product.id}`} className="btn btn-dark">
                                             Buy Now
                                         </Link>
                                     </div>
@@ -450,7 +517,7 @@ function Home() {
                                                     {product.reviews} reviews
                                                 </span>
                                             </p>
-                                            <Link to="#" className="btn btn-dark">
+                                            <Link to={`/details/${product.id}`} className="btn btn-dark">
                                                 Buy Now
                                             </Link>
                                         </div>
