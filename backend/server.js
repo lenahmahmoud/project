@@ -68,6 +68,32 @@ app.post("/signup", async (req, res) => {
 
 
 })
+// login
+app.post("/login", async(req, res) => {
+    let user = await Users.findOne({ email: req.body.email })
+    if (user) {
+        const comparepassword = user.password === req.body.password
+        if (comparepassword) {
+            const data = {
+                user: {
+                    id: user.id
+                }
+            }
+            const token = jwt.sign(data, "secret_aurevia")
+            res.json({ success: true, token })
+
+        }
+        else {
+            res.json({ success: false , error:"invalid password"})
+        }
+
+    }
+    else {
+
+        res.json({ success: false, error: "invalid email " })
+    }
+
+})
 
 
 

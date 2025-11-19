@@ -1,8 +1,8 @@
 import '../style/Login.css';
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../../../utils/Api";
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,31 +17,36 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const user = await loginUser({ email, password });
+      const res = await axios.post('http://localhost:5000/login', {
+        email,
+        password
 
-      // Simulate login and save to localStorage
-      localStorage.setItem("token", "fake-jwt-token");
-      localStorage.setItem("user", JSON.stringify(user));
-
-      navigate("/home");
-      Swal.fire({
-        icon: "success",
-        title: "Login successful!",
-        showConfirmButton: false,
-        timer: 1500
       });
-      Swal.fire({
-        icon: "success",
-        title: "Login successful!",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      if (res.data.success) {
+        const token = res.data.token
 
-      navigate("/home"); // Navigate to home
-    } catch (error) {
-      const message = typeof error === "string" ? error : (error?.message || "Something went wrong");
-      setErr(message);
-    } finally {
+
+
+        Swal.fire({
+          icon: "success",
+          title: "Login successful!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        navigate("/home");
+      }
+      else {
+        setErr(res.data.error || "Signup failed");
+      }
+    } 
+    catch (error) {
+    
+            setErr(error.response?.data?.error || "Failed to connect to the server");
+
+      
+    }
+    finally {
       setLoading(false);
     }
   };
