@@ -350,7 +350,7 @@ function Checkout() {
                 top: "100px",
                 backgroundColor: "#fff",
                 padding: "1rem",
-                width: "100%",
+                width: "700px",
               }}
             >
               <div style={{ overflowY: "auto", height: "35vh" }} className="mb-5">

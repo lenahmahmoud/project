@@ -300,7 +300,6 @@ function Details() {
 
                                                         setWrittenreview({});
                                                         setShowform(false);
-
                                                     }}
                                                 >
                                                     Submit
@@ -317,7 +316,6 @@ function Details() {
                                     {filteredreviews.length}{" "}
                                     <small className="text-muted">Reviews</small>
                                 </h5>
-
 
                                 <div>
                                     <span className="text-warning">
@@ -408,6 +406,7 @@ function Details() {
                                                             <i className="bi bi-share rounded-circle p-2 bg-white"></i>
                                                         </Link>
                                                         <Link to={`/details/${p.id}`}>
+
                                                             <i className="bi bi-eye rounded-circle p-2 bg-white"></i>
                                                         </Link>
                                                         <Link>

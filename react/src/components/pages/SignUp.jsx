@@ -1,18 +1,17 @@
-
-import "../style/signup.css"
+import "../style/signup.css";
 import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
-//import "./style/signup"
-import { signupUser } from "../../../utils/Api";
+import axios from "axios";
 import Swal from 'sweetalert2';
-
 
 export default function Signup() {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [phonenumber, setPhonenumber] = useState('')
   const [confirm, setConfirm] = useState('');
   const [err, setErr] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,23 +20,49 @@ export default function Signup() {
     e.preventDefault();
     setErr('');
     setLoading(true);
+
+    if (password !== confirm) {
+      setErr("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+    if (password.length < 6) {
+      setErr("Password must be at least 6 characters")
+      setLoading(false);
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setErr("invalid email address")
+      setLoading(false);
+      return;
+    }
     try {
-      const res = await signupUser({ firstName, lastName, email, password, confirm });
-
-      navigate('/login');
-
-      localStorage.setItem("user", JSON.stringify(res)); 
-      Swal.fire({
-        icon: "success",
-        title: "Your account has been created successfully!",
-        showConfirmButton: false,
-        timer: 1500
+      const res = await axios.post('http://localhost:5000/signup', {
+        firstname,
+        lastname,
+        username,
+        phonenumber,
+        email,
+        password,
       });
 
+      if (res.data.success) {
+        const token = res.data.token;
 
-      navigate("/login");
+        Swal.fire({
+          icon: "success",
+          title: "Your account has been created successfully!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        navigate("/login");
+      } else {
+        setErr(res.data.error || "Signup failed");
+      }
+
     } catch (error) {
-      setErr(error.message || 'error');
+      setErr(error.response?.data?.error || "Failed to connect to the server");
     } finally {
       setLoading(false);
     }
@@ -53,34 +78,81 @@ export default function Signup() {
         <div className="row field-grid">
           <div className="col-md-6 mb-3">
             <label className="form-label">First Name</label>
-            <input className="form-control" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+            <input
+              className="form-control"
+              value={firstname}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
           </div>
           <div className="col-md-6 mb-3">
             <label className="form-label">Last Name</label>
-            <input className="form-control" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+            <input
+              className="form-control"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
           </div>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Username</label>
+            <input
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Phone Number</label>
+            <input
+              className="form-control"
+              value={phonenumber}
+              onChange={(e) => setPhonenumber(e.target.value)}
+              required
+            />
+          </div>
+
         </div>
 
         <div className="mb-3">
           <label className="form-label">Email address</label>
-          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
 
         <div className="row">
           <div className="col-md-6 mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
           <div className="col-md-6 mb-3">
             <label className="form-label">Confirm Password</label>
-            <input type="password" className="form-control" value={confirm} onChange={(e) => setConfirm(e.target.value)} required />
+            <input
+              type="password"
+              className="form-control"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              required
+            />
           </div>
         </div>
 
         {err && <div className="alert alert-danger py-2">{err}</div>}
 
         <button className="btn signup-cta w-100" type="submit" disabled={loading}>
-          {loading ? '...;loading.' : 'Sign up'}
+          {loading ? '...loading' : 'Sign up'}
         </button>
 
         <div className="text-center mt-3 small-muted">

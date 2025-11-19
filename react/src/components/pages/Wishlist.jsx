@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getWishListitems, removeWishlistitem } from "../../../utils/Api";
-
+import { Link } from "react-router-dom";
 
 function Wishlist() {
   const [wishlist, setwishlist] = useState([])
-  useEffect(()=>{
+  useEffect(() => {
     getWishListitems()
-    .then(res=>setwishlist(res.data))
+      .then(res => setwishlist(res.data))
 
   })
 
@@ -22,6 +22,7 @@ function Wishlist() {
                     <tr>
                       <th>product</th>
                       <th>price</th>
+                      <th></th>
                       <th></th>
                     </tr>
                   </thead>
@@ -43,6 +44,11 @@ function Wishlist() {
                           </div>
                         </td>
                         <td className="align-middle">{w.price}</td>
+                        <td>
+                          <Link to={`/details/${w.id}`}>
+                            <i className="bi bi-eye rounded-circle p-2 "></i>
+                          </Link>
+                        </td>
                         <td className="align-middle">
                           <button
                             className="delButton btn"
