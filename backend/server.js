@@ -27,7 +27,6 @@ mongoose.connect(process.env.MONGO_URL, {
 
 
 // sign up
-
 app.post("/signup", async (req, res) => {
 
     let check = await Users.findOne({
@@ -69,7 +68,7 @@ app.post("/signup", async (req, res) => {
 
 })
 // login
-app.post("/login", async(req, res) => {
+app.post("/login", async (req, res) => {
     let user = await Users.findOne({ email: req.body.email })
     if (user) {
         const comparepassword = user.password === req.body.password
@@ -84,7 +83,7 @@ app.post("/login", async(req, res) => {
 
         }
         else {
-            res.json({ success: false , error:"invalid password"})
+            res.json({ success: false, error: "invalid password" })
         }
 
     }
@@ -127,9 +126,28 @@ app.patch("/products/:id", async (req, res) => {
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
     res.json(product || { message: "Product not found" });
 });
+// // middle ware for checking the user
+// const FetchUser = async (req, res, next) => {
+//     const token = req.header("auth_token")
+//     if (token) {
+//         try {
+//             const data = jwt.verify(token, 'secret_aurevia')
+//             req.user = data.user;
+//             next();
+//         }
+//         catch(error){
+//             res.json({error:"token not valid"})
+
+//         }
+
+//     }
+
+// }
 
 // getting cart list
 app.get("/cartlist", async (req, res) => {
+
+
     const items = await Cartlist.find();
     res.json(items);
 });
@@ -170,16 +188,16 @@ app.post("/wishlists", async (req, res) => {
 // getting users
 app.get("/users", async (req, res) => {
     const { email, password } = req.query;
-    let users = await User.find();
+    let users = await Users.find();
     if (email && password) {
-        users = await User.find({ email, password });
+        users = await Users.find({ email, password });
     }
     res.json(users);
 });
 
 // add users
 app.post("/users", async (req, res) => {
-    const user = await User.create(req.body);
+    const user = await Users.create(req.body);
     res.json(user);
 });
 

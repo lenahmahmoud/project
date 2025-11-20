@@ -9,7 +9,7 @@ function Navbar({ setSearchInput }) {
     const location = useLocation();
 
     // Pages where search should be hidden
-    const hideSearchOn = ["/home", "/about", "/contact", "/cart", "/checkout", "/details","/paymentoptions","/privacypolicy","/shippingfees" ,"/wishlist"];
+    const hideSearchOn = ["/", "/about", "/contact", "/cart", "/checkout", "/details","/paymentoptions","/privacypolicy","/shippingfees" ,"/wishlist"];
     const shouldHideSearch = hideSearchOn.includes(location.pathname);
 
     const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -49,7 +49,7 @@ function Navbar({ setSearchInput }) {
                 <div className="collapse navbar-collapse w-75 justify-content-center" id="mainNav">
                     <ul className="navbar-nav mx-auto mt-sm-4 mt-md-0">
                         <li className="nav-item mx-1">
-                            <Link className="nav-link" to="/home">Home</Link>
+                            <Link className="nav-link" to="/">Home</Link>
                         </li>
                         <li className="nav-item mx-1">
                             <Link className="nav-link" to="/shopall">Shop</Link>

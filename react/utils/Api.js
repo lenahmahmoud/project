@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const url = "http://localhost:5000"; 
+const url = "http://localhost:5000";
 
 export async function getproducts() {
     return await axios.get(`${url}/products`);
@@ -40,10 +40,21 @@ export async function addtocart(obj) {
         draggable: true,
         confirmButtonColor: "#000000",
     });
+
     if (obj.discount > 0) {
         obj.price = obj.price - (obj.price * obj.discount / 100)
     }
-    await axios.post(`${url}/cartlist`, obj);
+    if (localStorage.getItem('auth_token')) {
+        await axios.post(`${url}/cartlist`, obj, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`
+            }
+           
+        });
+    }
+    else {
+        await axios.post(`${url}/cartlist`, obj)
+    }
 }
 
 export async function decrementquantity(obj, id, amount) {
@@ -66,8 +77,8 @@ export async function addreview(obj) {
 
 export async function updatereview(id, newAverage, newCount) {
     await axios.patch(`${url}/products/${id}`, {
-        stars: newAverage,      
-        reviews: newCount        
+        stars: newAverage,
+        reviews: newCount
     });
 }
 

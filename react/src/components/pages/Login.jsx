@@ -24,7 +24,7 @@ export default function Login() {
       });
       if (res.data.success) {
         const token = res.data.token
-
+        localStorage.setItem('auth_token', token)
 
 
         Swal.fire({
@@ -34,17 +34,17 @@ export default function Login() {
           timer: 1500
         });
 
-        navigate("/home");
+        navigate("/");
       }
       else {
         setErr(res.data.error || "Signup failed");
       }
-    } 
+    }
     catch (error) {
-    
-            setErr(error.response?.data?.error || "Failed to connect to the server");
 
-      
+      setErr(error.response?.data?.error || "Failed to connect to the server");
+
+
     }
     finally {
       setLoading(false);
@@ -52,53 +52,56 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-card">
-      <div className="text-center mb-4">
-        <div className="auth-logo"></div>
-        <h3 className="mt-2">Login</h3>
+    <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
+
+      <div className="auth-card container rounded-5 " style={{height:"70vh"}}>
+        <div className="text-center mb-4">
+          <div className="auth-logo"></div>
+          <h3 className="mt-2">Login</h3>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Email Address</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {err && <div className="alert alert-danger py-2">{err}</div>}
+
+          <button type="submit" className="btn login-cta w-100 mb-2" disabled={loading}>
+            {loading ? "Loading..." : "Login"}
+          </button>
+
+          <div className="text-center small-muted">
+            Forgot your password? <Link to="#">Reset it here</Link>.
+          </div>
+
+          <hr />
+
+          <div className="text-center small-muted mt-2">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Email Address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        {err && <div className="alert alert-danger py-2">{err}</div>}
-
-        <button type="submit" className="btn login-cta w-100 mb-2" disabled={loading}>
-          {loading ? "Loading..." : "Login"}
-        </button>
-
-        <div className="text-center small-muted">
-          Forgot your password? <Link to="#">Reset it here</Link>.
-        </div>
-
-        <hr />
-
-        <div className="text-center small-muted mt-2">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </div>
-      </form>
     </div>
   );
 }

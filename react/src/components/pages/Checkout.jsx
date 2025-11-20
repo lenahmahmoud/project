@@ -33,6 +33,7 @@ function Checkout() {
               <div className="mb-5">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h2>Contact</h2>
+                 <Link to="/login">Sign_In</Link>
                 </div>
                 <input
                   type="email"

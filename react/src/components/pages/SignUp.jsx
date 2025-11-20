@@ -48,7 +48,7 @@ export default function Signup() {
 
       if (res.data.success) {
         const token = res.data.token;
-
+        localStorage.setItem('auth_token', token)
         Swal.fire({
           icon: "success",
           title: "Your account has been created successfully!",
@@ -69,96 +69,99 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-card">
-      <div className="text-center mb-3">
-        <h2>Sign up</h2>
+    <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
+
+      <div className="signup-card container rounded-5 " >
+        <div className="text-center mb-3">
+          <h2>Sign up</h2>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="row field-grid">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">First Name</label>
+              <input
+                className="form-control"
+                value={firstname}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Last Name</label>
+              <input
+                className="form-control"
+                value={lastname}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Username</label>
+              <input
+                className="form-control"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Phone Number</label>
+              <input
+                className="form-control"
+                value={phonenumber}
+                onChange={(e) => setPhonenumber(e.target.value)}
+                required
+              />
+            </div>
+
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Confirm Password</label>
+              <input
+                type="password"
+                className="form-control"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          {err && <div className="alert alert-danger py-2">{err}</div>}
+
+          <button className="btn signup-cta w-100" type="submit" disabled={loading}>
+            {loading ? '...loading' : 'Sign up'}
+          </button>
+
+          <div className="text-center mt-3 small-muted">
+            Already have an account? <Link to="/login">Login</Link>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="row field-grid">
-          <div className="col-md-6 mb-3">
-            <label className="form-label">First Name</label>
-            <input
-              className="form-control"
-              value={firstname}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Last Name</label>
-            <input
-              className="form-control"
-              value={lastname}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Username</label>
-            <input
-              className="form-control"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Phone Number</label>
-            <input
-              className="form-control"
-              value={phonenumber}
-              onChange={(e) => setPhonenumber(e.target.value)}
-              required
-            />
-          </div>
-
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Confirm Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-
-        {err && <div className="alert alert-danger py-2">{err}</div>}
-
-        <button className="btn signup-cta w-100" type="submit" disabled={loading}>
-          {loading ? '...loading' : 'Sign up'}
-        </button>
-
-        <div className="text-center mt-3 small-muted">
-          Already have an account? <Link to="/login">Login</Link>
-        </div>
-      </form>
     </div>
   );
 }
