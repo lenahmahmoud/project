@@ -1,11 +1,23 @@
-const signup = '/images/s.jpg'
+const signup = '/images/lock2.jpg'
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getuserinfo, isloggedin } from "../../../utils/Api";
+import { useState } from "react";
 const ProfilePage = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+  const [loggedin, setLoggedIn] = useState(false)
+  const [userinfo, setUserInfo] = useState({})
+  useEffect(() => {
+    setLoggedIn(isloggedin())
+    if (loggedin) {
+      getuserinfo()
+        .then(res => setUserInfo(res.data))
+    }
+  }, [loggedin])
   return (
     <>
-      {localStorage.getItem('auth_token') ? (<>
+      {loggedin ? (<>
         <main>
           <div className="card text-bg-light shadow mb-3 mx-2 my-2">
             <div className="card-body">
@@ -20,7 +32,7 @@ const ProfilePage = () => {
                 </div>
               </div>
               <p className="card-text fw-bold text-center fs-3 letter-spacing-3">
-                User Name
+                {userinfo.username}
               </p>
             </div>
           </div>
@@ -60,6 +72,7 @@ const ProfilePage = () => {
                     aria-label="Sizing example input"
                     aria-describedby="name"
                     required
+
                   />
                 </div>
                 <div className="input-group mb-3">
@@ -478,11 +491,11 @@ const ProfilePage = () => {
                       Change Password
                     </button>
                     <div>
-                     <button className="btn" onClick={()=>{
-                      localStorage.removeItem('auth_token')
-                      navigate('/')
-                      
-                      }}> <i class="bi bi-box-arrow-right fs-1"></i></button>
+                      <button className="btn" onClick={() => {
+                        localStorage.removeItem('auth_token')
+                        navigate('/')
+
+                      }}> <i className="bi bi-box-arrow-right fs-1"></i></button>
                     </div>
                   </div>
                 </div>
@@ -492,19 +505,20 @@ const ProfilePage = () => {
         </section></>) : (<>
           <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
 
-            <div style={{ backgroundColor: "#F4D3DA", height: "70vh" }} className="container rounded-5 d-flex justify-content-between  ">
+            <div style={{ backgroundColor: "#FFFFFF", height: "70vh" }} className="container rounded-5 d-flex justify-content-between  ">
               <div className="w-50 p-3 d-flex justify-content-center align-items-center flex-column">
                 <div>
-                  <p className="my-3 fs-1">Oops! you are not logged in</p>
+                  <p className="my-3 fs-1 fw-bold">Oops! you are not logged in</p>
                   <p className="fs-5" >Log in to access your account details, manage your orders, view your wishlist, and enjoy a smoother, faster, and more personalized shopping journey.</p>
 
                 </div>
                 <div className="w-100 mt-5 p-3">
-                  <Link to='/login' className="btn bg-white  w-100 mb-2">Log In</Link>
-                  <Link to='/signup' className="btn bg-white w-100 ">Sign Up </Link>
+                  <Link to='/login' className="btn w-100 mb-2" style={{ backgroundColor: "#F7838E" }}>Log In</Link>
+                  <Link to='/signup' className="btn w-100 " style={{ backgroundColor: "#F7838E" }}>Sign Up </Link>
                 </div>
               </div>
-              <div className="w-50 "><img src={signup} alt="signup" style={{ width: "100%", height: "90%" }} className="rounded-5" /></div>
+              <div className="w-50 d-flex align-items-center justify-content-center">
+                <img src={signup} alt="signup" style={{ width: "70%", height: "60%" }} className="rounded-5" /></div>
 
             </div>
 

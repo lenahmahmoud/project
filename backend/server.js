@@ -240,26 +240,50 @@ app.delete("/cartlist/:id", FetchUser, async (req, res) => {
 
 
 // delete item from the wishlist
-app.delete("/wishlists/:id", async (req, res) => {
+app.delete("/wishlists/:id", FetchUser, async (req, res) => {
     const { id } = req.params;
 
-    const deletedItem = await Wishlist.findOneAndDelete({ id });
+    if (req.user && req.user.id) {
+        const user = await Users.findById(req.user.id);
 
-    res.json({ message: "Deleted", item: deletedItem });
+        const index = user.wishlist.findIndex(item => item.id === id);
+
+        if (index > -1) {
+            const deletedItem = user.wishlist.splice(index, 1)[0];
+            await user.save();
+            return res.json(deletedItem);
+        } else {
+            return res.status(404).json({ message: "Item not found" });
+        }
+
+    } else {
+        const item = await Wishlist.findOneAndDelete({ id });
+
+        if (item) {
+            return res.json({ message: "Deleted", item });
+        } else {
+            return res.status(404).json({ message: "Item not found" });
+        }
+    }
 });
 
 // getting the wishlists
 app.get("/wishlists", FetchUser, async (req, res) => {
-    if (req.user && req.user.id) {
-        // const productObject = {
-        //     id: req.body.id,
-        //     price: req.body.price,
-        //     image: JSON.parse(JSON.stringify(req.body.image)),
-        //     title: req.body.title,
-        //     quantity: req.body.quantity,
-        //     category: req.body.category
-        // };
+    try {
+        let items = [];
 
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id);
+            items = user.wishlist;
+        } else {
+            items = await Wishlist.find();
+        }
+
+        res.json(items);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: "Server error" });
     }
 
 
@@ -275,6 +299,7 @@ app.post("/wishlists", FetchUser, async (req, res) => {
         category: req.body.category
     };
 
+
     if (req.user && req.user.id) {
         const user = await Users.findById(req.user.id);
         user.wishlist.push(productToAdd);
@@ -282,7 +307,8 @@ app.post("/wishlists", FetchUser, async (req, res) => {
         res.json({ success: true, source: "user", wishlist: user.wishlist });
     } else {
         const newItem = await Wishlist.create(productToAdd);
-        res.json( newItem );
+
+        res.json(newItem);
     }
 });
 
@@ -297,6 +323,25 @@ app.post("/reviews", async (req, res) => {
     const review = await Review.create(req.body);
     res.json(review);
 });
+
+
+
+
+// user info 
+app.get("/users", FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            res.json(user)
+        }
+    } catch {
+        res.status(404).json({message:"user is not logged in"})
+
+    }
+
+
+
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

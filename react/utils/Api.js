@@ -89,7 +89,7 @@ export async function getreviews() {
 
 export async function addreview(obj) {
     await axios.post(`${url}/reviews`, obj)
-} 
+}
 
 export async function updatereview(id, newAverage, newCount) {
     await axios.patch(`${url}/products/${id}`, {
@@ -128,11 +128,49 @@ export async function addToWishList(obj) {
 }
 
 export async function getWishListitems() {
+    if (localStorage.getItem('auth_token')) {
+        return axios.get(`${url}/wishlists`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+            }
+        })
+
+    }
     return await axios.get(`${url}/wishlists`);
 }
 
 export async function removeWishlistitem(id) {
-    await axios.delete(`${url}/wishlists/${id}`);
+    if (localStorage.getItem('auth_token')) {
+        return axios.delete(`${url}/wishlists/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+            }
+        })
+
+    }
+    else {
+
+        await axios.delete(`${url}/wishlists/${id}`);
+    }
+}
+// profile page
+export async function getuserinfo() {
+    return await axios.get(`${url}/users`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+        }
+    }
+    )
+
+
 }
 
+// checkout 
+export function isloggedin() {
+    if (localStorage.getItem('auth_token')) {
+        return true
+    }
+    return false
 
+
+}

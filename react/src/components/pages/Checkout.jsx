@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import ThankU from "./ThankU";
 import { useState, useEffect } from "react";
-import { getitems } from "../../../utils/Api";
+import { getitems,isloggedin } from "../../../utils/Api";
 
 
 function Checkout() {
   const [showThankU, setShowThankU] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const[loggedin,setLoggedIn]=useState(false)
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -16,10 +17,10 @@ function Checkout() {
     tel: "",
   });
   useEffect(() => {
-
+    setLoggedIn(isloggedin());
     getitems().then((res) => setCartItems(res.data));
-
   }, []);
+
   const subtotal = cartItems.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
 
 
@@ -33,7 +34,11 @@ function Checkout() {
               <div className="mb-5">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h2>Contact</h2>
-                 <Link to="/login">Sign_In</Link>
+                  {
+                    !loggedin ? (<><Link to='/login'>Sign In</Link></>) : (null)
+
+                  }
+
                 </div>
                 <input
                   type="email"
