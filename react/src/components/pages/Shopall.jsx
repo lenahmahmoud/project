@@ -296,10 +296,10 @@ function Shopall({ searchInput }) {
                         <HoverCard.Trigger asChild>
                           <button
                             className="btn border-0"
-                            onClick={ () => {
+                            onClick={() => {
                               const productToAdd = { ...product, quantity: 1 };
-                                addtocart(productToAdd);
-                                decrementquantity(product, product.id, 1);
+                              addtocart(productToAdd);
+                              decrementquantity(product, product.id, 1);
                             }}
                           >
                             <i className="bi bi-bag-heart fs-4 rounded-circle p-2 bg-white"></i>
@@ -365,6 +365,9 @@ function Shopall({ searchInput }) {
                                 price: product.price,
                                 image: product.image,
                                 title: product.title,
+                                category: product.category,
+                                quantity: product.quantity
+
                               };
                               addToWishList(productToAddToWishList);
                             }}

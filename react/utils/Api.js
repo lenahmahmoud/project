@@ -26,10 +26,26 @@ export async function getproduct(id) {
 }
 
 export async function getitems() {
+    if (localStorage.getItem('auth_token')) {
+        return await axios.get(`${url}/cartlist`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+
+            }
+        })
+    }
     return await axios.get(`${url}/cartlist`);
 }
 
 export async function removeitem(id) {
+    if (localStorage.getItem('auth_token')) {
+        await axios.delete(`${url}/cartlist/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+
+            }
+        })
+    }
     await axios.delete(`${url}/cartlist/${id}`);
 }
 
@@ -47,9 +63,9 @@ export async function addtocart(obj) {
     if (localStorage.getItem('auth_token')) {
         await axios.post(`${url}/cartlist`, obj, {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem("auth_token")}`
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
             }
-           
+
         });
     }
     else {
@@ -73,7 +89,7 @@ export async function getreviews() {
 
 export async function addreview(obj) {
     await axios.post(`${url}/reviews`, obj)
-}
+} 
 
 export async function updatereview(id, newAverage, newCount) {
     await axios.patch(`${url}/products/${id}`, {
@@ -84,12 +100,25 @@ export async function updatereview(id, newAverage, newCount) {
 
 
 export async function addToWishList(obj) {
+
     getWishListitems().then(async (res) => {
         const alreadyExists = res.data.some(item => item.id === obj.id);
         if (!alreadyExists) {
-            await axios.post(`${url}/wishlists`, obj);
+            if (localStorage.getItem('auth_token')) {
+                await axios.post(`${url}/wishlists`, obj, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+
+                });
+            } else {
+                await axios.post(`${url}/wishlists`, obj);
+            }
         }
+
     });
+
+
     Swal.fire({
         title: "Added to wishlist successfully!",
         icon: "success",

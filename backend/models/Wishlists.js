@@ -5,7 +5,9 @@ const WishlitsSchema = new mongoose.Schema({
     "image": [
         String
     ],
-    "title": String
+    "title": String,
+    "category": String,
+    "quantity": Number
 }
 )
 module.exports = mongoose.model("wishlists", WishlitsSchema)

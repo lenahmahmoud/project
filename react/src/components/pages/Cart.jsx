@@ -7,7 +7,6 @@ function Cart() {
     const [products, setProduct] = useState([])
 
     useEffect(() => {
-        const token =localStorage.getItem('token')
         getitems().then(res => setItems(res.data ));
         getproducts().then(res => setProduct(res.data ));
     }, [items]);

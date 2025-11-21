@@ -123,7 +123,7 @@ function Home() {
                         width: "35%",
                         zIndex: 2,
                     }}
-                    initial={{ top: "70%"  }}
+                    initial={{ top: "70%" }}
                     whileInView={{ top: "7%" }}
                     transition={{ duration: 1, ease: "easeInOut" }}
                 />
@@ -302,6 +302,8 @@ function Home() {
                                                                 price: product.price,
                                                                 image: product.image,
                                                                 title: product.title,
+                                                                category: product.category,
+                                                                quantity: product.quantity
                                                             };
                                                             addToWishList(productToAddToWishList);
                                                         }}
@@ -464,6 +466,8 @@ function Home() {
                                                                     price: product.price,
                                                                     image: product.image,
                                                                     title: product.title,
+                                                                    category: product.category,
+                                                                    quantity: product.quantity
                                                                 };
                                                                 addToWishList(productToAddToWishList);
                                                             }}

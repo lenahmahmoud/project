@@ -9,16 +9,30 @@ const UserSchema = new mongoose.Schema({
     "password": String,
     "cartdata": [
         {
-            product_id: String,
-            title: String,
-            price: Number,
-            image: [String],
-            quantity: { type: Number, default: 1 },
-            discount: Number,
-            stars: Number,
-            reviews: Number,
-            keyfeatures: [String]
+            "id": String,
+            "product_id": String,
+            "title": String,
+            "price": Number,
+            "image": [String],
+            "quantity": Number,
+            "discount": Number,
+            "stars": Number,
+            "reviews": Number,
+            "keyfeatures": [String]
         }
+    ],
+    "wishlist": [
+        {
+            "id": String,
+            "price": Number,
+            "image": [
+                String
+            ],
+            "title": String,
+            "category": String,
+            "quantity": Number 
+        }
+
     ]
 
 
