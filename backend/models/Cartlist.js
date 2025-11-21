@@ -10,6 +10,7 @@ const CartlistSchema = new mongoose.Schema({
     "discount": Number,
     "stars": Number,
     "reviews": Number,
-    "keyfeatures": [String]
+    "keyfeatures": [String],
+    "product_id":String
 })
 module.exports=mongoose.model("cartlist" ,CartlistSchema)

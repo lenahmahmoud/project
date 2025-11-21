@@ -151,7 +151,7 @@ app.get("/cartlist", async (req, res) => {
     const items = await Cartlist.find();
     res.json(items);
 });
-// update item in the cart
+// add item in the cart
 app.post("/cartlist", async (req, res) => {
     const item = await Cartlist.create(req.body);
     res.json(item);
@@ -182,23 +182,6 @@ app.get("/wishlists", async (req, res) => {
 app.post("/wishlists", async (req, res) => {
     const item = await Wishlist.create(req.body);
     res.json(item);
-});
-
-
-// getting users
-app.get("/users", async (req, res) => {
-    const { email, password } = req.query;
-    let users = await Users.find();
-    if (email && password) {
-        users = await Users.find({ email, password });
-    }
-    res.json(users);
-});
-
-// add users
-app.post("/users", async (req, res) => {
-    const user = await Users.create(req.body);
-    res.json(user);
 });
 
 // getting reviews

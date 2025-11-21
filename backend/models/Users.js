@@ -7,7 +7,21 @@ const UserSchema = new mongoose.Schema({
     "phonenumber": { type: String, unique: true },
     "email": { type: String, unique: true },
     "password": String,
-    "cartdata": Object
+    "cartdata": [
+        {
+            product_id: String,
+            title: String,
+            price: Number,
+            image: [String],
+            quantity: { type: Number, default: 1 },
+            discount: Number,
+            stars: Number,
+            reviews: Number,
+            keyfeatures: [String]
+        }
+    ]
+
+
 })
 module.exports = mongoose.model("users", UserSchema)
 
