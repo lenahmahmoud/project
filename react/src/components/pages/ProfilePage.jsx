@@ -2,19 +2,22 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin } from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges } from "../../../utils/Api";
 import { useState } from "react";
+import '../style/profile.css'
 const ProfilePage = () => {
   const navigate = useNavigate()
   const [loggedin, setLoggedIn] = useState(false)
   const [userinfo, setUserInfo] = useState({})
+  const totalitems = (userinfo) =>
+    userinfo.wishlist.reduce((acc, item) => acc + item.quantity, 0);
   useEffect(() => {
     setLoggedIn(isloggedin())
     if (loggedin) {
       getuserinfo()
         .then(res => setUserInfo(res.data))
     }
-  }, [loggedin])
+  }, [loggedin], [userinfo])
   return (
     <>
       {loggedin ? (<>
@@ -47,7 +50,7 @@ const ProfilePage = () => {
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
-                  className="accordion-button collapsed fw-bold"
+                  className="accordion-button collapsed fw-bold fs-5"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseOne"
@@ -62,72 +65,168 @@ const ProfilePage = () => {
                 className="accordion-collapse collapse"
                 data-bs-parent="#accordionFlushExample"
               >
-                <div className="input-group mb-3 mt-3 ml-3">
-                  <span className="input-group-text" id="name">
-                    Name
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="name"
-                    required
+                <form>
+                  <div className="input-group mb-3 mt-3 ml-3">
+                    <label className="input-group-text" id="name">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="name"
+                      value={userinfo.firstname + " " + userinfo.lastname}
+                      onChange={(e) => {
+                        const full = e.target.value.trim();
+                        const parts = full.split(" ");
+                        setUserInfo({
+                          ...userinfo,
+                          firstname: parts[0] || "",
+                          lastname: parts.slice(1).join(" ") || ""
+                        });
+                      }}
 
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="phone">
-                    Phone Number
-                  </span>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="phone"
-                    required
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="email">
-                    Email
-                  </span>
-                  <input
-                    type="email"
-                    className="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="email"
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="address">
-                    Address
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="address"
-                    required
-                  />
-                </div>
-                <div className="actions d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mt-4">
-                  <button type="button" className="btn mb-3 order-2 order-md-1">
+                      required
+
+                    />
+                  </div>
+                  <div className="input-group mb-3">
+                    <label className="input-group-text" id="phone">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="phone"
+                      value={userinfo.phonenumber}
+                      onChange={(e) => {
+                        setUserInfo({
+                          ...userinfo,
+                          phonenumber: e.target.value
+                        })
+                      }}
+                      required
+                    />
+                  </div>
+                  <div className="input-group mb-3">
+                    <label className="input-group-text" id="email">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="email"
+                      value={userinfo.email}
+                      onChange={(e) => {
+                        setUserInfo({
+                          ...userinfo,
+                          email: e.target.value
+                        })
+                      }}
+                    />
+                  </div>
+                  <div className="row mb-3 g-2">
+                    <div className="col-md-4 input-group w-25">
+                      <label htmlFor="city" className="input-group-text">city</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        aria-label="Sizing example input"
+                        aria-describedby="city"
+                        value={
+                          userinfo.city ? (userinfo.city) : (" ")
+
+                        }
+                        onChange={(e) => {
+                          setUserInfo({
+                            ...userinfo,
+                            city: e.target.value
+                          })
+
+                        }}
+                      />
+                    </div>
+                    <div className="col-md-4">
+                      <select
+                        id="governorates"
+                        name="governorates"
+                        className="form-control "
+                        value={userinfo.governorate ? (userinfo.governorate) : (" ")}
+                        onChange={(e) => {
+                          setUserInfo({
+                            ...userinfo,
+                            governorate: e.target.value
+                          })
+                        }}
+                        required
+
+                      >
+                        {/* <option value="" disabled selected>Governorate</option> */}
+                        <option value="alexandria">Alexandria</option>
+                        <option value="aswan">Aswan</option>
+                        <option value="asyut">Asyut</option>
+                        <option value="beheira">Beheira</option>
+                        <option value="beni_suef">Beni Suef</option>
+                        <option value="cairo">Cairo</option>
+                        <option value="dakahlia">Dakahlia</option>
+                        <option value="damietta">Damietta</option>
+                        <option value="faiyum">Faiyum</option>
+                        <option value="giza">Giza</option>
+                        <option value="gharbia">Gharbia</option>
+                        <option value="ismailia">Ismailia</option>
+                        <option value="kafr_el_sheikh">Kafr El Sheikh</option>
+                        <option value="luxor">Luxor</option>
+                        <option value="matrouh">Matrouh</option>
+                        <option value="minya">Minya</option>
+                        <option value="monufia">Monufia</option>
+                        <option value="new_valley">New Valley</option>
+                        <option value="north_sinai">North Sinai</option>
+                        <option value="port_said">Port Said</option>
+                        <option value="qalyubia">Qalyubia</option>
+                        <option value="qena">Qena</option>
+                        <option value="red_sea">Red Sea</option>
+                        <option value="sharqia">Sharqia</option>
+                        <option value="sohag">Sohag</option>
+                        <option value="south_sinai">South Sinai</option>
+                        <option value="suez">Suez</option>
+                        <option value="helwan">Helwan</option>
+                        <option value="6_october">6th of October</option>
+
+                      </select>
+                    </div>
+
+
+                  </div>
+                  <div className="col-md-4">
+                    <select
+                      id="paymentmethod"
+                      name="paymentmethod"
+                      className="form-control "
+                      value={userinfo.paymentmethod}
+                      onChange={(e) => {
+                        setUserInfo({
+                          ...userinfo,
+                          paymentmethod: e.target.value
+                        })
+                      }}
+                      required
+
+                    >
+                      <option className="option" disabled value="" selected>Payment Method</option>
+                      <option className="option">Cash on Delivery </option>
+                      <option className="option">Via (Card / Wallets / Installments / Debit / Credit)</option>
+
+                    </select>
+                  </div>
+
+                  <button type="submit" className="btn my-3 px-5 border-1 border-dark fw-bold" onClick={() => { savechanges(userinfo) }}
+                    style={{ backgroundColor: "#F6F0ED" }}>
                     Save Changes
                   </button>
-                  <div className="form-check order-1 order-md-2 flex-grow-1">
-                    <input
-                      className="form-check-input mx-3"
-                      type="checkbox"
-                      value=""
-                      id="checkChecked"
-                      defaultChecked
-                    />
-                    <label className="form-check-label" htmlFor="checkChecked">
-                      I agree to allow my data to be used to receive promotions,
-                      updates, and special offers about your products
-                    </label>
-                  </div>
-                </div>
+
+                </form>
               </div>
             </div>
 
@@ -135,7 +234,7 @@ const ProfilePage = () => {
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
-                  className="accordion-button collapsed fw-bold"
+                  className="accordion-button collapsed fw-bold fs-5"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseTwo"
@@ -206,7 +305,7 @@ const ProfilePage = () => {
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
-                  className="accordion-button collapsed fw-bold"
+                  className="accordion-button collapsed fw-bold fs-5"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseThree"
@@ -227,7 +326,7 @@ const ProfilePage = () => {
                     <div className="row">
                       <div className="col-md-4">
                         <small className="text-muted">Total Items</small>
-                        <div className="fw-bold">3</div>
+                        <div className="fw-bold">{totalitems(userinfo)}</div>
                       </div>
                       <div className="col-md-4">
                         <small className="text-muted">Total Value</small>
@@ -371,7 +470,7 @@ const ProfilePage = () => {
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
-                  className="accordion-button collapsed fw-bold"
+                  className="accordion-button collapsed fw-bold fs-5"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseFour"
@@ -415,7 +514,7 @@ const ProfilePage = () => {
                   </div>
 
                   {/* Payment Method */}
-                  <div className="settings-section mb-4">
+                  {/* <div className="settings-section mb-4">
                     <h6 className="fw-bold mb-3 settings-title">
                       Payment Method
                     </h6>
@@ -431,7 +530,7 @@ const ProfilePage = () => {
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Account Settings */}
                   <div className="settings-section mb-4">

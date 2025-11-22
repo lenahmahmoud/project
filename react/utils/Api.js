@@ -162,6 +162,23 @@ export async function getuserinfo() {
     }
     )
 
+}
+export async function savechanges(obj) {
+    Swal.fire({
+        title: "Changes saved successfully!",
+        icon: "success",
+        draggable: true,
+        confirmButtonColor: "#000000",
+    });
+
+   return await axios.put(`${url}/users`, obj, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+        }
+
+
+    })
+
 
 }
 

@@ -326,7 +326,7 @@ function Home() {
                                     </div>
 
                                     <div className="card-body">
-                                        <h5 className="card-title">Face Serum</h5>
+                                        <h5 className="card-title">{product.title}</h5>
                                         <p>
                                             <del>£E {product.price}</del>{" "}
                                             <strong className="text-success">

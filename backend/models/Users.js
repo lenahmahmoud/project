@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     "phonenumber": { type: String, unique: true },
     "email": { type: String, unique: true },
     "password": String,
+    "city": String,
+    "governorate": String,
+    "paymentmethod":String
+    ,
     "cartdata": [
         {
             "id": String,
@@ -30,10 +34,23 @@ const UserSchema = new mongoose.Schema({
             ],
             "title": String,
             "category": String,
-            "quantity": Number 
+            "quantity": Number
         }
 
+    ],
+    "orders": [
+        {
+            "id": String,
+            "items": Number,
+            "status": String,
+            "total": Number,
+            "date": {
+                type: Date,
+                default: Date.now
+            }
+        }
     ]
+
 
 
 })

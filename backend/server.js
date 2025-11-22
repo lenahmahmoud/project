@@ -335,12 +335,29 @@ app.get("/users", FetchUser, async (req, res) => {
             res.json(user)
         }
     } catch {
-        res.status(404).json({message:"user is not logged in"})
+        res.status(404).json({ message: "user is not logged in" })
 
     }
 
 
 
+})
+app.put("/users", FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findOneAndUpdate(
+                { _id: req.user.id },
+                req.body,
+                { new: true }
+            ); res.json(user)
+
+        }
+
+    }
+    catch {
+        res.status(500).json({ message: " server error" })
+
+    }
 })
 
 const PORT = process.env.PORT || 5000;

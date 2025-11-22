@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import ThankU from "./ThankU";
 import { useState, useEffect } from "react";
-import { getitems,isloggedin } from "../../../utils/Api";
+import { getitems, isloggedin } from "../../../utils/Api";
 
 
 function Checkout() {
   const [showThankU, setShowThankU] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const[loggedin,setLoggedIn]=useState(false)
+  const [loggedin, setLoggedIn] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -131,9 +131,30 @@ function Checkout() {
                       <option value="beheira">Beheira</option>
                       <option value="beni_suef">Beni Suef</option>
                       <option value="cairo">Cairo</option>
+                      <option value="dakahlia">Dakahlia</option>
+                      <option value="damietta">Damietta</option>
+                      <option value="faiyum">Faiyum</option>
                       <option value="giza">Giza</option>
+                      <option value="gharbia">Gharbia</option>
+                      <option value="ismailia">Ismailia</option>
+                      <option value="kafr_el_sheikh">Kafr El Sheikh</option>
                       <option value="luxor">Luxor</option>
+                      <option value="matrouh">Matrouh</option>
+                      <option value="minya">Minya</option>
+                      <option value="monufia">Monufia</option>
+                      <option value="new_valley">New Valley</option>
+                      <option value="north_sinai">North Sinai</option>
+                      <option value="port_said">Port Said</option>
+                      <option value="qalyubia">Qalyubia</option>
+                      <option value="qena">Qena</option>
+                      <option value="red_sea">Red Sea</option>
+                      <option value="sharqia">Sharqia</option>
+                      <option value="sohag">Sohag</option>
+                      <option value="south_sinai">South Sinai</option>
                       <option value="suez">Suez</option>
+                      <option value="helwan">Helwan</option>
+                      <option value="6_october">6th of October</option>
+
                     </select>
                   </div>
 
