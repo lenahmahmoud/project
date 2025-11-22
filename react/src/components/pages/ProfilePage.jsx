@@ -9,15 +9,23 @@ const ProfilePage = () => {
   const navigate = useNavigate()
   const [loggedin, setLoggedIn] = useState(false)
   const [userinfo, setUserInfo] = useState({})
-  const totalitems = (userinfo) =>
-    userinfo.wishlist.reduce((acc, item) => acc + item.quantity, 0);
+
   useEffect(() => {
     setLoggedIn(isloggedin())
     if (loggedin) {
       getuserinfo()
         .then(res => setUserInfo(res.data))
+
     }
   }, [loggedin], [userinfo])
+  function totalvalue(wishlist) {
+    if (!wishlist) return 0;
+    return wishlist.reduce((acc, item) => {
+      return acc + wishlist.length * (item.price - (item.price * item.discount / 100));
+    }, 0);
+  }
+
+
   return (
     <>
       {loggedin ? (<>
@@ -95,7 +103,7 @@ const ProfilePage = () => {
                       Phone Number
                     </label>
                     <input
-                      type="tel"
+                      type="text"
                       className="form-control"
                       aria-label="Sizing example input"
                       aria-describedby="phone"
@@ -326,133 +334,68 @@ const ProfilePage = () => {
                     <div className="row">
                       <div className="col-md-4">
                         <small className="text-muted">Total Items</small>
-                        <div className="fw-bold">{totalitems(userinfo)}</div>
+                        <div className="fw-bold">{userinfo.wishlist?.length}</div>
                       </div>
                       <div className="col-md-4">
                         <small className="text-muted">Total Value</small>
-                        <div className="fw-bold">$847.00</div>
+                        <div className="fw-bold">£E {totalvalue(userinfo.wishlist)}</div>
                       </div>
                       <div className="col-md-4">
                         <small className="text-muted">Average Price</small>
-                        <div className="fw-bold">$282.33</div>
+                        <div className="fw-bold">£E {totalvalue(userinfo.wishlist) / userinfo.wishlist?.length}</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Wishlist Items */}
                   <div className="wishlist-container">
-                    {/* Item 1 */}
-                    <div className="wishlist-item p-3 mb-3">
-                      <div className="row align-items-center">
-                        <div className="col-md-2 col-3">
-                          <img
-                            src="../assets/images/vitamin c.webp"
-                            alt="Eyelash serum"
-                            className="img-fluid"
-                          />
-                        </div>
-                        <div className="col-md-4 col-9">
-                          <h6 className="mb-1">
-                            Follicle Booster Eyelash Edition
-                          </h6>
-                          <small className="text-muted">Eyelash serum</small>
-                          <div className="mt-1">
-                            <small className="text-muted">
-                              Added: Jan 15, 2025
-                            </small>
-                          </div>
-                        </div>
-                        <div className="col-md-2 col-6 text-center">
-                          <div className="price">$299.00</div>
-                          <small className="text-success">In Stock</small>
-                        </div>
-                        <div className="col-md-4 col-6">
-                          <div className="d-flex gap-2 justify-content-end">
-                            <button className="btn btn-sm add-btn">
-                              Add to Cart
-                            </button>
-                            <button className="btn btn-sm remove-btn">
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Item 2 */}
-                    <div className="wishlist-item p-3 mb-3">
-                      <div className="row align-items-center">
-                        <div className="col-md-2 col-3">
-                          <img
-                            src="../assets/images/Beesline Facial Cleanser.webp"
-                            alt="Sheet Mask"
-                            className="img-fluid"
-                            style={{ borderRadius: "6px" }}
-                          />
-                        </div>
-                        <div className="col-md-4 col-9">
-                          <h6 className="mb-1">
-                            Charcoal & Vitamin E Sheet Mask
-                          </h6>
-                          <small className="text-muted">Sheet Mask</small>
-                          <div className="mt-1">
-                            <small className="text-muted">
-                              Added: Jan 12, 2025
-                            </small>
-                          </div>
-                        </div>
-                        <div className="col-md-2 col-6 text-center">
-                          <div className="price">$189.00</div>
-                          <small className="text-warning">Low Stock</small>
-                        </div>
-                        <div className="col-md-4 col-6">
-                          <div className="d-flex gap-2 justify-content-end">
-                            <button className="btn btn-sm add-btn">
-                              Add to Cart
-                            </button>
-                            <button className="btn btn-sm remove-btn">
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {
+                      userinfo.wishlist?.length > 0 ? (<>
+                        {
+                          userinfo.wishlist.map((product) => {
+                            return(
+                            <div className="wishlist-item p-3 mb-3">
+                              <div className="row align-items-center">
+                                <div className="col-md-2 col-3">
+                                  <img
+                                    src={product.image[0]}
+                                    alt={product.title}
+                                    className="img-fluid"
+                                    style={{ borderRadius: "6px" ,width:"30%", height:"100px"}}
+                                  />
+                                </div>
+                                <div className="col-md-4 col-9">
+                                  <h6 className="mb-1">{product.title}</h6>
+                                  <small className="text-muted"></small>
+                                  <div className="mt-1">
+                                    <small className="text-muted">
+                                      Added: {product.date}
+                                    </small>
+                                  </div>
+                                </div>
+                                <div className="col-md-2 col-6 text-center">
+                                  <div className="price">£E {product.price}</div>
+                                  <small className="text-danger">Out of Stock</small>
+                                </div>
+                                <div className="col-md-4 col-6">
+                                  <div className="d-flex gap-2 justify-content-end">
+                                    <button className="btn btn-sm add-btn">
+                                      Notify Me
+                                    </button>
+                                    <button className="btn btn-sm remove-btn">
+                                      Remove
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>)
+                          })
+                        }
+                      </>) : (null)
 
-                    {/* Item 3 */}
-                    <div className="wishlist-item p-3 mb-3">
-                      <div className="row align-items-center">
-                        <div className="col-md-2 col-3">
-                          <img
-                            src="../assets/images/Face Serum.jpg"
-                            alt="Lip Oil"
-                            className="img-fluid"
-                            style={{ borderRadius: "6px" }}
-                          />
-                        </div>
-                        <div className="col-md-4 col-9">
-                          <h6 className="mb-1">Godly Pride Lip Oil</h6>
-                          <small className="text-muted">Lip Oil</small>
-                          <div className="mt-1">
-                            <small className="text-muted">
-                              Added: Jan 8, 2025
-                            </small>
-                          </div>
-                        </div>
-                        <div className="col-md-2 col-6 text-center">
-                          <div className="price">$359.00</div>
-                          <small className="text-danger">Out of Stock</small>
-                        </div>
-                        <div className="col-md-4 col-6">
-                          <div className="d-flex gap-2 justify-content-end">
-                            <button className="btn btn-sm add-btn">
-                              Notify Me
-                            </button>
-                            <button className="btn btn-sm remove-btn">
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+                    }
+
                   </div>
 
                   {/* Action Buttons */}

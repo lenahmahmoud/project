@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     "password": String,
     "city": String,
     "governorate": String,
-    "paymentmethod":String
+    "paymentmethod": String
     ,
     "cartdata": [
         {
@@ -34,7 +34,12 @@ const UserSchema = new mongoose.Schema({
             ],
             "title": String,
             "category": String,
-            "quantity": Number
+            "quantity": Number,
+            "discount": Number,
+            "date": {
+                type: Date,
+                default: Date.now
+            }
         }
 
     ],

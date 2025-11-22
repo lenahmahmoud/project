@@ -290,13 +290,17 @@ app.get("/wishlists", FetchUser, async (req, res) => {
 });
 
 app.post("/wishlists", FetchUser, async (req, res) => {
+
+
     const productToAdd = {
         id: req.body.id,
         price: req.body.price,
         image: JSON.parse(JSON.stringify(req.body.image)),
         title: req.body.title,
         quantity: req.body.quantity,
-        category: req.body.category
+        category: req.body.category,
+        discount: req.body.discount,
+        date: Date.now()
     };
 
 

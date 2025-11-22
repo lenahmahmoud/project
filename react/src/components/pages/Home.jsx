@@ -303,7 +303,8 @@ function Home() {
                                                                 image: product.image,
                                                                 title: product.title,
                                                                 category: product.category,
-                                                                quantity: product.quantity
+                                                                quantity: product.quantity,
+                                                                discount: product.discount
                                                             };
                                                             addToWishList(productToAddToWishList);
                                                         }}
@@ -467,7 +468,8 @@ function Home() {
                                                                     image: product.image,
                                                                     title: product.title,
                                                                     category: product.category,
-                                                                    quantity: product.quantity
+                                                                    quantity: product.quantity,
+                                                                    discount: product.discount
                                                                 };
                                                                 addToWishList(productToAddToWishList);
                                                             }}
