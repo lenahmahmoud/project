@@ -38,7 +38,7 @@ Lenah mahmoud mohammed  (team leader) :
 4-home page (React)
 5- static footer pages 
 6- fix bugs for the rest of the tasks
-7- testing +combining the project
+7- backend side using node.js 
 
 Shahd Yehya  :
 1-profile page (html +Css)
