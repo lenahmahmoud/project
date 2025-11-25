@@ -307,10 +307,13 @@ function Toners({ searchInput }) {
                       <button className="btn border-0"
                         onClick={async () => {
                           const productToAddToWishList = {
-                            id: toner.id,
-                            price: toner.price,
-                            image: toner.image,
-                            title: toner.title,
+                            id: product.id,
+                            price: product.price,
+                            image: product.image,
+                            title: product.title,
+                            category: product.category,
+                            quantity: product.quantity,
+                            discount: product.discount
                           };
                           addToWishList(productToAddToWishList);
 

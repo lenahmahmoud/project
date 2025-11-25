@@ -1,28 +1,66 @@
 import { Link } from "react-router-dom";
 import ThankU from "./ThankU";
 import { useState, useEffect } from "react";
-import { getitems, isloggedin } from "../../../utils/Api";
+import { getitems, isloggedin, getuserinfo, saveorder } from "../../../utils/Api";
 
 
 function Checkout() {
   const [showThankU, setShowThankU] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
   const [loggedin, setLoggedIn] = useState(false)
-  const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    city: "",
-    governorate: "",
-    tel: "",
+  const [userinfo, setUserinfo] = useState({})
+  const [orderdata, setOrderdata] = useState({
+
   });
   useEffect(() => {
     setLoggedIn(isloggedin());
-    getitems().then((res) => setCartItems(res.data));
-  }, []);
+    if (loggedin) {
+      getuserinfo()
+        .then(res => setUserinfo(res.data))
+    }
+    getitems().then(res => {
+      setOrderdata(prev => ({
+        ...prev,
+        items: res.data
+      }));
+    });
+  }, [loggedin]);
 
-  const subtotal = cartItems.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
+  useEffect(() => {
+    if (userinfo) {
+      setOrderdata({
+        email: userinfo.email,
+        firstname: userinfo.firstname,
+        lastname: userinfo.lastname,
+        phonenumber: userinfo.phonenumber,
+        city: userinfo.city,
+        governorate: userinfo.governorate,
+        paymentmethod: userinfo.paymentmethod,
 
+
+      });
+    }
+  }, [userinfo]);
+
+  const subtotal = orderdata.items?.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
+  const shippingFees = {
+    50: ["cairo", "giza", "alexandria", "beheira", "dakahlia", "monufia", "qalyubia"],
+    70: ["faiyum", "beni_suef", "minya", "sohag", "asyut", "red_sea"],
+    80: ["luxor", "qena", "matrouh", "gharbia", "ismailia", "port_said", "damietta", "sharqia"],
+    100: ["aswan", "south_sinai", "north_sinai", "new_valley", "helwan", "6_october"]
+  };
+
+
+  const handleshippingfees = (gov) => {
+    for (let fee in shippingFees) {
+      if (shippingFees[fee].includes(gov)) {
+        return Number(fee)
+      }
+    }
+    return 50
+
+
+
+  }
 
   return (
     <>
@@ -45,15 +83,13 @@ function Checkout() {
                   className="w-100 border-0 p-2 rounded mb-2"
                   placeholder="Enter your email.."
                   required
-                  value={formData.email}
+                  value={
+                    orderdata.email
+                  }
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setOrderdata({ ...orderdata, email: e.target.value })
                   }
                 />
-                <div className="form-group">
-                  <input type="checkbox" name="check" id="check" />
-                  <label htmlFor="check">Email me with any new offers</label>
-                </div>
               </div>
 
               {/* Delivery */}
@@ -73,9 +109,10 @@ function Checkout() {
                       placeholder="First name"
                       className="form-control border-0 p-2 rounded"
                       required
-                      value={formData.firstName}
+                      value={orderdata.firstname
+                      }
                       onChange={(e) =>
-                        setFormData({ ...formData, firstName: e.target.value })
+                        setOrderdata({ ...orderdata, firstname: e.target.value })
                       }
                     />
                   </div>
@@ -85,9 +122,11 @@ function Checkout() {
                       placeholder="Last name"
                       className="form-control border-0 p-2 rounded"
                       required
-                      value={formData.lastName}
+                      value={
+                        orderdata.lastname
+                      }
                       onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
+                        setOrderdata({ ...orderdata, lastname: e.target.value })
                       }
                     />
                   </div>
@@ -102,9 +141,11 @@ function Checkout() {
                       placeholder="City"
                       className="form-control border-0 p-2 rounded"
                       required
-                      value={formData.city}
+                      value={
+                        orderdata.city
+                      }
                       onChange={(e) =>
-                        setFormData({ ...formData, city: e.target.value })
+                        setOrderdata({ ...orderdata, city: e.target.value })
                       }
                     />
                   </div>
@@ -112,12 +153,12 @@ function Checkout() {
                     <select
                       id="governorates"
                       name="governorates"
-                      className="form-control border-0 p-2 rounded"
+                      className="form-control border-0  rounded"
                       required
-                      value={formData.governorate}
+                      value={orderdata.governorate}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setOrderdata({
+                          ...orderdata,
                           governorate: e.target.value,
                         })
                       }
@@ -125,39 +166,48 @@ function Checkout() {
                       <option disabled value="">
                         Governorate
                       </option>
-                      <option value="alexandria">Alexandria</option>
-                      <option value="aswan">Aswan</option>
-                      <option value="asyut">Asyut</option>
-                      <option value="beheira">Beheira</option>
-                      <option value="beni_suef">Beni Suef</option>
-                      <option value="cairo">Cairo</option>
-                      <option value="dakahlia">Dakahlia</option>
-                      <option value="damietta">Damietta</option>
-                      <option value="faiyum">Faiyum</option>
-                      <option value="giza">Giza</option>
-                      <option value="gharbia">Gharbia</option>
-                      <option value="ismailia">Ismailia</option>
-                      <option value="kafr_el_sheikh">Kafr El Sheikh</option>
-                      <option value="luxor">Luxor</option>
-                      <option value="matrouh">Matrouh</option>
-                      <option value="minya">Minya</option>
-                      <option value="monufia">Monufia</option>
-                      <option value="new_valley">New Valley</option>
-                      <option value="north_sinai">North Sinai</option>
-                      <option value="port_said">Port Said</option>
-                      <option value="qalyubia">Qalyubia</option>
-                      <option value="qena">Qena</option>
-                      <option value="red_sea">Red Sea</option>
-                      <option value="sharqia">Sharqia</option>
-                      <option value="sohag">Sohag</option>
-                      <option value="south_sinai">South Sinai</option>
-                      <option value="suez">Suez</option>
-                      <option value="helwan">Helwan</option>
-                      <option value="6_october">6th of October</option>
+
+                      <optgroup label="Shipping: E£50">
+                        <option value="cairo">Cairo</option>
+                        <option value="giza">Giza</option>
+                        <option value="alexandria">Alexandria</option>
+                        <option value="beheira">Beheira</option>
+                        <option value="dakahlia">Dakahlia</option>
+                        <option value="monufia">Monufia</option>
+                        <option value="qalyubia">Qalyubia</option>
+                      </optgroup>
+
+                      <optgroup label="Shipping: E£70">
+                        <option value="faiyum">Faiyum</option>
+                        <option value="beni_suef">Beni Suef</option>
+                        <option value="minya">Minya</option>
+                        <option value="sohag">Sohag</option>
+                        <option value="asyut">Asyut</option>
+                        <option value="red_sea">Red Sea</option>
+                      </optgroup>
+
+                      <optgroup label="Shipping: E£80">
+                        <option value="luxor">Luxor</option>
+                        <option value="qena">Qena</option>
+                        <option value="matrouh">Matrouh</option>
+                        <option value="gharbia">Gharbia</option>
+                        <option value="ismailia">Ismailia</option>
+                        <option value="port_said">Port Said</option>
+                        <option value="damietta">Damietta</option>
+                        <option value="sharqia">Sharqia</option>
+                      </optgroup>
+
+                      <optgroup label="Shipping: E£100">
+                        <option value="aswan">Aswan</option>
+                        <option value="south_sinai">South Sinai</option>
+                        <option value="north_sinai">North Sinai</option>
+                        <option value="new_valley">New Valley</option>
+                        <option value="helwan">Helwan</option>
+                        <option value="6_october">6th of October</option>
+                      </optgroup>
 
                     </select>
                   </div>
-
                   <div className="col-md-4">
                     <input
                       type="text"
@@ -165,7 +215,9 @@ function Checkout() {
                       className="form-control border-0 p-2 rounded"
                     />
                   </div>
+
                 </div>
+
 
                 <input
                   type="tel"
@@ -173,9 +225,11 @@ function Checkout() {
                   id="tel"
                   placeholder="Phone number"
                   className="w-100 border-0 p-2 rounded"
-                  value={formData.tel}
+                  value={
+                    orderdata.phonenumber
+                  }
                   onChange={(e) =>
-                    setFormData({ ...formData, tel: e.target.value })
+                    setOrderdata({ ...orderdata, phonenumber: e.target.value })
                   }
                 />
               </div>
@@ -184,11 +238,12 @@ function Checkout() {
               <div className="mb-5">
                 <h2 className="mb-3">Shipping method</h2>
                 <div
-                  className="d-flex justify-content-between rounded border border-dark ps-2 pt-2 align-items-center"
+                  className="d-flex justify-content-between rounded border border-dark ps-2 p-2 align-items-center"
                   style={{ backgroundColor: "#F6F6F6" }}
                 >
                   <p>Express shipping 3–4 working days</p>
-                  <p className="p-1">E£ 80.00</p>
+                  <p className="p-1">  E£ {handleshippingfees(orderdata.governorate) || 0}
+                  </p>
                 </div>
               </div>
 
@@ -203,7 +258,13 @@ function Checkout() {
                         type="radio"
                         name="payment"
                         id="cashOption"
-                        defaultChecked
+
+                        value="Cash on Delivery"
+                        checked={orderdata.paymentmethod === "Cash on Delivery"}
+
+                        onChange={(e) =>
+                          setOrderdata({ ...orderdata, paymentmethod: e.target.value })}
+
                       />
                       <label
                         className="form-check-label fw-bold"
@@ -221,6 +282,11 @@ function Checkout() {
                         data-bs-toggle="collapse"
                         data-bs-target="#cardContent"
                         aria-expanded="false"
+                        value="Via (Card / Wallets / Installments / Debit / Credit)"
+                        onChange={(e) =>
+                          setOrderdata({ ...orderdata, paymentmethod: e.target.value })}
+                        checked={orderdata.paymentmethod === "Via (Card / Wallets / Installments / Debit / Credit)"}
+
                       />
                       <label
                         className="form-check-label fw-bold"
@@ -258,6 +324,15 @@ function Checkout() {
                         name="address"
                         id="sameAddress"
                         defaultChecked
+                        value="samebilling"
+                        onChange={(e) => {
+                          setOrderdata({
+                            ...orderdata,
+                            billing: e.target.value
+
+
+                          })
+                        }}
                       />
                       <label
                         className="form-check-label fw-bold"
@@ -276,6 +351,15 @@ function Checkout() {
                         data-bs-toggle="collapse"
                         data-bs-target="#billingcontent"
                         aria-expanded="false"
+                        value="differentbilling"
+                        onChange={(e) => {
+                          setOrderdata({
+                            ...orderdata,
+                            billing: e.target.value
+
+
+                          })
+                        }}
                       />
                       <label
                         className="form-check-label fw-bold"
@@ -294,55 +378,89 @@ function Checkout() {
                         <input
                           type="text"
                           placeholder="First name"
-                          style={{ width: "49%" }}
-                          className="border-0 p-2 rounded mb-3"
+                          className="border-0 p-2 rounded mb-1"
+                          onChange={(e) => {
+                            setOrderdata({
+                              ...orderdata,
+                              firstnamebilling: e.target.value
+                            })
+
+                          }}
+
                           required
                         />
                         <input
                           type="text"
                           placeholder="Last name"
-                          style={{ width: "49%" }}
-                          className="border-0 p-2 rounded mb-3"
+                          className="border-0 p-2  rounded mb-1"
+                          onChange={(e) =>
+                            setOrderdata({ ...orderdata, lastnamebilling: e.target.value })
+                          }
                           required
                         />
-                        <input
-                          type="text"
-                          placeholder="Apartment, suite... (optional)"
-                          className="w-100 border-0 p-2 rounded mb-3"
-                        />
+
                         <input
                           type="text"
                           name="city"
                           id="city"
                           placeholder="City"
-                          className="border-0 p-2 rounded mb-3"
-                          style={{ width: "30%" }}
+                          className="border-0 p-2 rounded mb-1"
+                          onChange={(e) =>
+                            setOrderdata({ ...orderdata, citybilling: e.target.value })
+                          }
                         />
                         <select
                           id="governorates"
                           name="governorates"
-                          className="border-0 p-2 rounded mb-3"
-                          style={{ width: "30%" }}
+                          className="form-control border-0 p-2 mb-1 rounded"
+                          required
+                          value={orderdata.governoratebilling}
+                          onChange={(e) =>
+                            setOrderdata({
+                              ...orderdata,
+                              governoratebilling: e.target.value,
+                            })
+                          }
                         >
-                          <option selected disabled>
-                            Governorate
-                          </option>
-                          <option value="alexandria">Alexandria</option>
                           <option value="cairo">Cairo</option>
                           <option value="giza">Giza</option>
+                          <option value="alexandria">Alexandria</option>
+                          <option value="beheira">Beheira</option>
+                          <option value="dakahlia">Dakahlia</option>
+                          <option value="monufia">Monufia</option>
+                          <option value="qalyubia">Qalyubia</option>
+                          <option value="faiyum">Faiyum</option>
+                          <option value="beni_suef">Beni Suef</option>
+                          <option value="minya">Minya</option>
+                          <option value="sohag">Sohag</option>
+                          <option value="asyut">Asyut</option>
+                          <option value="red_sea">Red Sea</option>
+                          <option value="luxor">Luxor</option>
+                          <option value="qena">Qena</option>
+                          <option value="matrouh">Matrouh</option>
+                          <option value="gharbia">Gharbia</option>
+                          <option value="ismailia">Ismailia</option>
+                          <option value="port_said">Port Said</option>
+                          <option value="damietta">Damietta</option>
+                          <option value="sharqia">Sharqia</option>
+                          <option value="aswan">Aswan</option>
+                          <option value="south_sinai">South Sinai</option>
+                          <option value="north_sinai">North Sinai</option>
+                          <option value="new_valley">New Valley</option>
+                          <option value="helwan">Helwan</option>
+                          <option value="6_october">6th of October</option>
                         </select>
-                        <input
-                          type="text"
-                          placeholder="Postal code (optional)"
-                          className="border-0 p-2 rounded mb-3"
-                          style={{ width: "33%" }}
-                        />
+
                         <input
                           type="tel"
                           name="tel"
                           id="tel"
                           placeholder="Phone number"
-                          className="w-100 border-0 p-2 rounded"
+                          className="w-100 border-0 p-2 rounded mb-1"
+                          onChange={(e) =>
+                            setOrderdata({ ...orderdata, phonenumberbilling: e.target.value })
+                          }
+
                         />
                       </div>
                     </div>
@@ -354,18 +472,38 @@ function Checkout() {
               <button
                 type="button"
                 className="btn btn-large w-100 bg-dark text-white mb-4"
-                onClick={() => setShowThankU(true)}
+                onClick={ () => {
+                  setShowThankU(true)
+                  console.log(orderdata)
+
+                  saveorder({
+                    ...orderdata,
+                    shippingfees: handleshippingfees(orderdata.governorate)
+                  })
+                
+                }
+                }
                 disabled={
-                  !formData.firstName ||
-                  !formData.lastName ||
-                  !formData.email ||
-                  !formData.city ||
-                  !formData.governorate ||
-                  !formData.tel
+                  !orderdata.firstname ||
+                  !orderdata.lastname ||
+                  !orderdata.email ||
+                  !orderdata.city ||
+                  !orderdata.governorate ||
+                  !orderdata.phonenumber ||
+                  !orderdata.paymentmethod
+                  ||
+                  (orderdata.billing === "differentbilling" && (
+                    !orderdata.firstnamebilling ||
+                    !orderdata.lastnamebilling ||
+                    !orderdata.citybilling ||
+                    !orderdata.governoratebilling ||
+                    !orderdata.phonenumberbilling
+                  ))
                 }
               >
                 Complete Order
               </button>
+
             </form>
           </div>
 
@@ -381,8 +519,8 @@ function Checkout() {
               }}
             >
               <div style={{ overflowY: "auto", height: "35vh" }} className="mb-5">
-                {cartItems.length > 0 &&
-                  cartItems.map((item) => (
+                {orderdata.items?.length > 0 &&
+                  orderdata.items?.map((item) => (
                     <div
                       key={item.id}
                       className="d-flex justify-content-between align-items-center mb-3"
@@ -396,7 +534,7 @@ function Checkout() {
                         />
                         <p className="fw-bold mx-3">{item.title}</p>
                       </div>
-                      <p>E£{item.price * item.quantity}</p>
+                      <p>E£ {((item.price - (item.discount * item.price / 100)) * item.quantity)}</p>
                     </div>
                   ))
                 }
@@ -416,23 +554,25 @@ function Checkout() {
               <section className="mt-5">
                 <div className="d-flex justify-content-between mb-2">
                   <p>subtotal</p>
-                  <p>E£{subtotal}</p>
+                  <p>E£ {subtotal}</p>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <p>shipping</p>
-                  <p>E£ 50</p>
+                  <p>E£ {handleshippingfees(orderdata.governorate) || 0}
+                  </p>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <p className="fw-bold">Total</p>
-                  <p>E£{subtotal + 50}</p>
+                  <p>E£ {subtotal + handleshippingfees(orderdata.governorate) || 0}</p>
                 </div>
               </section>
             </div>
           </aside>
 
         </div>
-      </section>
-      {showThankU && <ThankU closeThankU={setShowThankU} />}
+      </section >
+      {showThankU && <ThankU closeThankU={setShowThankU} />
+      }
     </>
   );
 }

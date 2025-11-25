@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getcategory, addtocart ,addToWishList ,decrementquantity } from "../../../../utils/Api";
+import { getcategory, addtocart, addToWishList, decrementquantity } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import '../../style/shop.css'
 const logo = '/images/Logo Brand.png';
@@ -284,10 +284,13 @@ function Masks({ searchInput }) {
                     <button className="btn border-0"
                       onClick={async () => {
                         const productToAddToWishList = {
-                          id: mask.id,
-                          price: mask.price,
-                          image: mask.image,
-                          title: mask.title,
+                          id: product.id,
+                          price: product.price,
+                          image: product.image,
+                          title: product.title,
+                          category: product.category,
+                          quantity: product.quantity,
+                          discount: product.discount
                         };
                         addToWishList(productToAddToWishList);
 

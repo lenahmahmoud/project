@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
         }
 
     ],
-    "orders": [
+    "orderhistory": [
         {
             "id": String,
             "items": Number,
@@ -54,6 +54,24 @@ const UserSchema = new mongoose.Schema({
                 default: Date.now
             }
         }
+    ],
+    "orders": [{
+        "email": String,
+        "phonenumber": String,
+        "city": String,
+        "governorate": String,
+        "paymentmethod": String,
+        "items": [{
+            "image": [String],
+            "title": String,
+            "price": Number,
+            "quantity": Number,
+            "discount": Number
+
+        }],
+        "subtotal": Number,
+        "total": Number
+    }
     ]
 
 

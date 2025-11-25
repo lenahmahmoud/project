@@ -10,6 +10,7 @@ const Users = require("./models/Users");
 const Cartlist = require("./models/Cartlist");
 const Wishlist = require("./models/Wishlists");
 const Review = require("./models/Reviews");
+// const { ObjectId } = require("mongodb");
 
 dotenv.config();
 const app = express();
@@ -40,7 +41,8 @@ app.post("/signup", async (req, res) => {
     }
     let cart = []
     let w = []
-
+    let history = []
+    let o = []
     const user = new Users(
         {
             firstname: req.body.firstname,
@@ -50,8 +52,9 @@ app.post("/signup", async (req, res) => {
             username: req.body.username,
             phonenumber: req.body.phonenumber,
             cartdata: cart,
-            wishlist: w
-
+            wishlist: w,
+            orderhistory: history,
+            orders: o
         }
 
     )
@@ -96,6 +99,21 @@ app.post("/login", async (req, res) => {
 
 
 
+const FetchUser = (req, res, next) => {
+    const authHeader = req.header("Authorization");
+
+    if (authHeader) {
+        const token = authHeader.replace("Bearer ", "");
+        try {
+            const data = jwt.verify(token, "secret_aurevia");
+            req.user = data.user;
+        } catch (err) {
+            console.log("Invalid token, proceeding as guest");
+        }
+    }
+    next();
+};
+
 
 
 
@@ -115,7 +133,30 @@ app.get("/products/:id", async (req, res) => {
 });
 
 // update a product
-app.put("/products/:id", async (req, res) => {
+app.put("/products/:id", FetchUser, async (req, res) => {
+    if (req.user && req.user.id) {
+        const user = await Users.findById(req.user.id)
+
+        const index = user.wishlist.findIndex((item) => item.id == req.body.id)
+
+        if (index > -1) {
+            const producttoadd = {
+                id: req.body.id,
+                price: req.body.price,
+                image: JSON.parse(JSON.stringify(req.body.image)),
+                title: req.body.title,
+                quantity: req.body.quantity,
+                category: req.body.category,
+                discount: req.body.discount,
+                date: Date.now()
+
+            }
+            user.wishlist[index] = producttoadd
+            await user.save()
+        }
+
+    }
+
     const { id } = req.params;
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
     res.json(product || { message: "Product not found" });
@@ -127,21 +168,6 @@ app.patch("/products/:id", async (req, res) => {
     res.json(product || { message: "Product not found" });
 });
 // // middle ware for checking the user
-
-const FetchUser = (req, res, next) => {
-    const authHeader = req.header("Authorization");
-
-    if (authHeader) {
-        const token = authHeader.replace("Bearer ", "");
-        try {
-            const data = jwt.verify(token, "secret_aurevia");
-            req.user = data.user;
-        } catch (err) {
-            console.log("Invalid token, proceeding as guest");
-        }
-    }
-    next();
-};
 
 
 
@@ -176,6 +202,7 @@ app.post("/cartlist", FetchUser, async (req, res) => {
             if (existedIndex > -1) {
                 user.cartdata[existedIndex].quantity += req.body.quantity;
             } else {
+
                 const productObject = {
                     id: req.body.id,
                     title: req.body.title,
@@ -363,9 +390,86 @@ app.put("/users", FetchUser, async (req, res) => {
 
     }
 })
+// wishlist section
+app.post("/wishlist/cart", FetchUser, async (req, res) => {
+    if (req.user && req.user.id) {
+        try {
+            const user = await Users.findById(req.user.id);
+            const wishlistitems = user.wishlist;
+            const itemsToAdd = wishlistitems.map(item => ({
+                ...item.toObject(),
+                quantity: 1
+            }));
+            user.cartdata.push(...itemsToAdd);
+            // for (let wItem of wishlistitems) {
+            //     const product = await Product.findById(new ObjectId(wItem.id));
+            //     if (product) {
+            //         product.quantity = product.quantity - 1;
+            //         await product.save();
+            //     }
+            // }
+
+
+            user.wishlist = [];
+            await user.save();
+
+
+
+            res.json({
+                message: "All wishlist items moved to cart",
+                cart: user.cartdata,
+                wishlist: user.wishlist,
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "server error" });
+        }
+    } else {
+        res.status(401).json({ message: "unauthorized" });
+    }
+});
+app.delete('/wishlists', FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            user.wishlist = []
+            await user.save()
+            res.json({ message: "deleted succefully", wishlist: user.wishlist })
+        }
+        else {
+            res.status(401).json({ message: "unauthorized" })
+        }
+
+    }
+    catch {
+        res.status(500).json({ message: "server error" })
+
+    }
+})
+app.delete("/users", FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            await Users.findByIdAndDelete(req.user.id)
+            res.json({ message: "deleted successfully" })
+
+        }
+        else {
+            res.status(401).json({ message: "unauthorized" })
+
+        }
+    }
+    catch {
+        res.status(500).json({ message: "server error" })
+
+    }
+
+
+})
+// app.post("/orders", FetchUser, async (req, res) => {
+
+// })
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Backend running on port ${PORT}`);
 });
-

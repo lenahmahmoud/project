@@ -51,11 +51,11 @@ function Cart() {
 
                                                         </div>
                                                     </td>
-                                                    <td className="align-middle">{item.price}</td>
+                                                    <td className="align-middle">{(item.price - (item.discount * item.price / 100))}</td>
                                                     <td className="align-middle">
                                                         <p className="border d-inline p-1 rounded">{item.quantity}</p>
                                                     </td>
-                                                    <td className="align-middle">{item.price * item.quantity}</td>
+                                                    <td className="align-middle">{((item.price - (item.discount * item.price / 100)) * item.quantity)}</td>
                                                     <td className="align-middle">
                                                         <button
                                                             className="delButton btn"

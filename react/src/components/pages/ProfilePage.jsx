@@ -2,7 +2,7 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin, savechanges } from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount ,logout} from "../../../utils/Api";
 import { useState } from "react";
 import '../style/profile.css'
 const ProfilePage = () => {
@@ -17,11 +17,11 @@ const ProfilePage = () => {
         .then(res => setUserInfo(res.data))
 
     }
-  }, [loggedin], [userinfo])
+  },[loggedin])
   function totalvalue(wishlist) {
     if (!wishlist) return 0;
     return wishlist.reduce((acc, item) => {
-      return acc + wishlist.length * (item.price - (item.price * item.discount / 100));
+      return acc + (item.price - (item.price * item.discount / 100));
     }, 0);
   }
 
@@ -229,7 +229,10 @@ const ProfilePage = () => {
                     </select>
                   </div>
 
-                  <button type="submit" className="btn my-3 px-5 border-1 border-dark fw-bold" onClick={() => { savechanges(userinfo) }}
+                  <button type="submit" className="btn my-3 px-5 border-1 border-dark fw-bold" onClick={(e) => {
+                    e.preventDefault()
+                    savechanges(userinfo)
+                  }}
                     style={{ backgroundColor: "#F6F0ED" }}>
                     Save Changes
                   </button>
@@ -342,7 +345,7 @@ const ProfilePage = () => {
                       </div>
                       <div className="col-md-4">
                         <small className="text-muted">Average Price</small>
-                        <div className="fw-bold">£E {totalvalue(userinfo.wishlist) / userinfo.wishlist?.length}</div>
+                        <div className="fw-bold">£E {isNaN((totalvalue(userinfo.wishlist) / userinfo.wishlist?.length)) ? (<>0</>) : ((totalvalue(userinfo.wishlist) / userinfo.wishlist?.length))}</div>
                       </div>
                     </div>
                   </div>
@@ -352,8 +355,8 @@ const ProfilePage = () => {
                     {
                       userinfo.wishlist?.length > 0 ? (<>
                         {
-                          userinfo.wishlist.map((product) => {
-                            return(
+                          userinfo.wishlist.map((product) =>
+                          (
                             <div className="wishlist-item p-3 mb-3">
                               <div className="row align-items-center">
                                 <div className="col-md-2 col-3">
@@ -361,7 +364,7 @@ const ProfilePage = () => {
                                     src={product.image[0]}
                                     alt={product.title}
                                     className="img-fluid"
-                                    style={{ borderRadius: "6px" ,width:"30%", height:"100px"}}
+                                    style={{ borderRadius: "6px", width: "30%", height: "100px" }}
                                   />
                                 </div>
                                 <div className="col-md-4 col-9">
@@ -374,23 +377,50 @@ const ProfilePage = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-2 col-6 text-center">
-                                  <div className="price">£E {product.price}</div>
-                                  <small className="text-danger">Out of Stock</small>
+                                  <div className="price">£E {product.price - (product.price * product.discount / 100)}</div>
+                                  <small
+                                    className={
+                                      product.quantity === 0
+                                        ? "text-danger"
+                                        : product.quantity < 5
+                                          ? "text-warning"
+                                          : "text-success"
+                                    }
+                                  >
+                                    {product.quantity === 0
+                                      ? "Out of stock"
+                                      : product.quantity < 5
+                                        ? "Low stock"
+                                        : "In stock"}
+                                  </small>
+
                                 </div>
                                 <div className="col-md-4 col-6">
                                   <div className="d-flex gap-2 justify-content-end">
                                     <button className="btn btn-sm add-btn">
                                       Notify Me
                                     </button>
-                                    <button className="btn btn-sm remove-btn">
+                                    <button className="btn btn-sm remove-btn" onClick={() => {
+                                      removeWishlistitem(product.id)
+                                    }}>
+
                                       Remove
                                     </button>
                                   </div>
                                 </div>
                               </div>
                             </div>)
-                          })
-                        }
+                          )}
+                        <div className="mt-4 pt-3 actions-footer">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <button className="btn clear-btn" onClick={removeALLwishlist}>Clear Wishlist</button>
+                            <button className="btn add-all-btn" onClick={addAllToCart}>
+                              Move All to Cart
+                            </button>
+
+                          </div>
+                        </div>
+
                       </>) : (null)
 
 
@@ -398,13 +428,7 @@ const ProfilePage = () => {
 
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="mt-4 pt-3 actions-footer">
-                    <div className="d-flex gap-2 justify-content-between">
-                      <button className="btn clear-btn">Clear Wishlist</button>
-                      <button className="btn add-all-btn">Add All to Cart</button>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -436,7 +460,7 @@ const ProfilePage = () => {
                     </h6>
                     <div className="row g-3">
                       <div className="col-md-6">
-                        <div className="p-3 settings-card">
+                        <div className=" settings-card">
                           <label className="form-label fw-bold">Language</label>
                           <select className="form-select">
                             <option className="option">English</option>
@@ -456,89 +480,71 @@ const ProfilePage = () => {
                     </div>
                   </div>
 
-                  {/* Payment Method */}
-                  {/* <div className="settings-section mb-4">
-                    <h6 className="fw-bold mb-3 settings-title">
-                      Payment Method
-                    </h6>
-                    <div className="col-md-6">
-                      <div className="p-3 settings-card">
-                        <label className="form-label fw-bold">
-                          Payment Method
-                        </label>
-                        <select className="form-select">
-                          <option className="option">Cash on Delivery </option>
-                          <option className="option">Digital Wallets</option>
-                          <option className="option">Credit/Debit Cards</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div> */}
 
                   {/* Account Settings */}
                   <div className="settings-section mb-4">
                     <h6 className="fw-bold mb-3 settings-title">
-                      Account Settings
+                      Reset Password
                     </h6>
-                    <div className="container d-flex justify-content-between align-items-center settings-card">
-                      <div className="row g-3 align-items-center ">
-                        <div className="col-auto ">
-                          <label
-                            htmlFor="oldPassword"
-                            className="col-form-label fw-bold"
-                          >
-                            Old Password
-                          </label>
-                        </div>
-                        <div className="col-auto">
-                          <input
-                            type="password"
-                            id="oldPassword"
-                            className="form-control"
-                            aria-describedby="passwordHelpInline"
-                          />
-                        </div>
-                        <div className="col-auto">
-                          <span id="passwordHelpInline" className="form-text">
-                            Must be 8-20 characters long.
+                    <form>
+
+                      <div className="d-flex w-75 justify-content-between my-3">
+                        <div classname="input-group">
+                          <label htmlFor="oldpassword" className="fw-bold ">Old Password</label>
+                          <input type="text" id="oldpassword" className=" border border-light-subtle rounded py-1 mx-2" />
+                          <span style={{ color: "#575A5E" }}>  Must be 6-20 characters long.
                           </span>
+
                         </div>
+                        <div classname="input-group">
+                          <label htmlFor="newpassword" className="fw-bold ">New Password</label>
+                          <input type="text" id="newpassword" className=" border border-light-subtle rounded py-1 mx-2" />
+                          <span style={{ color: "#575A5E" }}>  Must be 6-20 characters long.
+                          </span>
+
+                        </div>
+                        <div>
+
+
+                        </div>
+
+                      </div>
+                      <button className="btn my-3 px-5 border-1 border-dark fw-bold" style={{ backgroundColor: "#F6F0ED" }}>
+                        Change Password
+                      </button>
+                    </form>
+                    <div className="mt-3">
+                      <p className="settings-title fw-bold">Log Out</p>
+                      <div>
+                        <button className="btn" onClick={async() => {
+                          const res= await logout()
+                          if(res){
+                          navigate('/')}
+
+                        }}> <i className="bi bi-box-arrow-right fs-1"></i></button>
                       </div>
 
-                      <div className="row g-3 align-items-center my-3">
-                        <div className="col-auto">
-                          <label
-                            htmlFor="newPassword"
-                            className="col-form-label fw-bold"
-                          >
-                            New Password
-                          </label>
-                        </div>
-                        <div className="col-auto">
-                          <input
-                            type="password"
-                            id="newPassword"
-                            className="form-control"
-                            aria-describedby="passwordHelpInline"
-                          />
-                        </div>
-                        <div className="col-auto">
-                          <span id="passwordHelpInline" className="form-text">
-                            Must be 8-20 characters long.
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <button className="btn change-btn m-3">
-                      Change Password
-                    </button>
-                    <div>
-                      <button className="btn" onClick={() => {
-                        localStorage.removeItem('auth_token')
-                        navigate('/')
 
-                      }}> <i className="bi bi-box-arrow-right fs-1"></i></button>
                     </div>
+                    <div className="mt-3">
+                      <p className="settings-title fw-bold">Delete Account</p>
+                      <div>
+                        <button className="btn fs-1" onClick={async() => {
+                          const res= await removeAccount()
+                          if(res){
+                            navigate('/')
+                          }
+                        
+                        }
+
+                        }><i class="bi bi-person-x"></i></button>
+                      </div>
+
+
+                    </div>
+
+
+
                   </div>
                 </div>
               </div>
@@ -548,7 +554,7 @@ const ProfilePage = () => {
           <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
 
             <div style={{ backgroundColor: "#FFFFFF", height: "70vh" }} className="container rounded-5 d-flex justify-content-between  ">
-              <div className="w-50 p-3 d-flex justify-content-center align-items-center flex-column">
+              <div className="w-50 p-3 d-flex justi fy-content-center align-items-center flex-column">
                 <div>
                   <p className="my-3 fs-1 fw-bold">Oops! you are not logged in</p>
                   <p className="fs-5" >Log in to access your account details, manage your orders, view your wishlist, and enjoy a smoother, faster, and more personalized shopping journey.</p>
@@ -565,7 +571,8 @@ const ProfilePage = () => {
             </div>
 
           </div>
-        </>)}
+        </>)
+      }
     </>
   );
 };

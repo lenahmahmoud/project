@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getcategory, addtocart, decrementquantity,addToWishList } from "../../../../utils/Api";
+import { getcategory, addtocart, decrementquantity, addToWishList } from "../../../../utils/Api";
 import { Link } from "react-router-dom";
 import "../../style/shop.css";
 
@@ -309,10 +309,13 @@ function Serums({ searchInput }) {
                     <button className="btn border-0"
                       onClick={async () => {
                         const productToAddToWishList = {
-                          id: serum.id,
-                          price: serum.price,
-                          image: serum.image,
-                          title: serum.title,
+                          id: product.id,
+                          price: product.price,
+                          image: product.image,
+                          title: product.title,
+                          category: product.category,
+                          quantity: product.quantity,
+                          discount: product.discount
                         };
                         addToWishList(productToAddToWishList);
 
