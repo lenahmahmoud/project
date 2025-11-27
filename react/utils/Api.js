@@ -288,7 +288,7 @@ export async function logout() {
 
 }
 export async function saveorder(order) {
-    await axios.post(`${url}/orders`,order, {
+    await axios.post(`${url}/checkout`,order, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`
         }

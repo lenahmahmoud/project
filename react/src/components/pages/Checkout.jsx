@@ -478,7 +478,9 @@ function Checkout() {
 
                   saveorder({
                     ...orderdata,
-                    shippingfees: handleshippingfees(orderdata.governorate)
+                    shippingfees: handleshippingfees(orderdata.governorate),
+                    subtotal:subtotal,
+                    total:handleshippingfees(orderdata.governorate)+subtotal
                   })
                 
                 }

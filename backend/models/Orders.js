@@ -5,19 +5,29 @@ const ordersschema = new mongoose.Schema({
     "city": String,
     "governorate": String,
     "paymentmethod": String,
-    "firstname":String,
-    "lastname":String,
+    "firstname": String,
+    "lastname": String,
     "items": [{
-        "image":[String],
-        "title":String,
-        "price":Number,
-        "quantity":Number,
-        "discount":Number
+        "image": [String],
+        "title": String,
+        "price": Number,
+        "quantity": Number,
+        "discount": Number
 
     }],
-    "subtotal":Number,
-    "total":Number,
-    "shippingfees":Number
+    "subtotal": Number,
+    "total": Number,
+    "shippingfees": Number,
+    "lastnamebilling": { type: String, default: " " },
+    "firstnamebilling": { type: String, default: " " },
+    "lastnamebilling": { type: String, default: " " },
+    "phonenumberbilling": { type: String, default: " " },
+    "governoratebilling": { type: String, default: " " },
+    "citybilling": { type: String, default: " " }
+
+
+
+
 
 
 

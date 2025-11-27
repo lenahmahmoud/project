@@ -10,6 +10,7 @@ const Users = require("./models/Users");
 const Cartlist = require("./models/Cartlist");
 const Wishlist = require("./models/Wishlists");
 const Review = require("./models/Reviews");
+const Orders = require("./models/Orders")
 // const { ObjectId } = require("mongodb");
 
 dotenv.config();
@@ -465,9 +466,63 @@ app.delete("/users", FetchUser, async (req, res) => {
 
 
 })
-// app.post("/orders", FetchUser, async (req, res) => {
+app.post("/checkout", FetchUser, async (req, res) => {
+    try {
 
-// })
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            const order_h = {
+                items: (req.body.items).length,
+                total: req.body.total,
+                date: Date.now()
+
+
+            }
+            const order = req.body
+            user.orderhistory.push(order_h)
+            user.orders.push(order
+
+            )
+            await user.save()
+            res.json({ message: "order added successfully", user: user })
+
+
+
+        }
+        else {
+            const order = await Orders.create(req.body)
+            res.json(order)
+
+        }
+    }
+    catch {
+        res.status(500).json({ message: "server error" })
+
+    }
+
+})
+app.get("/checkout", FetchUser, async (req, res) => {
+    try {
+
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            res.json(user.orders, user.orderhistory)
+        
+
+
+        }
+        else {
+            const orders=await  Orders.find()
+            res.json(orders)
+
+        }
+    }
+    catch {
+        res.status(500).json({ message: "server error" })
+
+    }
+
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

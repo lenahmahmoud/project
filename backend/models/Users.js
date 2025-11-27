@@ -47,7 +47,6 @@ const UserSchema = new mongoose.Schema({
         {
             "id": String,
             "items": Number,
-            "status": String,
             "total": Number,
             "date": {
                 type: Date,
