@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
         }
     }
 
-    const token = jwt.sign(data, "secret_aurevia")
+    const token = jwt.sign(data, "secret_aurevia",{ expiresIn: "1d" })
     res.json({ success: true, token })
 
 
@@ -102,7 +102,7 @@ app.post("/login", async (req, res) => {
                     id: user._id
                 }
             }
-            const token = jwt.sign(data, "secret_aurevia")
+            const token = jwt.sign(data, "secret_aurevia",{ expiresIn: "1d" })
             res.json({ success: true, token })
 
         }

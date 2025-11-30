@@ -181,7 +181,7 @@ function Shopall({ searchInput }) {
                 </div>
 
                 {/* Sort by Price */}
-                <div className="price mt-5">
+                <div className=" mt-5">
                   <h4>Sort by Price:</h4>
                   <div className="formgroup d-flex flex-column">
                     <div>
