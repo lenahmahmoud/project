@@ -30,7 +30,7 @@ function App() {
   const location = useLocation();
 
   // Hide navbar or footer on specific routes
-  const hideNavbar = ["/profile", '/login', '/signup'];
+  const hideNavbar = [ '/login', '/signup'];
   const hideFooter = ["/checkout", "/profile", '/login', '/signup'];
 
   

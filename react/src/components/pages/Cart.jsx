@@ -9,7 +9,7 @@ function Cart() {
     useEffect(() => {
         getitems().then(res => setItems(res.data ));
         getproducts().then(res => setProduct(res.data ));
-    }, [items]);
+    }, [items.map(item => item.id).join("-")]);
 
 
     const subtotal = items.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);

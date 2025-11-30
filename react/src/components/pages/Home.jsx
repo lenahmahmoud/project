@@ -27,6 +27,7 @@ function Home() {
     const [sales, setSales] = useState([]);
     const [bestselling, setBestselling] = useState([]);
 
+    console.log("bestselling", bestselling);
     useEffect(() => {
         getsales().then((res) => setSales(res.data));
         getbestselling().then((res) => setBestselling(res.data));

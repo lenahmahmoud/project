@@ -1,22 +1,40 @@
-// server.js
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+
+dotenv.config();
+
+const app = express(); 
+
+app.use(cors());
+app.use(express.json());
+
+
+// jwt
 const jwt = require("jsonwebtoken")
+
+// multer
+const multer = require("multer")
+const upload = multer({
+    dest: 'uploads/',
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('image/')) cb(null, true);
+        else cb(new Error('Only images allowed'));
+    }
+});
+app.use('/uploads', express.static('uploads'));
+
 // Models
+const mongoose = require("mongoose");
 const Product = require("./models/Products");
 const Users = require("./models/Users");
 const Cartlist = require("./models/Cartlist");
 const Wishlist = require("./models/Wishlists");
 const Review = require("./models/Reviews");
 const Orders = require("./models/Orders")
-// const { ObjectId } = require("mongodb");
 
-dotenv.config();
-const app = express();
-app.use(cors());
-app.use(express.json());
+
 
 // connectiion 
 mongoose.connect(process.env.MONGO_URL, {
@@ -44,6 +62,7 @@ app.post("/signup", async (req, res) => {
     let w = []
     let history = []
     let o = []
+    let img = " "
     const user = new Users(
         {
             firstname: req.body.firstname,
@@ -55,7 +74,8 @@ app.post("/signup", async (req, res) => {
             cartdata: cart,
             wishlist: w,
             orderhistory: history,
-            orders: o
+            orders: o,
+            image: img
         }
 
     )
@@ -114,7 +134,43 @@ const FetchUser = (req, res, next) => {
     }
     next();
 };
+// image upload
+app.post("/upload", FetchUser, upload.single('photo'), async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            user.image = req.file.path.replace(/\\/g, '/');
+            await user.save()
+            console.log(user.image)
+            res.json({ messsage: "image uploaded successfully" })
 
+        }
+        else {
+            res.status(401).json({ message: "unauthorized" })
+        }
+    }
+    catch {
+        res.status(500).json({ message: "Server error" })
+    }
+
+})
+// image delete
+app.delete("/deletephoto", FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            user.image = " "
+            await user.save()
+            res.json({ message: "photo deleted successfully" })
+
+        } else {
+            res.status(401).json({ message: "unauthorized" })
+        }
+    }
+    catch {
+        res.status(500).json({ message: "Server error" })
+    }
+})
 
 
 
@@ -168,7 +224,6 @@ app.patch("/products/:id", async (req, res) => {
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
     res.json(product || { message: "Product not found" });
 });
-// // middle ware for checking the user
 
 
 
@@ -356,9 +411,6 @@ app.post("/reviews", async (req, res) => {
     res.json(review);
 });
 
-
-
-
 // user info 
 app.get("/users", FetchUser, async (req, res) => {
     try {
@@ -379,9 +431,11 @@ app.put("/users", FetchUser, async (req, res) => {
         if (req.user && req.user.id) {
             const user = await Users.findOneAndUpdate(
                 { _id: req.user.id },
+
                 req.body,
                 { new: true }
-            ); res.json(user)
+            );
+            res.json(user)
 
         }
 
@@ -391,6 +445,8 @@ app.put("/users", FetchUser, async (req, res) => {
 
     }
 })
+
+
 // wishlist section
 app.post("/wishlist/cart", FetchUser, async (req, res) => {
     if (req.user && req.user.id) {
@@ -506,14 +562,14 @@ app.get("/checkout", FetchUser, async (req, res) => {
 
         if (req.user && req.user.id) {
             const user = await Users.findById(req.user.id)
-            res.json(user.orders, user.orderhistory)
-        
+            res.json(user.orderhistory)
+
 
 
         }
         else {
-            const orders=await  Orders.find()
-            res.json(orders)
+
+            res.status(401).json({ message: "unauthorized" })
 
         }
     }

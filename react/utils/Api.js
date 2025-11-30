@@ -288,7 +288,7 @@ export async function logout() {
 
 }
 export async function saveorder(order) {
-    await axios.post(`${url}/checkout`,order, {
+    await axios.post(`${url}/checkout`, order, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`
         }
@@ -303,5 +303,37 @@ export function isloggedin() {
     }
     return false
 
+
+}
+export async function getOrders() {
+    await axios.get("/checkout", {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+        }
+
+    })
+
+}
+// photo upload
+export async function upload(photofile) {
+    const formData = new FormData();
+    formData.append('photo', photofile);
+    await axios.post(`${url}/upload`, formData, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+
+        }
+    })
+
+
+}
+export async function deletephoto() {
+    await axios.delete(`${url}/deletephoto`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+
+        }
+
+    })
 
 }

@@ -2,9 +2,10 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount ,logout} from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout, getOrders, upload, deletephoto } from "../../../utils/Api";
 import { useState } from "react";
 import '../style/profile.css'
+import moment from 'moment';
 const ProfilePage = () => {
   const navigate = useNavigate()
   const [loggedin, setLoggedIn] = useState(false)
@@ -16,8 +17,9 @@ const ProfilePage = () => {
       getuserinfo()
         .then(res => setUserInfo(res.data))
 
+
     }
-  },[loggedin])
+  }, [loggedin, userinfo])
   function totalvalue(wishlist) {
     if (!wishlist) return 0;
     return wishlist.reduce((acc, item) => {
@@ -29,17 +31,68 @@ const ProfilePage = () => {
   return (
     <>
       {loggedin ? (<>
-        <main>
-          <div className="card text-bg-light shadow mb-3 mx-2 my-2">
+        <main className="pt-5 " >
+          <div className="card text-bg-light shadow mb-3 mx-2 my-2 pt-5 " >
             <div className="card-body">
               <div className="profile-pic text-center position-relative mx-auto rounded-circle overflow-hidden">
-                {/* Default icon */}
-                <i className="bi bi-person-fill text-secondary"></i>
+                {userinfo.image!=" " ? (
+                  <img
+                    src={`http://localhost:5000/${userinfo.image}`}
+                    alt="profile"
+                    className="w-100 h-100 object-fit-cover"
+                  />
+                ) : (
+                  <i className="bi bi-person-fill text-secondary"></i>
+                )}
+
 
                 {/* Overlay */}
                 <div className="overlay d-flex flex-column justify-content-center align-items-center">
-                  <i className="bi bi-camera text-white"></i>
-                  <p className="text-white mb-0">Add Photo</p>
+                  {
+                    userinfo.image != " " ? (<>
+                      <label htmlFor="fileUpload" style={{ cursor: "pointer" }}>
+                        <button className="btn border-0" onClick={
+                          deletephoto
+                        }><i class="bi bi-trash3 text-white fs-4"></i></button>
+
+                      </label>
+                      <p className="text-white mb-0">Delete Photo</p>
+                    </>)
+                      : (<> <input
+                        type="file"
+                        id="fileUpload"
+                        name="photo"
+                        style={{ display: "none" }}
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files[0];
+
+                          setUserInfo({
+                            ...userinfo,
+                            image: URL.createObjectURL(file)
+                          });
+
+
+                          await upload(file);
+
+
+                        }}
+
+
+                      />
+
+                        {/* Icon as UI */}
+                        <label htmlFor="fileUpload" style={{ cursor: "pointer" }}>
+                          <i
+                            className="bi bi-camera text-white"
+                          ></i>
+
+                        </label>
+                        <p className="text-white mb-0">Add Photo</p></>)
+
+                  }
+
+
                 </div>
               </div>
               <p className="card-text fw-bold text-center fs-3 letter-spacing-3">
@@ -274,37 +327,29 @@ const ProfilePage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {/* Fake data */}
-                        <tr>
-                          <td>#10234</td>
-                          <td>2025-09-10</td>
-                          <td>2 items</td>
-                          <td>$150.00</td>
-                          <td>
-                            <span className="badge bg-success">Delivered</span>
-                          </td>
-                          <td>
-                            <button className="btn btn-sm btn-outline-primary">
-                              View
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#10235</td>
-                          <td>2025-09-11</td>
-                          <td>1 item</td>
-                          <td>$45.00</td>
-                          <td>
-                            <span className="badge bg-warning text-dark">
-                              Pending
-                            </span>
-                          </td>
-                          <td>
-                            <button className="btn btn-sm btn-outline-primary">
-                              View
-                            </button>
-                          </td>
-                        </tr>
+                        {userinfo.orderhistory?.length > 0 ?
+                          (
+                            userinfo.orderhistory.map((order) => (
+                              <tr>
+                                <td>#{order._id}</td>
+                                <td>{moment(order.date).format('MMMM Do YYYY')}</td>
+                                <td>{order.items} items</td>
+                                <td>£E {order.total}</td>
+                                <td>
+                                  <span className="badge bg-success">Delivered</span>
+                                </td>
+                                <td>
+                                  <button className="btn btn-sm btn-outline-primary">
+                                    View
+                                  </button>
+                                </td>
+                              </tr>
+
+
+                            ))
+                          ) : (null)}
+
+
                       </tbody>
                     </table>
                   </div>
@@ -372,7 +417,7 @@ const ProfilePage = () => {
                                   <small className="text-muted"></small>
                                   <div className="mt-1">
                                     <small className="text-muted">
-                                      Added: {product.date}
+                                      Added: {moment(product.date).format('MMMM Do YYYY')}
                                     </small>
                                   </div>
                                 </div>
@@ -516,10 +561,11 @@ const ProfilePage = () => {
                     <div className="mt-3">
                       <p className="settings-title fw-bold">Log Out</p>
                       <div>
-                        <button className="btn" onClick={async() => {
-                          const res= await logout()
-                          if(res){
-                          navigate('/')}
+                        <button className="btn" onClick={async () => {
+                          const res = await logout()
+                          if (res) {
+                            navigate('/')
+                          }
 
                         }}> <i className="bi bi-box-arrow-right fs-1"></i></button>
                       </div>
@@ -529,12 +575,12 @@ const ProfilePage = () => {
                     <div className="mt-3">
                       <p className="settings-title fw-bold">Delete Account</p>
                       <div>
-                        <button className="btn fs-1" onClick={async() => {
-                          const res= await removeAccount()
-                          if(res){
+                        <button className="btn fs-1" onClick={async () => {
+                          const res = await removeAccount()
+                          if (res) {
                             navigate('/')
                           }
-                        
+
                         }
 
                         }><i class="bi bi-person-x"></i></button>

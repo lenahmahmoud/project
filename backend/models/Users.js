@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
             "keyfeatures": [String]
         }
     ],
+    "image":[{type:String , default:""}],
     "wishlist": [
         {
             "id": String,

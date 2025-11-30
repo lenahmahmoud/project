@@ -27,7 +27,8 @@ function Checkout() {
 
   useEffect(() => {
     if (userinfo) {
-      setOrderdata({
+      setOrderdata(prev  => ({
+        ...prev,
         email: userinfo.email,
         firstname: userinfo.firstname,
         lastname: userinfo.lastname,
@@ -37,9 +38,9 @@ function Checkout() {
         paymentmethod: userinfo.paymentmethod,
 
 
-      });
+      }));
     }
-  }, [userinfo]);
+  }, [userinfo.email]);
 
   const subtotal = orderdata.items?.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
   const shippingFees = {
@@ -472,17 +473,17 @@ function Checkout() {
               <button
                 type="button"
                 className="btn btn-large w-100 bg-dark text-white mb-4"
-                onClick={ () => {
+                onClick={() => {
                   setShowThankU(true)
                   console.log(orderdata)
 
                   saveorder({
                     ...orderdata,
                     shippingfees: handleshippingfees(orderdata.governorate),
-                    subtotal:subtotal,
-                    total:handleshippingfees(orderdata.governorate)+subtotal
+                    subtotal: subtotal,
+                    total: handleshippingfees(orderdata.governorate) + subtotal
                   })
-                
+
                 }
                 }
                 disabled={
