@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const app = express(); 
+const app = express();
 
 app.use(cors());
 app.use(express.json());
@@ -445,7 +445,25 @@ app.put("/users", FetchUser, async (req, res) => {
 
     }
 })
+// change password
+app.put("/changepassword", FetchUser, async (req, res) => {
+    try {
+        if (req.user && req.user.id) {
+            const user = await Users.findById(req.user.id)
+            user.password = req.body.password
+            await user.save()
+            res.json({ message: "password updated successfully" })
 
+        }
+        else {
+            res.status(401).json({ message: "unauthorized " })
+
+        }
+    }
+    catch {
+        res.status(500).json({ message: "server error" })
+    }
+})
 
 // wishlist section
 app.post("/wishlist/cart", FetchUser, async (req, res) => {

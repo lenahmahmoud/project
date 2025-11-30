@@ -337,3 +337,39 @@ export async function deletephoto() {
     })
 
 }
+export async function changepassword(originalpassword, oldpassword, newpassword) {
+    if (originalpassword == oldpassword && oldpassword!= newpassword) {
+        await axios.put(`${url}/changepassword`,{password: newpassword}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+
+
+            }
+        })
+        Swal.fire({
+            title: "password changed successfully!!",
+            icon: "success",
+            draggable: true,
+            confirmButtonColor: "#000000"
+        });
+
+    }
+    else if (oldpassword == newpassword) {
+        Swal.fire({
+            title: "new password cannot be the same as the old password",
+            icon: "error",
+            draggable: true,
+            confirmButtonColor: "#000000"
+        });
+
+
+
+    }
+    else {
+        Swal.fire({
+            title: "old password is incorrect",
+            icon: "error"
+
+        })
+    }
+}

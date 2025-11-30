@@ -2,7 +2,7 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout, getOrders, upload, deletephoto } from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout, getOrders, upload, deletephoto, changepassword } from "../../../utils/Api";
 import { useState } from "react";
 import '../style/profile.css'
 import moment from 'moment';
@@ -35,7 +35,7 @@ const ProfilePage = () => {
           <div className="card text-bg-light shadow mb-3 mx-2 my-2 pt-5 " >
             <div className="card-body">
               <div className="profile-pic text-center position-relative mx-auto rounded-circle overflow-hidden">
-                {userinfo.image!=" " ? (
+                {userinfo.image != " " ? (
                   <img
                     src={`http://localhost:5000/${userinfo.image}`}
                     alt="profile"
@@ -499,8 +499,8 @@ const ProfilePage = () => {
               >
                 <div className="accordion-body">
                   {/* App Preferences */}
-                  <div className="settings-section mb-4">
-                    <h6 className="fw-bold mb-3 settings-title">
+                  {/* <div className="settings-section mb-4"> */}
+                  {/* <h6 className="fw-bold mb-3 settings-title">
                       App Preferences
                     </h6>
                     <div className="row g-3">
@@ -523,7 +523,7 @@ const ProfilePage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
 
                   {/* Account Settings */}
@@ -536,14 +536,14 @@ const ProfilePage = () => {
                       <div className="d-flex w-75 justify-content-between my-3">
                         <div classname="input-group">
                           <label htmlFor="oldpassword" className="fw-bold ">Old Password</label>
-                          <input type="text" id="oldpassword" className=" border border-light-subtle rounded py-1 mx-2" />
+                          <input type="text" id="oldpassword" className=" border border-light-subtle rounded p-1 mx-2" />
                           <span style={{ color: "#575A5E" }}>  Must be 6-20 characters long.
                           </span>
 
                         </div>
                         <div classname="input-group">
                           <label htmlFor="newpassword" className="fw-bold ">New Password</label>
-                          <input type="text" id="newpassword" className=" border border-light-subtle rounded py-1 mx-2" />
+                          <input type="text" id="newpassword" className=" border border-light-subtle rounded p-2 mx-2" />
                           <span style={{ color: "#575A5E" }}>  Must be 6-20 characters long.
                           </span>
 
@@ -554,7 +554,14 @@ const ProfilePage = () => {
                         </div>
 
                       </div>
-                      <button className="btn my-3 px-5 border-1 border-dark fw-bold" style={{ backgroundColor: "#F6F0ED" }}>
+                      <button className="btn my-3 px-5 border-1 border-dark fw-bold" style={{ backgroundColor: "#F6F0ED" }}
+                        onClick={(e) => {
+                          e.preventDefault()
+                            const oldpassword=document.getElementById("oldpassword").value
+                            const newpassword= document.getElementById("newpassword").value
+                            changepassword(userinfo.password, oldpassword, newpassword)
+                          
+                        }}>
                         Change Password
                       </button>
                     </form>
