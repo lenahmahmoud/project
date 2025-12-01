@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
         }
     }
 
-    const token = jwt.sign(data, "secret_aurevia",{ expiresIn: "1d" })
+    const token = jwt.sign(data, "secret_aurevia", { expiresIn: "1d" })
     res.json({ success: true, token })
 
 
@@ -102,7 +102,7 @@ app.post("/login", async (req, res) => {
                     id: user._id
                 }
             }
-            const token = jwt.sign(data, "secret_aurevia",{ expiresIn: "1d" })
+            const token = jwt.sign(data, "secret_aurevia", { expiresIn: "1d" })
             res.json({ success: true, token })
 
         }
@@ -521,6 +521,7 @@ app.delete('/wishlists', FetchUser, async (req, res) => {
 
     }
 })
+// delete user account
 app.delete("/users", FetchUser, async (req, res) => {
     try {
         if (req.user && req.user.id) {
@@ -540,7 +541,8 @@ app.delete("/users", FetchUser, async (req, res) => {
 
 
 })
-app.post("/checkout", FetchUser, async (req, res) => {
+// save an order 
+app.post("/orders", FetchUser, async (req, res) => {
     try {
 
         if (req.user && req.user.id) {
@@ -575,26 +577,11 @@ app.post("/checkout", FetchUser, async (req, res) => {
     }
 
 })
-app.get("/checkout", FetchUser, async (req, res) => {
-    try {
+// get guest orders 
+app.get("/orders", async (req, res) => {
+    const orders = await Orders.findOne().sort({_id:-1})
+    res.json(orders)
 
-        if (req.user && req.user.id) {
-            const user = await Users.findById(req.user.id)
-            res.json(user.orderhistory)
-
-
-
-        }
-        else {
-
-            res.status(401).json({ message: "unauthorized" })
-
-        }
-    }
-    catch {
-        res.status(500).json({ message: "server error" })
-
-    }
 
 })
 

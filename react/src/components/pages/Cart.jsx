@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { getitems, incrementquantity, getproducts } from "../../../utils/Api";
-import { Link } from "react-router-dom";
 import { removeitem } from "../../../utils/Api";
+import { useNavigate } from "react-router-dom";
 function Cart() {
     const [items, setItems] = useState([]);
     const [products, setProduct] = useState([])
+    const navigate=useNavigate();
 
     useEffect(() => {
         getitems().then(res => setItems(res.data ));
         getproducts().then(res => setProduct(res.data ));
-    }, [items.map(item => item.id).join("-")]);
+    }, [items]);
 
 
     const subtotal = items.reduce((acc, item) => acc + ((item.price - (item.discount * item.price / 100)) * item.quantity), 0);
@@ -99,13 +100,19 @@ function Cart() {
                                 Total
                                 <span className="text-warning-emphasis ms-2 fs-5">Rs.{subtotal}</span>
                             </p>
-                            <Link
+                            <button
                                 to="/checkout"
                                 className="btn btn-outline-dark mt-4 px-5 py-2 fw-bold mb-4"
                                 type="submit"
+                                disabled={
+                                    ! items.length? true : false
+                                }
+                                
+                              onClick={()=>{navigate('/checkout')}}  
+
                             >
                                 Check Out
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>

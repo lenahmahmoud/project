@@ -2,7 +2,7 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout, getOrders, upload, deletephoto, changepassword } from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout,  upload, deletephoto, changepassword } from "../../../utils/Api";
 import { useState } from "react";
 import '../style/profile.css'
 import moment from 'moment';
@@ -315,7 +315,7 @@ const ProfilePage = () => {
               >
                 <div className="accordion-body">
                   <div className="table-responsive">
-                    <table className="table table-striped align-middle">
+                    <table className="table table-striped ">
                       <thead>
                         <tr>
                           <th>Order ID</th>
@@ -323,7 +323,6 @@ const ProfilePage = () => {
                           <th>Items</th>
                           <th>Total</th>
                           <th>Status</th>
-                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -338,11 +337,7 @@ const ProfilePage = () => {
                                 <td>
                                   <span className="badge bg-success">Delivered</span>
                                 </td>
-                                <td>
-                                  <button className="btn btn-sm btn-outline-primary">
-                                    View
-                                  </button>
-                                </td>
+
                               </tr>
 
 

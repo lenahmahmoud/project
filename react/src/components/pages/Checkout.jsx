@@ -3,7 +3,6 @@ import ThankU from "./ThankU";
 import { useState, useEffect } from "react";
 import { getitems, isloggedin, getuserinfo, saveorder } from "../../../utils/Api";
 
-
 function Checkout() {
   const [showThankU, setShowThankU] = useState(false);
   const [loggedin, setLoggedIn] = useState(false)
@@ -475,7 +474,6 @@ function Checkout() {
                 className="btn btn-large w-100 bg-dark text-white mb-4"
                 onClick={() => {
                   setShowThankU(true)
-                  console.log(orderdata)
 
                   saveorder({
                     ...orderdata,

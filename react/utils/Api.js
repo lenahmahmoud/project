@@ -287,12 +287,18 @@ export async function logout() {
     }
 
 }
+// save order
 export async function saveorder(order) {
-    await axios.post(`${url}/checkout`, order, {
+    await axios.post(`${url}/orders`, order, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`
         }
     })
+}
+//  get guest order
+export async function getguestorder (){
+    return await axios.get(`${url}/orders`)
+
 }
 
 
@@ -306,7 +312,7 @@ export function isloggedin() {
 
 }
 export async function getOrders() {
-    await axios.get("/checkout", {
+    await axios.get("/orders", {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`
         }
