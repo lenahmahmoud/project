@@ -201,7 +201,9 @@ function Details() {
                                                                 ...writtenreview,
                                                                 firstname: e.target.value,
                                                             })
+                                                            
                                                         }
+                                                        required
                                                     />
                                                     <label htmlFor="floatingName" className="py-2">
                                                         First name
@@ -220,6 +222,7 @@ function Details() {
                                                                 lastname: e.target.value,
                                                             })
                                                         }
+                                                        required
                                                     />
                                                     <label htmlFor="floatingLast" className="py-2">
                                                         Last name
@@ -237,6 +240,7 @@ function Details() {
                                                                 text: e.target.value,
                                                             })
                                                         }
+                                                        required
                                                     ></textarea>
                                                     <label htmlFor="floatingMessage">Comment</label>
                                                 </div>
@@ -451,7 +455,7 @@ function Details() {
                                                             {p.reviews} reviews
                                                         </span>
                                                     </p>
-                                                    <Link to="#" className="btn btn-dark">
+                                                    <Link to={`/details/${p.id}`} className="btn btn-dark">
                                                         Buy Now
                                                     </Link>
                                                 </div>

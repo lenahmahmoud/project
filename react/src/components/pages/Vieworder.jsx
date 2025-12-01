@@ -3,7 +3,6 @@ import { getguestorder } from "../../../utils/Api";
 import { useEffect } from "react";
 function Vieworder({ setVieworders }) {
   const [order, setOrder] = useState({})
-  const highlightColor = "#c98533ff"
   useEffect(() => {
     getguestorder()
       .then(res => {
