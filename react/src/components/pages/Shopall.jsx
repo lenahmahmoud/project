@@ -46,6 +46,7 @@ function Shopall({ searchInput }) {
   }, [searchInput]);
 
 
+
   // apply filterd 
   function applyFilters() {
     let result
@@ -55,7 +56,8 @@ function Shopall({ searchInput }) {
     if (filters.sortAlphabetically === "A-Z") {
       result.sort((a, b) => a.title.localeCompare(b.title));
 
-    } else if (filters.sortAlphabetically === "Z-A") {
+    }
+    else if (filters.sortAlphabetically === "Z-A") {
       result.sort((a, b) => b.title.localeCompare(a.title));
     }
       

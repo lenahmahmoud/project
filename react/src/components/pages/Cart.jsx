@@ -63,6 +63,7 @@ function Cart() {
                                                             onClick={() => {
                                                                 {
                                                                     products.map((p) => {
+                                                                        
                                                                         if (p.id === item.id) {
                                                                             incrementquantity(p, p.id, item.quantity)
                                                                         }

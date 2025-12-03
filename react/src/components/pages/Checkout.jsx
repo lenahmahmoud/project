@@ -481,6 +481,8 @@ function Checkout() {
                     subtotal: subtotal,
                     total: handleshippingfees(orderdata.governorate) + subtotal
                   })
+                  console.log(orderdata
+                  )
                
 
                 }

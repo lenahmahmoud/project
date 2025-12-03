@@ -56,6 +56,8 @@ const UserSchema = new mongoose.Schema({
         }
     ],
     "orders": [{
+        "firstname":String,
+        "lastname":String,
         "email": String,
         "phonenumber": String,
         "city": String,

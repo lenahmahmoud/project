@@ -2,7 +2,7 @@ const signup = '/images/lock2.jpg'
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout,  upload, deletephoto, changepassword } from "../../../utils/Api";
+import { getuserinfo, isloggedin, savechanges, removeWishlistitem, addAllToCart, removeALLwishlist, removeAccount, logout, upload, deletephoto, changepassword } from "../../../utils/Api";
 import { useState } from "react";
 import '../style/profile.css'
 import moment from 'moment';
@@ -10,16 +10,44 @@ const ProfilePage = () => {
   const navigate = useNavigate()
   const [loggedin, setLoggedIn] = useState(false)
   const [userinfo, setUserInfo] = useState({})
+  const wishlist = userinfo.wishlist || []
+  useEffect(() => {
+    setLoggedIn(isloggedin());
+  }, []);
 
   useEffect(() => {
-    setLoggedIn(isloggedin())
     if (loggedin) {
-      getuserinfo()
-        .then(res => setUserInfo(res.data))
-
-
+      getuserinfo().then(res => setUserInfo(res.data));
     }
-  }, [loggedin, userinfo])
+  }, [loggedin, wishlist.length]);
+
+  const handleUpload = async (file) => {
+    await upload(file);
+    getuserinfo().then(res => setUserInfo(res.data));
+  };
+
+  const handleDelete = async () => {
+    await deletephoto();
+    getuserinfo().then(res => setUserInfo(res.data));
+  };
+  const handlemovealltocart = async () => {
+    await addAllToCart();
+    getuserinfo().then(res => setUserInfo(res.data));
+
+
+  }
+  const handledeleteall = async () => {
+    await removeALLwishlist();
+    getuserinfo().then(res => setUserInfo(res.data));
+
+  }
+  const handleremoveitem=async(id)=>{
+   await  removeWishlistitem(id);
+       getuserinfo().then(res => setUserInfo(res.data));
+
+
+  }
+
   function totalvalue(wishlist) {
     if (!wishlist) return 0;
     return wishlist.reduce((acc, item) => {
@@ -51,9 +79,8 @@ const ProfilePage = () => {
                   {
                     userinfo.image != " " ? (<>
                       <label htmlFor="fileUpload" style={{ cursor: "pointer" }}>
-                        <button className="btn border-0" onClick={
-                          deletephoto
-                        }><i class="bi bi-trash3 text-white fs-4"></i></button>
+                        <button className="btn border-0" onClick={handleDelete}
+                        ><i class="bi bi-trash3 text-white fs-4"></i></button>
 
                       </label>
                       <p className="text-white mb-0">Delete Photo</p>
@@ -66,15 +93,7 @@ const ProfilePage = () => {
                         accept="image/*"
                         onChange={async (e) => {
                           const file = e.target.files[0];
-
-                          setUserInfo({
-                            ...userinfo,
-                            image: URL.createObjectURL(file)
-                          });
-
-
-                          await upload(file);
-
+                          handleUpload(file)
 
                         }}
 
@@ -149,7 +168,7 @@ const ProfilePage = () => {
                       }}
 
                       required
-                      
+
 
                     />
                   </div>
@@ -185,7 +204,7 @@ const ProfilePage = () => {
                       onChange={(e) => {
                         setUserInfo({
                           ...userinfo,
-                          email: e.target.value
+                          email: String(e.target.value)
                         })
                       }}
                     />
@@ -443,7 +462,7 @@ const ProfilePage = () => {
                                       Notify Me
                                     </button>
                                     <button className="btn btn-sm remove-btn" onClick={() => {
-                                      removeWishlistitem(product.id)
+                                      handleremoveitem(product.id)
                                     }}>
 
                                       Remove
@@ -455,8 +474,8 @@ const ProfilePage = () => {
                           )}
                         <div className="mt-4 pt-3 actions-footer">
                           <div className="d-flex gap-2 justify-content-between">
-                            <button className="btn clear-btn" onClick={removeALLwishlist}>Clear Wishlist</button>
-                            <button className="btn add-all-btn" onClick={addAllToCart}>
+                            <button className="btn clear-btn" onClick={handledeleteall}>Clear Wishlist</button>
+                            <button className="btn add-all-btn" onClick={handlemovealltocart}>
                               Move All to Cart
                             </button>
 
@@ -554,10 +573,10 @@ const ProfilePage = () => {
                       <button className="btn my-3 px-5 border-1 border-dark fw-bold" style={{ backgroundColor: "#F6F0ED" }}
                         onClick={(e) => {
                           e.preventDefault()
-                            const oldpassword=document.getElementById("oldpassword").value
-                            const newpassword= document.getElementById("newpassword").value
-                            changepassword(userinfo.password, oldpassword, newpassword)
-                          
+                          const oldpassword = document.getElementById("oldpassword").value
+                          const newpassword = document.getElementById("newpassword").value
+                          changepassword(userinfo.password, oldpassword, newpassword)
+
                         }}>
                         Change Password
                       </button>

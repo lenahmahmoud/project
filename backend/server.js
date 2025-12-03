@@ -188,29 +188,29 @@ app.get("/products/:id", async (req, res) => {
     res.status(200).json(product || {});
 });
 
-app.put("/products/:id", FetchUser, async (req, res) => {
-    if (req.user && req.user.id) {
-        const user = await Users.findById(req.user.id)
+app.put("/products/:id", async (req, res) => {
+    // if (req.user && req.user.id) {
+    //     const user = await Users.findById(req.user.id)
 
-        const index = user.wishlist.findIndex((item) => item.id == req.body.id)
+    //     const index = user.wishlist.findIndex((item) => item.id == req.body.id)
 
-        if (index > -1) {
-            const producttoadd = {
-                id: req.body.id,
-                price: req.body.price,
-                image: JSON.parse(JSON.stringify(req.body.image)),
-                title: req.body.title,
-                quantity: req.body.quantity,
-                category: req.body.category,
-                discount: req.body.discount,
-                date: Date.now()
+    //     if (index > -1) {
+    //         const producttoadd = {
+    //             id: req.body.id,
+    //             price: req.body.price,
+    //             image: JSON.parse(JSON.stringify(req.body.image)),
+    //             title: req.body.title,
+    //             quantity: req.body.quantity,
+    //             category: req.body.category,
+    //             discount: req.body.discount,
+    //             date: Date.now()
 
-            }
-            user.wishlist[index] = producttoadd
-            await user.save()
-        }
+    //         }
+    //         user.wishlist[index] = producttoadd
+    //         await user.save()
+    //     }
 
-    }
+    // }
 
     const { id } = req.params;
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
@@ -557,6 +557,7 @@ app.post("/orders", FetchUser, async (req, res) => {
             user.orders.push(order
 
             )
+            user.cartdata=[]
             await user.save()
             res.json({ message: "order added successfully", user: user })
 
@@ -565,6 +566,7 @@ app.post("/orders", FetchUser, async (req, res) => {
         }
         else {
             const order = await Orders.create(req.body)
+           await Cartlist.deleteMany({})
             res.json(order)
 
         }
@@ -575,11 +577,18 @@ app.post("/orders", FetchUser, async (req, res) => {
     }
 
 })
-// get guest orders 
-app.get("/orders", async (req, res) => {
-    const orders = await Orders.findOne().sort({_id:-1})
-    res.json(orders)
+// get orders 
+app.get("/orders", FetchUser, async (req, res) => {
+    if (req.user && req.user.id) {
+        const user= await Users.findById(req.user.id)
+        const order=user.orders[user.orders.length-1]
+         res.status(200).json(order)
+    }
+    else {
+        const order = await Orders.findOne().sort({ _id: -1 })
+        res.status(200).json(order)
 
+    }
 
 })
 

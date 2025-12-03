@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { getguestorder } from "../../../utils/Api";
+import { getOrders } from "../../../utils/Api";
 import { useEffect } from "react";
 function Vieworder({ setVieworders }) {
   const [order, setOrder] = useState({})
   useEffect(() => {
-    getguestorder()
-      .then(res => {
+   getOrders()
+      .then((res) => {
         setOrder(res.data)
       })
+      console.log(order)
 
-  })
+  },[order])
   return (<>
 
     <div
