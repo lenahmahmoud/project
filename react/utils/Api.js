@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
-
 const url = "http://localhost:5000";
 
+// getting products
 export async function getproducts() {
     return await axios.get(`${url}/products`);
 }
@@ -25,30 +25,26 @@ export async function getproduct(id) {
     return await axios.get(`${url}/products/${id}`);
 }
 
+
+//  cart items
 export async function getitems() {
-    if (localStorage.getItem('auth_token')) {
-        return await axios.get(`${url}/cartlist`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+    return await axios.get(`${url}/cartlist`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 
-            }
-        })
-    }
-    return await axios.get(`${url}/cartlist`);
+        }
+    })
+
 }
-
 export async function removeitem(id) {
-    if (localStorage.getItem('auth_token')) {
-        await axios.delete(`${url}/cartlist/${id}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+    await axios.delete(`${url}/cartlist/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 
-            }
-        })
-    }
-    await axios.delete(`${url}/cartlist/${id}`);
+        }
+    })
+
 }
-
 export async function addtocart(obj) {
     Swal.fire({
         title: "Added to cart successfully!",
@@ -57,20 +53,18 @@ export async function addtocart(obj) {
         confirmButtonColor: "#000000",
     });
 
+    await axios.post(`${url}/cartlist`, obj, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+        }
 
-    if (localStorage.getItem('auth_token')) {
-        await axios.post(`${url}/cartlist`, obj, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
-            }
+    });
 
-        });
-    }
-    else {
-        await axios.post(`${url}/cartlist`, obj)
-    }
 }
 
+
+
+// decremnts quantity in the stock 
 export async function decrementquantity(obj, id, amount) {
     obj.quantity -= amount
     await axios.put(`${url}/products/${id}`, obj, {
@@ -80,7 +74,7 @@ export async function decrementquantity(obj, id, amount) {
     }
     )
 }
-
+// incremnt quantity in the stock
 export async function incrementquantity(obj, id, amount) {
     obj.quantity += amount
     await axios.put(`${url}/products/${id}`, obj, {
@@ -90,10 +84,13 @@ export async function incrementquantity(obj, id, amount) {
     })
 }
 
+
+
+
+// reviews
 export async function getreviews() {
     return axios.get(`${url}/reviews`)
 }
-
 
 export async function addreview(obj) {
     await axios.post(`${url}/reviews`, obj)
@@ -107,25 +104,23 @@ export async function updatereview(id, newAverage, newCount) {
 }
 
 
+
+// wishlists
 export async function addToWishList(obj) {
 
     getWishListitems().then(async (res) => {
         const alreadyExists = res.data.some(item => item.id === obj.id);
         if (!alreadyExists) {
-            if (localStorage.getItem('auth_token')) {
-                await axios.post(`${url}/wishlists`, obj, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`
-                    }
+            await axios.post(`${url}/wishlists`, obj, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+                }
 
-                });
-            } else {
-                await axios.post(`${url}/wishlists`, obj);
-            }
+            });
+
         }
 
     });
-
 
     Swal.fire({
         title: "Added to wishlist successfully!",
@@ -161,6 +156,9 @@ export async function removeWishlistitem(id) {
         await axios.delete(`${url}/wishlists/${id}`);
     }
 }
+
+
+
 // profile page
 export async function getuserinfo() {
     return await axios.get(`${url}/users`, {
@@ -296,7 +294,7 @@ export async function saveorder(order) {
     })
 }
 //  get guest order
-export async function getguestorder (){
+export async function getguestorder() {
     return await axios.get(`${url}/orders`)
 
 }
@@ -324,6 +322,7 @@ export async function getOrders() {
 export async function upload(photofile) {
     const formData = new FormData();
     formData.append('photo', photofile);
+    
     await axios.post(`${url}/upload`, formData, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`
@@ -344,8 +343,8 @@ export async function deletephoto() {
 
 }
 export async function changepassword(originalpassword, oldpassword, newpassword) {
-    if (originalpassword == oldpassword && oldpassword!= newpassword) {
-        await axios.put(`${url}/changepassword`,{password: newpassword}, {
+    if (originalpassword == oldpassword && oldpassword != newpassword) {
+        await axios.put(`${url}/changepassword`, { password: newpassword }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 

@@ -21,7 +21,7 @@ import ProfilePage from './components/pages/ProfilePage';
 import Wishlist from './components/pages/Wishlist';
 import Login from './components/pages/Login';
 import Signup from './components/pages/SignUp';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route,  useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 function App() {

@@ -56,7 +56,7 @@ app.post("/signup", async (req, res) => {
         ]
     });
     if (check) {
-        return res.status(400).json({ success: false, error: "the account is already existed" })
+        return res.status(409).json({ success: false, error: "the account is already existed" })
     }
     let cart = []
     let w = []
@@ -87,7 +87,7 @@ app.post("/signup", async (req, res) => {
     }
 
     const token = jwt.sign(data, "secret_aurevia", { expiresIn: "1d" })
-    res.json({ success: true, token })
+    res.status(201).json({ success: true, token })
 
 
 })
@@ -103,17 +103,17 @@ app.post("/login", async (req, res) => {
                 }
             }
             const token = jwt.sign(data, "secret_aurevia", { expiresIn: "1d" })
-            res.json({ success: true, token })
+            res.status(200).json({ success: true, token })
 
         }
         else {
-            res.json({ success: false, error: "invalid password" })
+            res.status(401).json({ success: false, error: "invalid password" })
         }
 
     }
     else {
 
-        res.json({ success: false, error: "invalid email " })
+        res.status(404).json({ success: false, error: "invalid email " })
     }
 
 })
@@ -179,17 +179,15 @@ app.get("/products", async (req, res) => {
     let query = {};
     if (req.query.category) query.category = req.query.category;
     const products = await Product.find(query);
-    res.json(products);
+    res.status(200).json(products);
 });
 
-// product by id
 app.get("/products/:id", async (req, res) => {
     const { id } = req.params;
     const product = await Product.findOne({ id });
-    res.json(product || {});
+    res.status(200).json(product || {});
 });
 
-// update a product
 app.put("/products/:id", FetchUser, async (req, res) => {
     if (req.user && req.user.id) {
         const user = await Users.findById(req.user.id)
@@ -216,18 +214,18 @@ app.put("/products/:id", FetchUser, async (req, res) => {
 
     const { id } = req.params;
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
-    res.json(product || { message: "Product not found" });
+    res.status(200).json(product || { message: "Product not found" });
 });
 
 app.patch("/products/:id", async (req, res) => {
     const { id } = req.params;
     const product = await Product.findOneAndUpdate({ id }, req.body, { new: true });
-    res.json(product || { message: "Product not found" });
+    res.status.json(product || { message: "Product not found" });
 });
 
 
 
-// getting cart list
+// cart items 
 app.get("/cartlist", FetchUser, async (req, res) => {
     try {
         let items = [];
@@ -239,7 +237,7 @@ app.get("/cartlist", FetchUser, async (req, res) => {
             items = await Cartlist.find();
         }
 
-        res.json(items);
+        res.status(200).json(items);
 
     } catch (error) {
         console.error(error);
@@ -248,7 +246,6 @@ app.get("/cartlist", FetchUser, async (req, res) => {
 });
 
 
-// add item in the cart
 app.post("/cartlist", FetchUser, async (req, res) => {
     try {
         if (req.user && req.user.id) {
@@ -296,7 +293,6 @@ app.post("/cartlist", FetchUser, async (req, res) => {
 });
 
 
-// delete item in the cart
 app.delete("/cartlist/:id", FetchUser, async (req, res) => {
     const { id } = req.params;
 
@@ -307,14 +303,14 @@ app.delete("/cartlist/:id", FetchUser, async (req, res) => {
         if (index > -1) {
             const deletedItem = user.cartdata.splice(index, 1)[0];
             await user.save();
-            res.json({ message: "Deleted", item: deletedItem });
+            res.status(200).json({ message: "Deleted", item: deletedItem });
         } else {
             res.status(404).json({ message: "Item not found" });
         }
     } else {
         const deletedItem = await Cartlist.findOneAndDelete({ id });
         if (deletedItem) {
-            res.json({ message: "Deleted", item: deletedItem });
+            res.status(200).json({ message: "Deleted", item: deletedItem });
         } else {
             res.status(404).json({ message: "Item not found" });
         }
@@ -322,7 +318,8 @@ app.delete("/cartlist/:id", FetchUser, async (req, res) => {
 });
 
 
-// delete item from the wishlist
+
+// wishlist items
 app.delete("/wishlists/:id", FetchUser, async (req, res) => {
     const { id } = req.params;
 
@@ -350,7 +347,6 @@ app.delete("/wishlists/:id", FetchUser, async (req, res) => {
     }
 });
 
-// getting the wishlists
 app.get("/wishlists", FetchUser, async (req, res) => {
     try {
         let items = [];
@@ -373,8 +369,6 @@ app.get("/wishlists", FetchUser, async (req, res) => {
 });
 
 app.post("/wishlists", FetchUser, async (req, res) => {
-
-
     const productToAdd = {
         id: req.body.id,
         price: req.body.price,
@@ -400,6 +394,7 @@ app.post("/wishlists", FetchUser, async (req, res) => {
 });
 
 
+
 // getting reviews
 app.get("/reviews", async (req, res) => {
     const reviews = await Review.find();
@@ -411,12 +406,15 @@ app.post("/reviews", async (req, res) => {
     res.json(review);
 });
 
+
+
+
 // user info 
 app.get("/users", FetchUser, async (req, res) => {
     try {
         if (req.user && req.user.id) {
             const user = await Users.findById(req.user.id)
-            res.json(user)
+            res.status(200).json(user)
         }
     } catch {
         res.status(404).json({ message: "user is not logged in" })

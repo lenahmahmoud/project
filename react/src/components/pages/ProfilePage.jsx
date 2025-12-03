@@ -140,6 +140,7 @@ const ProfilePage = () => {
                       onChange={(e) => {
                         const full = e.target.value.trim();
                         const parts = full.split(" ");
+
                         setUserInfo({
                           ...userinfo,
                           firstname: parts[0] || "",
@@ -148,6 +149,7 @@ const ProfilePage = () => {
                       }}
 
                       required
+                      
 
                     />
                   </div>

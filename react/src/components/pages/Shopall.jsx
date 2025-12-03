@@ -54,10 +54,11 @@ function Shopall({ searchInput }) {
     // Sort alphabetically
     if (filters.sortAlphabetically === "A-Z") {
       result.sort((a, b) => a.title.localeCompare(b.title));
+
     } else if (filters.sortAlphabetically === "Z-A") {
       result.sort((a, b) => b.title.localeCompare(a.title));
     }
-
+      
     // Sort by price
     if (filters.sortPrice === "low-to-high") {
       result.sort((a, b) => a.price - b.price);
