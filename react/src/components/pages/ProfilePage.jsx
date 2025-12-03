@@ -10,7 +10,6 @@ const ProfilePage = () => {
   const navigate = useNavigate()
   const [loggedin, setLoggedIn] = useState(false)
   const [userinfo, setUserInfo] = useState({})
-  const wishlist = userinfo.wishlist || []
   useEffect(() => {
     setLoggedIn(isloggedin());
   }, []);
@@ -19,7 +18,7 @@ const ProfilePage = () => {
     if (loggedin) {
       getuserinfo().then(res => setUserInfo(res.data));
     }
-  }, [loggedin, wishlist.length]);
+  }, [loggedin]);
 
   const handleUpload = async (file) => {
     await upload(file);

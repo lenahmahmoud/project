@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getproducts, addtocart, decrementquantity, addToWishList } from "../../../utils/Api";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "../style/shop.css";
 import * as HoverCard from "@radix-ui/react-hover-card";
@@ -21,6 +22,26 @@ function Shopall({ searchInput }) {
     sortPrice: "",
     priceRange: [200, 700],
   });
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+
+  const handleShareClick = (productId) => {
+    const fullUrl = `${window.location.origin}/details/${productId}`;
+    setShareUrl(fullUrl);
+    setShareOpen(true);
+  };
+
+  const handleCopyLink = async () => {
+    await navigator.clipboard.writeText(shareUrl);
+    Swal.fire({
+      title: "Link copied to clipboard",
+      icon: "success",
+      draggable: true,
+      confirmButtonColor: "#000000",
+    });
+
+  };
+
 
   // render products
   useEffect(() => {
@@ -60,7 +81,7 @@ function Shopall({ searchInput }) {
     else if (filters.sortAlphabetically === "Z-A") {
       result.sort((a, b) => b.title.localeCompare(a.title));
     }
-      
+
     // Sort by price
     if (filters.sortPrice === "low-to-high") {
       result.sort((a, b) => a.price - b.price);
@@ -322,9 +343,12 @@ function Shopall({ searchInput }) {
 
                       <HoverCard.Root>
                         <HoverCard.Trigger asChild>
-                          <Link>
+                          <button
+                            className="btn border-0"
+                            onClick={() => handleShareClick(product.id)}
+                          >
                             <i className="bi bi-share rounded-circle p-2 bg-white"></i>
-                          </Link>
+                          </button>
                         </HoverCard.Trigger>
 
                         <HoverCard.Portal>
@@ -477,6 +501,62 @@ function Shopall({ searchInput }) {
           </div>
         </div>
       </div >
+      {shareOpen && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+          style={{ background: "rgba(0,0,0,0.4)", zIndex: 9999 }}
+          onClick={() => setShareOpen(false)}
+        >
+
+          <div
+            className="bg-white p-4 rounded  "
+            style={{ width: "400px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h4 className="mb-3 text-center">Share Product</h4>
+            <div className="d-flex justify-content-between">
+              <div>
+
+                <Link
+                  to={`https://wa.me/?text=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                >
+                  <i class="bi bi-whatsapp text-success fs-2"></i>
+                </Link>
+
+              </div>
+              <div>
+                <Link
+                  to={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                >
+                  <i class="bi bi-facebook text-primary fs-2 mx-3"></i>
+                </Link>
+
+              </div>
+              <div>
+                <Link
+                  to={`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                >
+                  <i class="bi bi-telegram fs-2 text-primary"></i>
+                </Link>
+
+              </div>
+              <div>
+                <button className="btn border-0  fs-2 p-0" onClick={() => { 
+                  handleCopyLink() 
+                  setShareOpen(false)
+                  }}>
+                  <i class="bi bi-link-45deg fw-bold  mx-3 "></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </>
   );
 }
